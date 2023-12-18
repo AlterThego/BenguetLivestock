@@ -36,13 +36,13 @@ session_start();
 
 
 
-    <title>Livestock Trends</title>
+    <title>Animal Trend</title>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <?php include_once './sidebar/livestock-trend-sidebar.php';
+        <?php include_once './sidebar/animal-trend-sidebar.php';
         ?>
 
         <!-- Main Component -->
@@ -50,7 +50,7 @@ session_start();
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
                 <button class="btn" type="button">
-                    <i class="fa-solid fa-bars"></i>
+                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
                 </button>
             </nav>
             <main class="content px-3 py-2">
@@ -73,7 +73,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Livestock Trends</h3>
+                                    <h3 class="text-center font-weight-bold ">Animal Trend</h3>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModal">
                                         Add data
@@ -87,9 +87,9 @@ session_start();
                                             <th scope="col">Cattle</th>
                                             <th scope="col">Swine</th>
                                             <th scope="col">Goat</th>
-                                            <th scope="col">Dog</th>
                                             <th scope="col">Sheep</th>
                                             <th scope="col">Horse</th>
+                                            <th scope="col">Dog</th>
                                             <th scope="col" style="color: red;">Total</th>
                                             <th scope="col">Date Updated</th>
                                             <th class="text-center" scope="col">Update</th>
@@ -100,7 +100,7 @@ session_start();
                                         <?php
                                         $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM livestocktrend";
+                                        $fetch_query = "SELECT * FROM animaltrend";
 
                                         $fetch_query_run = mysqli_query($connection, $fetch_query);
 
@@ -124,13 +124,15 @@ session_start();
                                                         <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
                                                         <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
                                                         <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
+                                                    </td>
+
+                                                    <td><i>
+                                                            <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                        </i>
                                                     </td>
                                                     <td style="color: red; font-weight:bold;">
                                                         <!-- Total of layers, broiler, native, and fighting -->
@@ -162,7 +164,7 @@ session_start();
 
                                                     </td>
                                                     <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/livestock-trend-code.php"
+                                                        <form action="/benguetlivestock/backend/animal-trend-code.php"
                                                             method="post">
                                                             <input type="hidden" name="id"
                                                                 value="<?php echo $row['livestock_year']; ?>">
@@ -188,7 +190,7 @@ session_start();
     </div>
 
     <!-- Add, Delete, Update Modal -->
-    <?php include './modals/livestock-trend-modal.php'; ?>
+    <?php include './modals/animal-trend-modal.php'; ?>
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -265,11 +267,11 @@ session_start();
         function deleteData(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/livestock-trend-code.php',
+                url: '/benguetlivestock/backend/animal-trend-code.php',
                 data: { deleteData: true, id: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/livestock-trend.php';
+                    window.location.href = '/benguetlivestock/frontend/animal-trend.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -281,7 +283,7 @@ session_start();
 
 
 
-    <script src="/benguetlivestock/assets/js/content-js/livestock-trend-script.js"></script>
+    <script src="/benguetlivestock/assets/js/content-js/animal-trend-script.js"></script>
 </body>
 
 </html>

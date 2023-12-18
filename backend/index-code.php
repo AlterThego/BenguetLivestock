@@ -7,7 +7,7 @@ if (!$connection) {
 }
 
 
-$sql = "SELECT carabao_count, cattle_count, swine_count, goat_count, dog_count, sheep_count, horse_count, livestock_year FROM livestocktrend";
+$sql = "SELECT carabao_count, cattle_count, swine_count, goat_count, dog_count, sheep_count, horse_count, livestock_year FROM animaltrend";
 $result = mysqli_query($connection, $sql);
 
 $labels = [];

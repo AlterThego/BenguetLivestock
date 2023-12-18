@@ -19,20 +19,20 @@ if (isset($_POST['savedata'])) {
     $date_updated = $connection->real_escape_string($_POST['date_updated']);
 
     try {
-        $insert_query = "INSERT INTO livestocktrend (livestock_year, carabao_count, cattle_count, 
+        $insert_query = "INSERT INTO animaltrend (livestock_year, carabao_count, cattle_count, 
         swine_count, goat_count, dog_count, sheep_count, horse_count, date_updated) 
         VALUES ('$year', '$carabao', '$cattle', '$swine', '$goat', '$dog', '$sheep', '$horse','$date_updated')";
         $insert_query_run = $connection->query($insert_query);
 
         if ($insert_query_run === true) {
             $_SESSION['status'] = 'Created Successfully';
-            header('location: /benguetlivestock/frontend/livestock-trend.php');
+            header('location: /benguetlivestock/frontend/animal-trend.php');
         } else {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
         $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
-        header('location: /benguetlivestock/frontend/livestock-trend.php');
+        header('location: /benguetlivestock/frontend/animal-trend.php');
     }
 
 
@@ -48,7 +48,7 @@ if (isset($_POST['savedata'])) {
     $update_horse = mysqli_real_escape_string($connection, $_POST['update_horse']);
     $update_date = mysqli_real_escape_string($connection, $_POST['update_date']);
 
-    $update_query = "UPDATE livestocktrend 
+    $update_query = "UPDATE animaltrend 
     SET carabao_count=?, cattle_count=?, swine_count=?, goat_count=?, dog_count=?, sheep_count=?, horse_count=?, date_updated=? 
     WHERE livestock_year=?";
     $stmt = mysqli_prepare($connection, $update_query);
@@ -70,16 +70,16 @@ if (isset($_POST['savedata'])) {
 
     if ($update_query_run) {
         $_SESSION['status'] = 'Updated Successfully';
-        header('location: /benguetlivestock/frontend/livestock-trend.php');
+        header('location: /benguetlivestock/frontend/animal-trend.php');
     } else {
         $_SESSION['status'] = 'Failed to Update: ' . mysqli_error($connection);
-        header('location: /benguetlivestock/frontend/livestock-trend.php');
+        header('location: /benguetlivestock/frontend/animal-trend.php');
     }
 } elseif (isset($_POST['deleteData'])) {
     // Delete data
     $id = mysqli_real_escape_string($connection, $_POST['id']);
 
-    $delete_query = "DELETE FROM livestocktrend WHERE livestock_year='$id'";
+    $delete_query = "DELETE FROM animaltrend WHERE livestock_year='$id'";
     $delete_query_run = mysqli_query($connection, $delete_query);
 
     if ($delete_query_run) {

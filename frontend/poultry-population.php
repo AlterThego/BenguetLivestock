@@ -31,6 +31,7 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/jquery.min.js'></script>
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
 
 
@@ -106,12 +107,22 @@ session_start();
 
                                         $totalLayers = $totalBroiler = $totalNative = $totalFighting = 0;
 
+                                        $layersData = [];
+                                        $broilerData = [];
+                                        $nativeData = [];
+                                        $fightingData = [];
+
                                         if (mysqli_num_rows($fetch_query_run) > 0) {
                                             while ($row = mysqli_fetch_array($fetch_query_run)) {
                                                 $totalLayers += $row['layers_count'];
                                                 $totalBroiler += $row['broiler_count'];
                                                 $totalNative += $row['native_count'];
                                                 $totalFighting += $row['fighting_count'];
+
+                                                $layersData[] = $row['layers_count'];
+                                                $broilerData[] = $row['broiler_count'];
+                                                $nativeData[] = $row['native_count'];
+                                                $fightingData[] = $row['fighting_count'];
                                                 ?>
                                                 <tr>
                                                     <td style="display: none;">
@@ -195,12 +206,67 @@ session_start();
                         </div>
                     </div>
                 </div>
+
+                <!-- Visual Representation -->
+                <div class="container-fluid mt-5">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <canvas class="canvas" id="poultryPopulationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 
     <!-- Add, Delete, Update Modal -->
     <?php include './modals/poultry-population-modal.php'; ?>
+
+    <script>
+        var ctx = document.getElementById('poultryPopulationChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Layers', 'Broiler', 'Native', 'Fighting'],
+                datasets: [
+                    {
+                        label: 'Count',
+                        data: [
+                            <?php echo join(',', $layersData); ?>,
+                            <?php echo join(',', $broilerData); ?>,
+                            <?php echo join(',', $nativeData); ?>,
+                            <?php echo join(',', $fightingData); ?>
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 205, 86, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -268,13 +334,10 @@ session_start();
 
 
     <script>
-        var totalCarabao = <?php echo $totalCarabao; ?>;
-        var totalCattle = <?php echo $totalCattle; ?>;
-        var totalSwine = <?php echo $totalSwine; ?>;
-        var totalGoat = <?php echo $totalGoat; ?>;
-        var totalDog = <?php echo $totalDog; ?>;
-        var totalSheep = <?php echo $totalSheep; ?>;
-        var totalHorse = <?php echo $totalHorse; ?>;
+        var totalLayers = <?php echo $totalLayers; ?>;
+        var totalBroiler = <?php echo $totalBroiler; ?>;
+        var totalNative = <?php echo $totalNative; ?>;
+        var totalFighting = <?php echo $totalFighting; ?>;
     </script>
 
     <script>
@@ -282,44 +345,29 @@ session_start();
         function submitTotalModal() {
             <?php
             // Assuming these variables are already defined in your PHP code
-            echo "var totalCarabao = $totalCarabao;\n";
-            echo "var totalCattle = $totalCattle;\n";
-            echo "var totalSwine = $totalSwine;\n";
-            echo "var totalGoat = $totalGoat;\n";
-            echo "var totalDog = $totalDog;\n";
-            echo "var totalSheep = $totalSheep;\n";
-            echo "var totalHorse = $totalHorse;\n";
+            echo "var totalLayers = $totalLayers;\n";
+            echo "var totalBroiler = $totalBroiler;\n";
+            echo "var totalNative = $totalNative;\n";
+            echo "var totalFighting = $totalFighting;\n";
             ?>
 
             // Update the modal content
             document.getElementById('totalTableBody').innerHTML = `
     <tr>
-        <td>Carabao</td>
-        <td>${totalCarabao}</td>
+        <td>Layers</td>
+        <td>${totalLayers}</td>
     </tr>
     <tr>
-        <td>Cattle</td>
-        <td>${totalCattle}</td>
+        <td>Broiler</td>
+        <td>${totalBroiler}</td>
     </tr>
     <tr>
-        <td>Swine</td>
-        <td>${totalSwine}</td>
+        <td>Native/ Range</td>
+        <td>${totalNative}</td>
     </tr>
     <tr>
-        <td>Goat</td>
-        <td>${totalGoat}</td>
-    </tr>
-    <tr>
-        <td>Dog</td>
-        <td>${totalDog}</td>
-    </tr>
-    <tr>
-        <td>Sheep</td>
-        <td>${totalSheep}</td>
-    </tr>
-    <tr>
-        <td>Horse</td>
-        <td>${totalHorse}</td>
+        <td>Fighting/ Fancy Fowl</td>
+        <td>${totalFighting}</td>
     </tr>
         `;
         }

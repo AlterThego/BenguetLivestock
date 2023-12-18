@@ -33,10 +33,10 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/jquery.min.js'></script>
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-
-
-
+    <!-- Add, Delete, Update Modal -->
+    <?php include './modals/livestock-volume-modal.php'; ?>
 
 
     <title>Livestock Volume</title>
@@ -111,6 +111,16 @@ session_start();
 
                                         $totalCattleVolume = $totalSwineVolume = $totalCarabaoVolume = $totalGoatVolume = $totalChickenVolume = $totalDuckVolume = $totalFishVolume = 0;
 
+                                        $labels = [];
+                                        $cattleData = [];
+                                        $swineData = [];
+                                        $carabaoData = [];
+                                        $goatData = [];
+                                        $chickenData = [];
+                                        $duckData = [];
+                                        $fishData = [];
+
+
                                         if (mysqli_num_rows($fetch_query_run) > 0) {
 
                                             while ($row = mysqli_fetch_array($fetch_query_run)) {
@@ -121,6 +131,16 @@ session_start();
                                                 $totalChickenVolume += $row['chicken_volume'];
                                                 $totalDuckVolume += $row['duck_volume'];
                                                 $totalFishVolume += $row['fish_volume'];
+
+                                                $labels[] = $row['municipality_name'];
+                                                $cattleData[] = $row['cattle_volume'];
+                                                $swineData[] = $row['swine_volume'];
+                                                $carabaoData[] = $row['carabao_volume'];
+                                                $goatData[] = $row['goat_volume'];
+                                                $chickenData[] = $row['chicken_volume'];
+                                                $duckData[] = $row['duck_volume'];
+                                                $fishData[] = $row['fish_volume'];
+
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -228,12 +248,89 @@ session_start();
                         </div>
                     </div>
                 </div>
+
+                <!-- Visual Representation -->
+                <div class="container-fluid mt-5">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <canvas class="canvas" id="livestockVolumeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 
-    <!-- Add, Delete, Update Modal -->
-    <?php include './modals/livestock-volume-modal.php'; ?>
+    <script>
+        var ctx = document.getElementById('livestockVolumeChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Cattle',
+                    data: <?php echo json_encode($cattleData); ?>,
+                    backgroundColor: 'rgba(65, 105, 225, 0.5)', // Royal Blue
+                    borderColor: 'rgba(65, 105, 225, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Swine',
+                    data: <?php echo json_encode($swineData); ?>,
+                    backgroundColor: 'rgba(255, 165, 0, 0.5)', // Orange
+                    borderColor: 'rgba(255, 165, 0, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Carabao',
+                    data: <?php echo json_encode($carabaoData); ?>,
+                    backgroundColor: 'rgba(255, 99, 71, 0.5)', // Tomato
+                    borderColor: 'rgba(255, 99, 71, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Goat',
+                    data: <?php echo json_encode($goatData); ?>,
+                    backgroundColor: 'rgba(50, 205, 50, 0.5)', // Lime Green
+                    borderColor: 'rgba(50, 205, 50, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Chicken',
+                    data: <?php echo json_encode($chickenData); ?>,
+                    backgroundColor: 'rgba(218, 112, 214, 0.5)', // Orchid
+                    borderColor: 'rgba(218, 112, 214, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Duck',
+                    data: <?php echo json_encode($duckData); ?>,
+                    backgroundColor: 'rgba(255, 215, 0, 0.5)', // Gold
+                    borderColor: 'rgba(255, 215, 0, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Fish',
+                    data: <?php echo json_encode($fishData); ?>,
+                    backgroundColor: 'rgba(173, 216, 230, 0.5)', // Light Blue
+                    borderColor: 'rgba(173, 216, 230, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -295,6 +392,73 @@ session_start();
                 $('#main-table').css('font-size', '14px'); // Adjust the size as needed
             }
 
+        });
+    </script>
+
+
+    <script>
+        var ctx = document.getElementById('livestockVolumeChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Carabao',
+                    data: <?php echo json_encode($dogData); ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cattle',
+                    data: <?php echo json_encode($cattleData); ?>,
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)', // Different color
+                    borderColor: 'rgba(255, 206, 86, 1)',      // Different color
+                    borderWidth: 1
+                },
+                {
+                    label: 'Swine',
+                    data: <?php echo json_encode($swineData); ?>,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Different color
+                    borderColor: 'rgba(255, 99, 132, 1)',      // Different color
+                    borderWidth: 1
+                },
+                {
+                    label: 'Goat',
+                    data: <?php echo json_encode($goatData); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Different color
+                    borderColor: 'rgba(54, 162, 235, 1)',      // Different color
+                    borderWidth: 1
+                },
+                {
+                    label: 'Sheep',
+                    data: <?php echo json_encode($sheepData); ?>,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)', // Different color
+                    borderColor: 'rgba(153, 102, 255, 1)',      // Different color
+                    borderWidth: 1
+                },
+                {
+                    label: 'Horse',
+                    data: <?php echo json_encode($horseData); ?>,
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)', // Different color
+                    borderColor: 'rgba(255, 159, 64, 1)',      // Different color
+                    borderWidth: 1
+                },
+                {
+                    label: 'Dog',
+                    data: <?php echo json_encode($dogData); ?>,
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',    // Different color
+                    borderColor: 'rgba(255, 0, 0, 1)',         // Different color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
     </script>
 
@@ -391,7 +555,7 @@ session_start();
         }
     </script>
 
-    
+
     <script src="/benguetlivestock/assets/js/content-js/livestock-volume-script.js"></script>
 </body>
 

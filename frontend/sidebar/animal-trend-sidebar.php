@@ -27,15 +27,15 @@
 
             <!-- Population -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#population"
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#population"
                     aria-expanded="true" aria-controls="population" id="population-link">
                     <img src="/BenguetLivestock/assets/images/population.png" alt="Logo"
                         style="height: 25px; width: 25px;" class="img mr-2">
-                    <strong>Population</strong>
+                    Population
                 </a>
 
 
-                <ul id="population" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                <ul id="population" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/pets-population.php" class="sidebar-link"
                             id="livestock-population-link" data-bs-parent="#population"><img
@@ -53,11 +53,11 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/livestock-population.php" class="sidebar-link active"
+                        <a href="/benguetlivestock/frontend/animal-population.php" class="sidebar-link"
                             id="livestock-population-link" data-bs-parent="#population"><img
                                 src="/BenguetLivestock/assets/images/livestock.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Livestock
-                                Population</strong></a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Animal
+                            Population</a>
                     </li>
 
                     <li class="sidebar-item">
@@ -71,12 +71,12 @@
 
             <!-- Yearly -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#yearly"
+                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#yearly"
                     aria-expanded="true" aria-controls="yearly" id="yearly-link">
                     <img src="/BenguetLivestock/assets/images/yearly.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">Yearly
+                        class="img mr-2"><strong>Yearly</strong>
                 </a>
-                <ul id="yearly" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="yearly" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
@@ -91,11 +91,11 @@
                             (Yearly)</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/livestock-trend.php" class="sidebar-link"
+                        <a href="/benguetlivestock/frontend/animal-trend.php" class="sidebar-link active"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/livestock_volume.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Livestock
-                            Trend
-                            (Yearly)</a>
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Animal
+                                Trend
+                                (Yearly)</strong></a>
                     </li>
 
 
@@ -108,7 +108,6 @@
                     </li>
                 </ul>
             </li>
-
 
             <!-- Breeding and Farms -->
             <li class="sidebar-item">
@@ -140,7 +139,7 @@
                 </ul>
             </li>
 
-            <li class="sidebar-item active">
+            <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#fish"
                     aria-expanded="false" aria-controls="fish">
                     <img src="/BenguetLivestock/assets/images/fish.png" alt="Logo" style="height: 25px; width: 25px;"

@@ -57,7 +57,7 @@
                                 <?php
                                 $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                $query = "SELECT MAX(livestock_year) AS highest_year FROM livestocktrend";
+                                $query = "SELECT MAX(livestock_year) AS highest_year FROM animaltrend";
 
                                 // Perform the query
                                 $result = mysqli_query($connection, $query);

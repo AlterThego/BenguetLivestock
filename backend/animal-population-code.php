@@ -24,7 +24,7 @@ if (isset($_POST['savedata'])) {
     $date_updated = $connection->real_escape_string($_POST['date_updated']);
 
     try {
-        $insert_query = "INSERT INTO livestockpopulation (municipality_id, municipality_name, carabao_count, cattle_count, 
+        $insert_query = "INSERT INTO animalpopulation (municipality_id, municipality_name, carabao_count, cattle_count, 
         swine_count, goat_count, dog_count, sheep_count, horse_count, date_updated) 
         VALUES ('$municipality_id','$municipality_name', '$carabao_count', '$cattle_count', '$swine_count', '$goat_count',
         '$dog_count', '$sheep_count', '$horse_count', '$date_updated')";
@@ -34,13 +34,13 @@ if (isset($_POST['savedata'])) {
 
         if ($insert_query_run === true) {
             $_SESSION['status'] = 'Created Successfully';
-            header('location: /benguetlivestock/frontend/livestock-population.php');
+            header('location: /benguetlivestock/frontend/animal-population.php');
         } else {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
         $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
-        header('location: /benguetlivestock/frontend/livestock-population.php');
+        header('location: /benguetlivestock/frontend/animal-population.php');
     }
 } elseif (isset($_POST['updateData'])) {
     // Update existing data
@@ -54,7 +54,7 @@ if (isset($_POST['savedata'])) {
     $update_horse = mysqli_real_escape_string($connection, $_POST['update_horse_count']);
     $update_date = mysqli_real_escape_string($connection, $_POST['update_date']);
 
-    $update_query = "UPDATE livestockpopulation SET carabao_count=?, cattle_count=?, swine_count=?, goat_count=?, dog_count=?, sheep_count=?, horse_count=?, date_updated=? WHERE municipality_id=?";
+    $update_query = "UPDATE animalpopulation SET carabao_count=?, cattle_count=?, swine_count=?, goat_count=?, dog_count=?, sheep_count=?, horse_count=?, date_updated=? WHERE municipality_id=?";
     $stmt = mysqli_prepare($connection, $update_query);
     mysqli_stmt_bind_param($stmt, "iiiiiiisi", $update_carabao, $update_cattle, $update_swine, $update_goat, $update_dog, $update_sheep, $update_horse, $update_date, $update_id);
 
@@ -62,17 +62,17 @@ if (isset($_POST['savedata'])) {
 
     if ($update_query_run) {
         $_SESSION['status'] = 'Updated Successfully';
-        header('location: ../frontend/livestock-population.php');
+        header('location: ../frontend/animal-population.php');
     } else {
         $_SESSION['status'] = 'Failed to Update: ' . mysqli_error($connection);
-        header('location: ../frontend/livestock-population.php');
+        header('location: ../frontend/animal-population.php');
     }
 
 } elseif (isset($_POST['deleteData'])) {
     // Delete data
     $id = mysqli_real_escape_string($connection, $_POST['id']);
 
-    $delete_query = "DELETE FROM livestockpopulation WHERE municipality_id='$id'";
+    $delete_query = "DELETE FROM animalpopulation WHERE municipality_id='$id'";
     $delete_query_run = mysqli_query($connection, $delete_query);
 
     if ($delete_query_run) {
@@ -98,7 +98,7 @@ if (isset($_POST['savedata'])) {
         $submitDateUpdated = isset($_POST['submitDateUpdated']) ? $_POST['submitDateUpdated'] : date('Y-m-d');
 
         // Perform the database insertion using prepared statements to prevent SQL injection
-        $insertQuery = "INSERT INTO livestocktrend (livestock_year, carabao_count, cattle_count, swine_count, goat_count, dog_count, sheep_count, horse_count, date_updated) 
+        $insertQuery = "INSERT INTO animaltrend (livestock_year, carabao_count, cattle_count, swine_count, goat_count, dog_count, sheep_count, horse_count, date_updated) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($connection, $insertQuery);
@@ -107,7 +107,7 @@ if (isset($_POST['savedata'])) {
         if (mysqli_stmt_execute($stmt)) {
             session_start();
             $_SESSION['status'] = 'Total Count Submitted Successfully';
-            header('location: ../frontend/livestock-population.php');
+            header('location: ../frontend/animal-population.php');
             exit();
         } else {
             throw new Exception('Failed to execute the database insertion');
@@ -115,7 +115,7 @@ if (isset($_POST['savedata'])) {
     } catch (Exception $e) {
         session_start();
         $_SESSION['status'] = 'Failed: Year Already Exists!! '; //. $e->getMessage()
-        header('location: ../frontend/livestock-population.php');
+        header('location: ../frontend/animal-population.php');
         exit();
     }
 }

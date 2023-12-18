@@ -77,18 +77,18 @@
                 </a>
                 <ul id="yearly" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link"
+                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link active"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Pet Trend
-                            (Yearly)</a>
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Pet Trend
+                                (Yearly)</strong></a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/poultry-trend.php" class="sidebar-link active"
+                        <a href="/benguetlivestock/frontend/poultry-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Poultry
-                                Trend
-                                (Yearly)</strong></a>
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Poultry
+                            Trend
+                            (Yearly)</a>
                     </li>
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/animal-trend.php" class="sidebar-link"

@@ -52,10 +52,10 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/livestock-population.php" class="sidebar-link"
+                        <a href="/benguetlivestock/frontend/animal-population.php" class="sidebar-link"
                             id="livestock-population-link" data-bs-parent="#population"><img
                                 src="/BenguetLivestock/assets/images/livestock.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Livestock
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Animal
                             Population</a>
                     </li>
 
@@ -90,13 +90,12 @@
                             (Yearly)</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/livestock-trend.php" class="sidebar-link"
+                        <a href="/benguetlivestock/frontend/animal-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/livestock_volume.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Livestock
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Animal
                             Trend
                             (Yearly)</a>
                     </li>
-
 
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/livestock-volume-trend.php" class="sidebar-link"

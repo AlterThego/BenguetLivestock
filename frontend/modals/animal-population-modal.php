@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/benguetlivestock/backend/livestock-population-code.php" method="POST">
+            <form action="/benguetlivestock/backend/animal-population-code.php" method="POST">
                 <!-- Body -->
                 <div class="modal-body">
                     <div class="form-group mb-3">
@@ -18,7 +18,7 @@
                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
                             // Modify the query to exclude existing municipality_id values
-                            $existing_ids_query = "SELECT DISTINCT municipality_id FROM livestockpopulation";
+                            $existing_ids_query = "SELECT DISTINCT municipality_id FROM animalpopulation";
                             $existing_ids_result = mysqli_query($connection, $existing_ids_query);
 
                             $existing_ids = [];
@@ -115,7 +115,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="../backend/livestock-population-code.php" method="POST">
+            <form action="../backend/animal-population-code.php" method="POST">
                 <div class="modal-body">
 
 
@@ -213,7 +213,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="../backend/livestock-population-code.php">
+            <form method="post" action="../backend/animal-population-code.php">
                 <div class="modal-body">
                     <div class="form-group mb-3">
                         <label for="livestockYear">Livestock Year</label>

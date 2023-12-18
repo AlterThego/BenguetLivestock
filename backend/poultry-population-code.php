@@ -79,28 +79,25 @@ if (isset($_POST['savedata'])) {
 } elseif (isset($_POST['submitData'])) {
     try {
         // Update variables with values from the form submission
-        $Carabao = isset($_POST['totalCarabao']) ? $_POST['totalCarabao'] : 0;
-        $Cattle = isset($_POST['totalCattle']) ? $_POST['totalCattle'] : 0;
-        $Swine = isset($_POST['totalSwine']) ? $_POST['totalSwine'] : 0;
-        $Goat = isset($_POST['totalGoat']) ? $_POST['totalGoat'] : 0;
-        $Dog = isset($_POST['totalDog']) ? $_POST['totalDog'] : 0;
-        $Sheep = isset($_POST['totalSheep']) ? $_POST['totalSheep'] : 0;
-        $Horse = isset($_POST['totalHorse']) ? $_POST['totalHorse'] : 0;
+        $Layers = isset($_POST['totalLayers']) ? $_POST['totalLayers'] : 0;
+        $Broiler = isset($_POST['totalBroiler']) ? $_POST['totalBroiler'] : 0;
+        $Native = isset($_POST['totalNative']) ? $_POST['totalNative'] : 0;
+        $Fighting = isset($_POST['totalFighting']) ? $_POST['totalFighting'] : 0;
 
-        $livestockYear = isset($_POST['livestockYear']) ? $_POST['livestockYear'] : 0;
+        $poultryYear = isset($_POST['poultryYear']) ? $_POST['poultryYear'] : 0;
         $submitDateUpdated = isset($_POST['submitDateUpdated']) ? $_POST['submitDateUpdated'] : date('Y-m-d');
 
         // Perform the database insertion using prepared statements to prevent SQL injection
-        $insertQuery = "INSERT INTO livestocktrend (livestock_year, carabao_count, cattle_count, swine_count, goat_count, dog_count, sheep_count, horse_count, date_updated) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO poultrytrend (poultry_year, layers_count, broiler_count, native_count, fighting_count, date_updated) 
+                        VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($connection, $insertQuery);
-        mysqli_stmt_bind_param($stmt, "iiiiiiiss", $livestockYear, $Carabao, $Cattle, $Swine, $Goat, $Dog, $Sheep, $Horse, $submitDateUpdated);
+        mysqli_stmt_bind_param($stmt, "iiiiis", $poultryYear, $Layers, $Broiler, $Native, $Fighting, $submitDateUpdated);
 
         if (mysqli_stmt_execute($stmt)) {
             session_start();
             $_SESSION['status'] = 'Total Count Submitted Successfully';
-            header('location: ../frontend/pets-population.php');
+            header('location: ../frontend/poultry-population.php');
             exit();
         } else {
             throw new Exception('Failed to execute the database insertion');
@@ -108,7 +105,7 @@ if (isset($_POST['savedata'])) {
     } catch (Exception $e) {
         session_start();
         $_SESSION['status'] = 'Failed: Year Already Exists!! '; //. $e->getMessage()
-        header('location: ../frontend/pets-population.php');
+        header('location: ../frontend/poultry-population.php');
         exit();
     }
 }

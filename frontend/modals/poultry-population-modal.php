@@ -148,11 +148,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="../backend/pets-population-code">
+            <form method="post" action="/benguetlivestock/backend/poultry-population-code.php">
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label for="livestockYear">Livestock Year</label>
-                        <input type="number" class="form-control" name="livestockYear" value="<?php echo date('Y'); ?>"
+                        <label for="poultryYear">Poultry Population Year</label>
+                        <input type="number" class="form-control" name="poultryYear" value="<?php echo date('Y'); ?>"
                             min="1900" max="<?php echo date('Y'); ?>" required>
                     </div>
 
@@ -162,13 +162,10 @@
                         </tbody>
 
                         <tfoot>
-                            <input type="hidden" name="totalCarabao" value="<?php echo $totalCarabao; ?>">
-                            <input type="hidden" name="totalCattle" value="<?php echo $totalCattle; ?>">
-                            <input type="hidden" name="totalSwine" value="<?php echo $totalSwine; ?>">
-                            <input type="hidden" name="totalGoat" value="<?php echo $totalGoat; ?>">
-                            <input type="hidden" name="totalDog" value="<?php echo $totalDog; ?>">
-                            <input type="hidden" name="totalSheep" value="<?php echo $totalSheep; ?>">
-                            <input type="hidden" name="totalHorse" value="<?php echo $totalHorse; ?>">
+                            <input type="hidden" name="totalLayers" value="<?php echo $totalLayers; ?>">
+                            <input type="hidden" name="totalBroiler" value="<?php echo $totalBroiler; ?>">
+                            <input type="hidden" name="totalNative" value="<?php echo $totalNative; ?>">
+                            <input type="hidden" name="totalFighting" value="<?php echo $totalFighting; ?>">
                         </tfoot>
                     </table>
 

@@ -47,7 +47,7 @@ session_start();
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
                 <button class="btn" type="button">
-                    <i class="fa-solid fa-bars"></i>
+                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
                 </button>
             </nav>
             <main class="content px-3 py-2 mb-5">
@@ -152,8 +152,7 @@ session_start();
 
                                                     <td class="text-center">
                                                         <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal" 
-                                                            data-year="<?php echo $row['year'] ?>"
+                                                            data-target="#updateModal" data-year="<?php echo $row['year'] ?>"
                                                             data-cattle="<?php echo $row['cattle_volume']; ?>"
                                                             data-swine="<?php echo $row['swine_volume']; ?>"
                                                             data-carabao="<?php echo $row['carabao_volume']; ?>"

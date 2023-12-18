@@ -48,7 +48,7 @@ session_start();
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
                 <button class="btn" type="button">
-                    <i class="fa-solid fa-bars"></i>
+                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
                 </button>
             </nav>
             <main class="content px-3 py-2 mb-5  table-responsive">
@@ -98,7 +98,7 @@ session_start();
                                             <?php
                                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM poultry_trend";
+                                            $fetch_query = "SELECT * FROM poultrytrend";
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
@@ -201,7 +201,7 @@ session_start();
                                         $max_year = 0;
                                         $counts = array();
 
-                                        $fetch_query = "SELECT * FROM poultry_trend";
+                                        $fetch_query = "SELECT * FROM poultrytrend";
                                         $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                         if (mysqli_num_rows($fetch_query_run) > 0) {

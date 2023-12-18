@@ -1,5 +1,5 @@
 <!-- Add Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -9,9 +9,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/benguetlivestock/backend/livestock-trend-code.php" method="POST">
+            <form action="/benguetlivestock/backend/pet-trend-code.php" method="POST">
                 <!-- Body -->
                 <div class="modal-body">
+
                     <div class="form-group mb-3">
                         <label for="year">Year</label>
                         <?php
@@ -25,42 +26,19 @@
                             max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
 
+
                     <div class="form-group mb-3">
-                        <label for="carabao_yearly">Yearly Carabao</label>
-                        <input type="number" class="form-control" name="carabao_yearly"
-                            placeholder="Enter Yearly Carabao Count">
+                        <label for="dog_count">Yearly <b>Dog</b></label>
+                        <input type="number" class="form-control" name="dog_count"
+                            placeholder="Enter yearly dog count">
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="cattle_yearly">Yearly Cattle</label>
-                        <input type="number" class="form-control" name="cattle_yearly"
-                            placeholder="Enter Yearly Cattle Count">
+                        <label for="cat_count">Yearly <b>Cat</b></label>
+                        <input type="number" class="form-control" name="cat_count"
+                            placeholder="Enter yearly broiler count">
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="swine_yearly">Yearly Swine</label>
-                        <input type="number" class="form-control" name="swine_yearly"
-                            placeholder="Enter Yearly Swine Count">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="goat_yearly">Goat</label>
-                        <input type="number" class="form-control" name="goat_yearly"
-                            placeholder="Enter Yearly Goat Count">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="dog_yearly">Dog Count</label>
-                        <input type="number" class="form-control" name="dog_yearly" placeholder="Enter Yearly DogCount">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="sheep_yearly">Sheep Count</label>
-                        <input type="number" class="form-control" name="sheep_yearly"
-                            placeholder="Enter Yearly Sheep Count">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="horse_yearly">Horse Count</label>
-                        <input type="number" class="form-control" name="horse_yearly"
-                            placeholder="Enter Yearly Horse Count">
-                    </div>
-
+                    
                     <div class="form-group mb-3">
                         <label for="date_updated">Date Updated</label>
                         <input type="date" class="form-control" name="date_updated"
@@ -88,39 +66,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/benguetlivestock/backend/livestock-trend-code.php" method="POST">
+            <form action="/benguetlivestock/backend/pet-trend-code.php" method="POST">
                 <div class="modal-body">
                     <div class="form-group mb-3">
                         <label for="update_year">Year</label>
                         <input type="number" class="form-control" name="update_year" id="update_year" readonly>
                     </div>
+
+
                     <div class="form-group mb-3">
-                        <label for="update_carabao">Update Carabao Count</label>
-                        <input type="number" class="form-control" name="update_carabao" id="update_carabao">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="update_cattle">Update Cattle Count</label>
-                        <input type="number" class="form-control" name="update_cattle" id="update_cattle">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="update_swine">Update Swine Count</label>
-                        <input type="number" class="form-control" name="update_swine" id="update_swine">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="update_goat">Update Goat Count</label>
-                        <input type="number" class="form-control" name="update_goat" id="update_goat">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="update_dog">Update Dog Count</label>
+                        <label for="update_dog">Yearly <b>Dog</b></label>
                         <input type="number" class="form-control" name="update_dog" id="update_dog">
                     </div>
+
                     <div class="form-group mb-3">
-                        <label for="update_sheep">Update Sheep Count</label>
-                        <input type="number" class="form-control" name="update_sheep" id="update_sheep">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="update_horse">Update Horse Count</label>
-                        <input type="number" class="form-control" name="update_horse" id="update_horse">
+                        <label for="update_cat">Yearly <b>Cat</b></label>
+                        <input type="number" class="form-control" name="update_cat" id="update_cat">
                     </div>
 
                     <div class="form-group mb-3">

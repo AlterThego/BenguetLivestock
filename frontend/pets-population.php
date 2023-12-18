@@ -31,12 +31,13 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/jquery.min.js'></script>
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
 
 
 
 
-    <title>Pets Population</title>
+    <title>Pet Population</title>
 </head>
 
 <body>
@@ -73,10 +74,11 @@ session_start();
                                 <?php
                                 unset($_SESSION['status']);
                             }
+
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Pets Population</h3>
+                                    <h3 class="text-center font-weight-bold ">Pet Population</h3>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
@@ -102,12 +104,21 @@ session_start();
 
                                         $fetch_query_run = mysqli_query($connection, $fetch_query);
 
+                                        $labels = [];
+                                        $dogData = [];
+                                        $catData = [];
+
                                         $totalCat = $totalDog = 0;
 
                                         if (mysqli_num_rows($fetch_query_run) > 0) {
                                             while ($row = mysqli_fetch_array($fetch_query_run)) {
                                                 $totalDog += $row['dog_count'];
                                                 $totalCat += $row['cat_count'];
+
+                                                $labels[] = $row['municipality_name'];
+                                                $dogData[] = $row['dog_count'];
+                                                $catData[] = $row['cat_count'];
+
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -179,15 +190,60 @@ session_start();
                                     </button>
                                 </div>
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Representation -->
+                <div class="container-fluid mt-5">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <canvas class="canvas" id="populationChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </main>
+
         </div>
     </div>
 
     <!-- Add, Delete, Update Modal -->
     <?php include './modals/pets-population-modal.php'; ?>
+
+
+    <script>
+        var ctx = document.getElementById('populationChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Dog Population',
+                    data: <?php echo json_encode($dogData); ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cat Population',
+                    data: <?php echo json_encode($catData); ?>,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -252,66 +308,6 @@ session_start();
 
 
 
-    <script>
-        var totalCarabao = <?php echo $totalCarabao; ?>;
-        var totalCattle = <?php echo $totalCattle; ?>;
-        var totalSwine = <?php echo $totalSwine; ?>;
-        var totalGoat = <?php echo $totalGoat; ?>;
-        var totalDog = <?php echo $totalDog; ?>;
-        var totalSheep = <?php echo $totalSheep; ?>;
-        var totalHorse = <?php echo $totalHorse; ?>;
-    </script>
-
-    <script>
-        // Function to calculate and update totals in the modal
-        function submitTotalModal() {
-            <?php
-            // Assuming these variables are already defined in your PHP code
-            echo "var totalCarabao = $totalCarabao;\n";
-            echo "var totalCattle = $totalCattle;\n";
-            echo "var totalSwine = $totalSwine;\n";
-            echo "var totalGoat = $totalGoat;\n";
-            echo "var totalDog = $totalDog;\n";
-            echo "var totalSheep = $totalSheep;\n";
-            echo "var totalHorse = $totalHorse;\n";
-            ?>
-
-            // Update the modal content
-            document.getElementById('totalTableBody').innerHTML = `
-    <tr>
-        <td>Carabao</td>
-        <td>${totalCarabao}</td>
-    </tr>
-    <tr>
-        <td>Cattle</td>
-        <td>${totalCattle}</td>
-    </tr>
-    <tr>
-        <td>Swine</td>
-        <td>${totalSwine}</td>
-    </tr>
-    <tr>
-        <td>Goat</td>
-        <td>${totalGoat}</td>
-    </tr>
-    <tr>
-        <td>Dog</td>
-        <td>${totalDog}</td>
-    </tr>
-    <tr>
-        <td>Sheep</td>
-        <td>${totalSheep}</td>
-    </tr>
-    <tr>
-        <td>Horse</td>
-        <td>${totalHorse}</td>
-    </tr>
-        `;
-        }
-    </script>
-
-
-
 
     <!-- DELETE SCRIPTS -->
     <script>
@@ -344,6 +340,34 @@ session_start();
                     console.error('Error during deletion:', error);
                 }
             });
+        }
+    </script>
+
+    <script>
+        var totalDog = <?php echo $totalDog; ?>;
+        var totalCat = <?php echo $totalCat; ?>;
+    </script>
+
+    <script>
+        // Function to calculate and update totals in the modal
+        function submitTotalModal() {
+            <?php
+            // Assuming these variables are already defined in your PHP code
+            echo "var totalDog = $totalDog;\n";
+            echo "var totalCat = $totalCat;\n";
+            ?>
+
+            // Update the modal content
+            document.getElementById('totalTableBody').innerHTML = `
+    <tr>
+        <td>Dog</td>
+        <td>${totalDog}</td>
+    </tr>
+    <tr>
+        <td>Cat</td>
+        <td>${totalCat}</td>
+    </tr>
+        `;
         }
     </script>
 

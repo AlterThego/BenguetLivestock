@@ -32,7 +32,7 @@ function generateMunicipalityContent($municipalityName, $municipalityId)
                 <?php
                 $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                $fetch_query = "SELECT * FROM livestockpopulation;";
+                $fetch_query = "SELECT * FROM animalpopulation;";
 
                 $fetch_query_run = mysqli_query($connection, $fetch_query);
 

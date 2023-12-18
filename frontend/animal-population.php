@@ -31,14 +31,18 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/jquery.min.js'></script>
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-    <title>Livestock Population</title>
+    <!-- Add, Delete, Update Modal -->
+    <?php include './modals/animal-population-modal.php'; ?>
+
+    <title>Animal Population</title>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <?php include_once './sidebar/livestock-population-sidebar.php';
+        <?php include_once './sidebar/animal-population-sidebar.php';
         ?>
 
         <!-- Main Component -->
@@ -72,7 +76,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Livestock Population</h3>
+                                    <h3 class="text-center font-weight-bold ">Animal Population</h3>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
@@ -87,9 +91,9 @@ session_start();
                                             <th scope="col">Cattle</th>
                                             <th scope="col">Swine</th>
                                             <th scope="col">Goat</th>
-                                            <th scope="col">Dog</th>
                                             <th scope="col">Sheep</th>
                                             <th scope="col">Horse</th>
+                                            <th scope="col"><i>Dog</i></th>
                                             <th scope="col">Date Updated</th>
                                             <th scope="col" class="text-center">Update</th>
                                             <th scope="col" class="text-center">Delete</th>
@@ -99,11 +103,20 @@ session_start();
                                         <?php
                                         $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM livestockpopulation;";
+                                        $fetch_query = "SELECT * FROM animalpopulation;";
 
                                         $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                         $totalCarabao = $totalCattle = $totalSwine = $totalGoat = $totalDog = $totalSheep = $totalHorse = 0;
+
+                                        $labels = [];
+                                        $carabaoData = [];
+                                        $cattleData = [];
+                                        $swineData = [];
+                                        $goatData = [];
+                                        $sheepData = [];
+                                        $horseData = [];
+                                        $dogData = [];
 
                                         if (mysqli_num_rows($fetch_query_run) > 0) {
                                             while ($row = mysqli_fetch_array($fetch_query_run)) {
@@ -111,9 +124,20 @@ session_start();
                                                 $totalCattle += $row['cattle_count'];
                                                 $totalSwine += $row['swine_count'];
                                                 $totalGoat += $row['goat_count'];
-                                                $totalDog += $row['dog_count'];
                                                 $totalSheep += $row['sheep_count'];
                                                 $totalHorse += $row['horse_count'];
+                                                $totalDog += $row['dog_count'];
+
+                                                $labels[] = $row['municipality_name'];
+                                                $carabaoData[] = $row['carabao_count'];
+                                                $cattleData[] = $row['cattle_count'];
+                                                $swineData[] = $row['swine_count'];
+                                                $goatData[] = $row['goat_count'];
+                                                $sheepData[] = $row['sheep_count'];
+                                                $horseData[] = $row['horse_count'];
+                                                $dogData[] = $row['dog_count'];
+
+
                                                 ?>
                                                 <tr>
                                                     <td>
@@ -135,13 +159,14 @@ session_start();
                                                         <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
                                                         <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
                                                         <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
+                                                    </td>
+                                                    <td><i>
+                                                            <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                        </i>
                                                     </td>
                                                     <td>
                                                         <?php echo $row['date_updated']; ?>
@@ -156,16 +181,16 @@ session_start();
                                                             data-cattle="<?php echo $row['cattle_count']; ?>"
                                                             data-swine="<?php echo $row['swine_count']; ?>"
                                                             data-goat="<?php echo $row['goat_count']; ?>"
-                                                            data-dog="<?php echo $row['dog_count']; ?>"
                                                             data-sheep="<?php echo $row['sheep_count']; ?>"
                                                             data-horse="<?php echo $row['horse_count']; ?>"
+                                                            data-dog="<?php echo $row['dog_count']; ?>"
                                                             data-date="<?php echo $row['date_updated']; ?>">Update
 
                                                         </button>
 
                                                     </td>
                                                     <td class="text-center">
-                                                        <form action="../backend/livestock-population-code.php" method="post">
+                                                        <form action="../backend/animal-population-code.php" method="post">
                                                             <input type="hidden" name="id"
                                                                 value="<?php echo $row['municipality_id']; ?>">
                                                             <button type="button" class="btn btn-danger btn-delete btn-sm"
@@ -199,14 +224,15 @@ session_start();
                                             <?php echo number_format($totalGoat, 0, '.', ','); ?>
                                         </td>
                                         <td>
-                                            <?php echo number_format($totalDog, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
                                             <?php echo number_format($totalSheep, 0, '.', ','); ?>
                                         </td>
                                         <td>
                                             <?php echo number_format($totalHorse, 0, '.', ','); ?>
                                         </td>
+                                        <td>
+                                            <?php echo number_format($totalDog, 0, '.', ','); ?>
+                                        </td>
+
                                         <td></td> <!-- You may leave the Date Updated cell empty for the total row -->
                                         <td colspan="2"></td>
                                         <!-- You may leave the Update and Delete cells empty for the total row -->
@@ -234,12 +260,89 @@ session_start();
 
                     </div>
                 </div>
+
+                <!-- Visual Representation -->
+                <div class="container-fluid mt-5">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <canvas class="canvas" id="animalPopulationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 
-    <!-- Add, Delete, Update Modal -->
-    <?php include './modals/livestock-population-modal.php'; ?>
+
+
+    <script>
+        var ctx = document.getElementById('animalPopulationChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Carabao',
+                    data: <?php echo json_encode($carabaoData); ?>,
+                    backgroundColor: 'rgba(65, 105, 225, 0.5)', // Royal Blue
+                    borderColor: 'rgba(65, 105, 225, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cattle',
+                    data: <?php echo json_encode($cattleData); ?>,
+                    backgroundColor: 'rgba(255, 165, 0, 0.5)', // Orange
+                    borderColor: 'rgba(255, 165, 0, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Swine',
+                    data: <?php echo json_encode($swineData); ?>,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // Pink
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Goat',
+                    data: <?php echo json_encode($goatData); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // Dodger Blue
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Sheep',
+                    data: <?php echo json_encode($sheepData); ?>,
+                    backgroundColor: 'rgba(218, 112, 214, 0.5)', // Orchid
+                    borderColor: 'rgba(218, 112, 214, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Horse',
+                    data: <?php echo json_encode($horseData); ?>,
+                    backgroundColor: 'rgba(255, 159, 64, 0.5)', // Light Orange
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Dog',
+                    data: <?php echo json_encode($dogData); ?>,
+                    backgroundColor: 'rgba(255, 0, 0, 0.5)', // Red
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -388,11 +491,11 @@ session_start();
         function deleteData(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/livestock-population-code.php',
+                url: '/benguetlivestock/backend/animal-population-code.php',
                 data: { deleteData: true, id: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/livestock-population.php';
+                    window.location.href = '/benguetlivestock/frontend/animal-population.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -400,7 +503,7 @@ session_start();
             });
         }
     </script>
-    <script src="/benguetlivestock/assets/js/content-js/livestock-population-script.js"></script>
+    <script src="/benguetlivestock/assets/js/content-js/animal-population-script.js"></script>
 </body>
 
 </html>
