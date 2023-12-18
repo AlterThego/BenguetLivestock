@@ -208,9 +208,9 @@ session_start();
                 </div>
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             <div class="card p-3">
                                 <canvas class="canvas" id="poultryPopulationChart"></canvas>
                             </div>
@@ -257,6 +257,8 @@ session_start();
                 ]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true

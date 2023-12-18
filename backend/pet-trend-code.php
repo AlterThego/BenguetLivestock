@@ -14,7 +14,7 @@ if (isset($_POST['savedata'])) {
     $date_updated = $connection->real_escape_string($_POST['date_updated']);
 
     try {
-        $insert_query = "INSERT INTO pettrend (pet_year, dog_count, cat_count, date_updated) VALUES ('$year', '$dog_count', '$cat_count', '$date_updated')";
+        $insert_query = "INSERT INTO pettrend (pet_year, dog_count, cat_count, date_updated) VALUES ('$year', '$Dog', '$Cat', '$date_updated')";
         $insert_query_run = $connection->query($insert_query);
 
         if ($insert_query_run === true) {

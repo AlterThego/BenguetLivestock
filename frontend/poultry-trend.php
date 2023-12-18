@@ -181,7 +181,12 @@ session_start();
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
-                                <h4 class="text-center font-weight-bold mb-3">Linear Regression</h4>
+                                <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
+                                <p class="text-left font-weight-italicized mb-3">
+                                    <b>Note:</b> This prediction for poultry population is based on linear regression
+                                    analysis. It's important to understand that this is not a guaranteed forecast but
+                                    rather an estimate using statistical methods.
+                                </p>
                                 <table class="display table-bordered table-responsive" id="predicted-table">
                                     <thead class="thead-light">
                                         <tr>
@@ -295,12 +300,11 @@ session_start();
 
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
-                                <h3 class="text-center font-weight-bold">Poultry Trends</h3>
-                                <canvas class="canvas" id="PoultryTrends"></canvas>
+                                <canvas class="canvas" id="poultryTrend"></canvas>
                             </div>
                         </div>
                     </div>
@@ -398,7 +402,7 @@ session_start();
 
     <!-- Linear Regression Graph -->
     <script>
-        const ctx = document.getElementById('PoultryTrends');
+
 
         const poultryData = {
             labels: [<?php echo implode(',', array_keys($counts)); ?>],
@@ -428,6 +432,7 @@ session_start();
         poultryData.native.push(predictedNative);
         poultryData.fighting.push(predictedFighting);
 
+        const ctx = document.getElementById('poultryTrend');
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -440,8 +445,8 @@ session_start();
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1,
-                    borderWidth: 4, // Increase the line width for emphasis
-                    borderDash: [10, 10], // Use a dashed line for emphasis
+                    borderWidth: 4,
+                    borderDash: [10, 10],
                 }, {
                     label: 'Layers',
                     data: poultryData.layers,
@@ -469,6 +474,8 @@ session_start();
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     x: {
                         type: 'linear',
@@ -485,6 +492,7 @@ session_start();
                 }
             }
         });
+
 
         // Function to calculate linear regression
         function calculateRegressionLine(x, y) {

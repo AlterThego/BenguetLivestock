@@ -33,8 +33,6 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-    <!-- Add, Delete, Update Modal -->
-    <?php include './modals/animal-population-modal.php'; ?>
 
     <title>Animal Population</title>
 </head>
@@ -262,7 +260,7 @@ session_start();
                 </div>
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
@@ -275,6 +273,10 @@ session_start();
         </div>
     </div>
 
+
+    <!-- Add, Delete, Update Modal -->
+    <!-- STRICTLY THIS IS ITS LOCATION -->
+    <?php include './modals/animal-population-modal.php'; ?>
 
 
     <script>
@@ -334,6 +336,8 @@ session_start();
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -503,6 +507,7 @@ session_start();
             });
         }
     </script>
+
     <script src="/benguetlivestock/assets/js/content-js/animal-population-script.js"></script>
 </body>
 

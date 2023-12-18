@@ -47,44 +47,42 @@
                             ?>
                         </select>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="cattle_volume">Cattle</label>
+                        <input type="number" class="form-control" name="cattle_volume" placeholder="Enter Cattle Count">
+                    </div>
 
                     <div class="form-group mb-3">
-                        <label for="carabao_count">Carabao</label>
-                        <input type="number" class="form-control" name="carabao_count"
+                        <label for="swine_volume">Swine</label>
+                        <input type="number" class="form-control" name="swine_volume" placeholder="Enter Swine Count">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="carabao_volume">Carabao</label>
+                        <input type="number" class="form-control" name="carabao_volume"
                             placeholder="Enter Carabao Count">
                     </div>
 
+
                     <div class="form-group mb-3">
-                        <label for="cattle_count">Cattle</label>
-                        <input type="number" class="form-control" name="cattle_count" placeholder="Enter Cattle Count">
+                        <label for="goat_volume">Goat</label>
+                        <input type="number" class="form-control" name="goat_volume" placeholder="Enter Goat Count">
                     </div>
 
 
                     <div class="form-group mb-3">
-                        <label for="swine_count">Swine</label>
-                        <input type="number" class="form-control" name="swine_count" placeholder="Enter Swine Count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="goat_count">Goat</label>
-                        <input type="number" class="form-control" name="goat_count" placeholder="Enter Goat Count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="dog_count">Dog</label>
-                        <input type="number" class="form-control" name="dog_count" placeholder="Enter Dog Count">
+                        <label for="chicken_volume">Chicken</label>
+                        <input type="number" class="form-control" name="chicken_volume" placeholder="Enter Dog Count">
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="sheep_count">Sheep</label>
-                        <input type="number" class="form-control" name="sheep_count" placeholder="Enter Sheep Count">
+                        <label for="duck_volume">Duck</label>
+                        <input type="number" class="form-control" name="duck_volume" placeholder="Enter Sheep Count">
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="horse_count">Horse</label>
-                        <input type="number" class="form-control" name="horse_count" placeholder="Enter Horse Count">
+                        <label for="fish_volume">Fish</label>
+                        <input type="number" class="form-control" name="fish_volume" placeholder="Enter Horse Count">
                     </div>
 
 

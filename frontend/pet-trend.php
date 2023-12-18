@@ -35,8 +35,8 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
 
-    <!-- Add, Delete, Update Modal -->
-    <?php include './modals/pet-trend-modal.php'; ?>
+
+
     <title>Pet Trend</title>
 </head>
 
@@ -58,7 +58,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -172,9 +172,14 @@ session_start();
                 <!-- Prediction -->
                 <div class="container-fluid mt-5">
                     <div class="row justify-content-center ">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             <div class="card p-3">
                                 <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
+                                <p class="text-left font-weight-italicized mb-3">
+                                    <b>Note:</b> This prediction for pet population is based on linear regression
+                                    analysis. It's important to understand that this is not a guaranteed forecast but
+                                    rather an estimate using statistical methods.
+                                </p>
                                 <table class="display table-bordered table-responsive" id="predicted-table">
                                     <thead class="thead-light">
                                         <tr>
@@ -306,9 +311,9 @@ session_start();
 
 
                 <!-- Visual Representation -->
-                <div class="container-fluid">
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             <div class="card p-3">
                                 <canvas class="canvas" id="petTrend"></canvas>
                             </div>
@@ -321,13 +326,16 @@ session_start();
         </div>
     </div>
 
+    <!-- Add, Delete, Update Modal -->
+    <?php include './modals/pet-trend-modal.php'; ?>
+
     <!-- Main Table JS -->
     <script>
         var dataTable = new DataTable('#main-table', {
             lengthChange: false,
             columnDefs: [
                 { targets: [5, 6], orderable: false },
-                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
+                { "className": "dt-center", "targets": "_all" }
             ],
             columns: [
                 { "width": "14.29%" },
@@ -374,6 +382,10 @@ session_start();
 
         });
 
+
+    </script>
+
+    <script>
         var dataTable = new DataTable('#predicted-table', {
             lengthChange: false,
             columns: [
@@ -447,6 +459,8 @@ session_start();
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     x: {
                         type: 'linear',
@@ -542,7 +556,6 @@ session_start();
             });
         }
     </script>
-
 
 
 

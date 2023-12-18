@@ -35,8 +35,6 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-    <!-- Add, Delete, Update Modal -->
-    <?php include './modals/livestock-volume-modal.php'; ?>
 
 
     <title>Livestock Volume</title>
@@ -250,7 +248,7 @@ session_start();
                 </div>
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
@@ -262,6 +260,11 @@ session_start();
             </main>
         </div>
     </div>
+
+    <!-- Add, Delete, Update Modal -->
+    <?php include './modals/livestock-volume-modal.php'; ?>
+    <script src="/benguetlivestock/assets/js/content-js/livestock-volume-script.js"></script>
+
 
     <script>
         var ctx = document.getElementById('livestockVolumeChart').getContext('2d');
@@ -320,6 +323,8 @@ session_start();
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -556,7 +561,7 @@ session_start();
     </script>
 
 
-    <script src="/benguetlivestock/assets/js/content-js/livestock-volume-script.js"></script>
+
 </body>
 
 </html>

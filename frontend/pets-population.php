@@ -83,6 +83,7 @@ session_start();
                                         data-target="#addModal">
                                         Add data
                                     </button>
+
                                 </div>
                                 <table class="display table-bordered table-responsive" id="main-table">
                                     <thead class="thead-light">
@@ -196,9 +197,9 @@ session_start();
                 </div>
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-5">
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="card p-3">
                                 <canvas class="canvas" id="populationChart"></canvas>
                             </div>
@@ -236,6 +237,8 @@ session_start();
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
