@@ -146,7 +146,7 @@ session_start();
 
 
                                                     <td class="text-center">
-                                                        <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
+                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#updateModal"
                                                             data-id="<?php echo $row['poultry_id'] ?>"
                                                             data-layers="<?php echo $row['layers_count']; ?>"
@@ -233,7 +233,7 @@ session_start();
                 labels: ['Layers', 'Broiler', 'Native', 'Fighting'],
                 datasets: [
                     {
-                        label: 'Count',
+                        label: 'Count per Type',
                         data: [
                             <?php echo join(',', $layersData); ?>,
                             <?php echo join(',', $broilerData); ?>,

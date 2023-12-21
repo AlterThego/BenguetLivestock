@@ -571,6 +571,10 @@ session_start();
                 'print'
             ],
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#main-table').css('font-size', '14px'); // Adjust the size as needed
+            }
 
         });
     </script>
@@ -593,6 +597,10 @@ session_start();
             info: false,
             paging: false,
             ordering: false,
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#predicted-table').css('font-size', '14px'); // Adjust the size as needed
+            }
         });
     </script>
 

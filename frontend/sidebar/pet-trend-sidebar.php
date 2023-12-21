@@ -120,22 +120,22 @@
                 </a>
                 <ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/BreedingStations/index.php" class="sidebar-link"><img
+                        <a href="/BenguetLivestock/frontend/breeding-stations.php" class="sidebar-link active"><img
                                 src="/BenguetLivestock/assets/images/breeding_stations.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Breeding
                             Stations/Multiplier Farms/Demo Farms</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/CommercialPoultry/index.php" class="sidebar-link"><img
+                        <a href="/BenguetLivestock/frontend/commercial-poultry.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/piggery_farm.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Commercial Poultry,
                             Cattle, and Piggery Farms</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/VeterinaryPoultry/index.php" class="sidebar-link"><img
+                        <a href="/BenguetLivestock/frontend/veterinary-poultry.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/farm_supplies.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Veterinary
-                            and Poultry Farm Supplies</a>
+                                and Poultry Farm Supplies</a>
                     </li>
                 </ul>
             </li>

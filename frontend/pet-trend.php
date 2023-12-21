@@ -130,7 +130,7 @@ session_start();
 
 
                                                         <td>
-                                                            <button class="btn btn-update btn-success btn-sm"
+                                                            <button class="btn btn-update btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModal"
                                                                 data-year="<?php echo $row['pet_year']; ?>"
                                                                 data-dog="<?php echo $row['dog_count']; ?>"
@@ -379,6 +379,10 @@ session_start();
                 'print'
             ],
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#main-table').css('font-size', '14px'); // Adjust the size as needed
+            }
 
         });
 
@@ -399,6 +403,10 @@ session_start();
             info: false,
             paging: false,
             ordering: false,
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#predicted-table').css('font-size', '14px'); // Adjust the size as needed
+            }
         });
     </script>
 

@@ -173,7 +173,7 @@ session_start();
                                                     </td>
 
                                                     <td class="text-center">
-                                                        <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
+                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#updateModal"
                                                             data-zip="<?php echo $row['municipality_id'] ?>"
                                                             data-name="<?php echo $row['municipality_name'] ?>"

@@ -153,7 +153,7 @@ session_start();
                                                     </td>
 
                                                     <td class="text-center">
-                                                        <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
+                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
                                                             data-target="#updateModal" data-year="<?php echo $row['year'] ?>"
                                                             data-cattle="<?php echo $row['cattle_volume']; ?>"
                                                             data-swine="<?php echo $row['swine_volume']; ?>"
@@ -628,6 +628,10 @@ session_start();
                 'print'
             ],
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#main-volume-table').css('font-size', '14px'); // Adjust the size as needed
+            }
 
         });
 
@@ -650,6 +654,10 @@ session_start();
             info: false,
             paging: false,
             ordering: false,
+            "drawCallback": function (settings) {
+                // Manually set the font size for the DataTable
+                $('#predicted-table').css('font-size', '14px'); // Adjust the size as needed
+            }
         });
     </script>
 

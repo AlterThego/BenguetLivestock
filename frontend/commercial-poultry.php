@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -33,17 +34,13 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-
-
-
-
-    <title>Pet Population</title>
+    <title>tst</title>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <?php include_once './sidebar/pets-population-sidebar.php';
+        <?php include_once './sidebar/commercial-poultry-sidebar.php';
         ?>
 
         <!-- Main Component -->
@@ -51,17 +48,15 @@ session_start();
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
                 <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
+                    <i class="fa-solid fa-bars"></i>
                 </button>
-
             </nav>
-
 
             <main class="content px-3 py-2 mb-5">
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -74,24 +69,22 @@ session_start();
                                 <?php
                                 unset($_SESSION['status']);
                             }
-
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Pet Population</h3>
+                                    <h3 class="text-center font-weight-bold ">Commercial Poultry</h3>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
                                     </button>
-
                                 </div>
                                 <table class="display table-bordered table-responsive" id="main-table">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">ZIP Code</th>
-                                            <th scope="col">Municipality</th>
-                                            <th scope="col">Dog</th>
-                                            <th scope="col">Cat</th>
+                                            <th scope="col">Year</th>
+                                            <th scope="col">Poultry Farms</th>
+                                            <th scope="col">Cattle Farms</th>
+                                            <th scope="col">Piggery Farms</th>
                                             <th scope="col">Date Updated</th>
                                             <th scope="col" class="text-center">Update</th>
                                             <th scope="col" class="text-center">Delete</th>
@@ -101,59 +94,57 @@ session_start();
                                         <?php
                                         $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM petspopulation;";
+                                        $fetch_query = "SELECT * FROM commercialpoultry;";
 
                                         $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $labels = [];
-                                        $dogData = [];
-                                        $catData = [];
-
-                                        $totalCat = $totalDog = 0;
+                                        $yearData = [];
+                                        $poultryData = [];
+                                        $cattleData = [];
+                                        $poultryData = [];
 
                                         if (mysqli_num_rows($fetch_query_run) > 0) {
                                             while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalDog += $row['dog_count'];
-                                                $totalCat += $row['cat_count'];
-
-                                                $labels[] = $row['municipality_name'];
-                                                $dogData[] = $row['dog_count'];
-                                                $catData[] = $row['cat_count'];
+                                                $yearData[] = $row['year'];
+                                                $poultryData[] = $row['poultry_count'];
+                                                $cattleData[] = $row['cattle_count'];
+                                                $piggeryData[] = $row['piggery_count'];
 
                                                 ?>
                                                 <tr>
                                                     <td>
-                                                        <?php echo $row['municipality_id']; ?>
+                                                        <?php echo $row['year']; ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?php echo number_format($row['poultry_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['municipality_name']; ?>
+                                                        <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                        <?php echo number_format($row['piggery_count'], 0, '.', ','); ?>
                                                     </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cat_count'], 0, '.', ','); ?>
-                                                    </td>
+
                                                     <td>
                                                         <?php echo $row['date_updated']; ?>
                                                     </td>
 
                                                     <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-zip="<?php echo $row['municipality_id'] ?>"
-                                                            data-name="<?php echo $row['municipality_name'] ?>"
-                                                            data-dog="<?php echo $row['dog_count']; ?>"
-                                                            data-cat="<?php echo $row['cat_count']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
+                                                            data-target="#updateModal" data-year="<?php echo $row['year'] ?>"
+                                                            data-year="<?php echo $row['year'] ?>"
+                                                            data-poultry="<?php echo $row['poultry_count'] ?>"
+                                                            data-cattle="<?php echo $row['cattle_count'] ?>"
+                                                            data-piggery="<?php echo $row['piggery_count'] ?>">Update
 
                                                         </button>
 
                                                     </td>
                                                     <td class="text-center">
-                                                        <form action="../backend/pets-population-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['municipality_id']; ?>">
+                                                        <form action="/benguetlivestock/backend/commercial-poultry-code.php"
+                                                            method="post">
+                                                            <input type="hidden" name="id" value="<?php echo $row['year']; ?>">
                                                             <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                 data-toggle="modal" data-target="#deleteConfirmationModal">
                                                                 Delete
@@ -164,77 +155,63 @@ session_start();
                                                 <?php
                                             }
                                         }
-
                                         ?>
-
                                     </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td></td>
-                                        <td>
-                                            <?php echo number_format($totalDog, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalCat, 0, '.', ','); ?>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2"></td>
-                                    </tr>
-
-
-
                                 </table>
-                                <div class="right">
-                                    <button class="btn btn-info float-right" onclick="submitTotalModal()"
-                                        data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
-                                    </button>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
                 <!-- Visual Representation -->
-                <div class="container-fluid mt-1">
+                <div class="container-fluid mb-5 mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             <div class="card p-3">
-                                <canvas class="canvas" id="populationChart"></canvas>
+                                <canvas class="canvas" id="commercialPoultryChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
 
+            </main>
         </div>
     </div>
 
     <!-- Add, Delete, Update Modal -->
-    <?php include './modals/pets-population-modal.php'; ?>
+    <?php include './modals/commercial-poultry-modal.php'; ?>
 
-
+    <!-- Municipalilty -->
     <script>
-        var ctx = document.getElementById('populationChart').getContext('2d');
+        var ctx = document.getElementById('commercialPoultryChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: <?php echo json_encode($labels); ?>,
-                datasets: [{
-                    label: 'Dog Population',
-                    data: <?php echo json_encode($dogData); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Cat Population',
-                    data: <?php echo json_encode($catData); ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
+                labels: <?php echo json_encode($yearData); ?>,
+                datasets: [
+                    {
+                        label: 'Poultry Farms',
+                        data: <?php echo json_encode($poultryData); ?>,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Cattle Farms',
+                        data: <?php echo json_encode($cattleData); ?>,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Piggery Farms',
+                        data: <?php echo json_encode($piggeryData); ?>,
+                        backgroundColor: 'rgba(255, 205, 86, 0.2)',
+                        borderColor: 'rgba(255, 205, 86, 1)',
+                        borderWidth: 1
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -247,6 +224,7 @@ session_start();
             }
         });
     </script>
+
 
     <script>
         var dataTable = new DataTable('#main-table', {
@@ -263,63 +241,26 @@ session_start();
                 { "width": "14.29%" },
                 { "width": "14.29%" },
                 { "width": "14.29%" },
-
             ],
             autoWidth: false,
             search: true,
             // info: false,
             paging: false,
-            order: [[1, 'asc']],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                'print'
-            ],
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-
             "drawCallback": function (settings) {
                 // Manually set the font size for the DataTable
                 $('#main-table').css('font-size', '14px'); // Adjust the size as needed
-            }
+            },
         });
-
     </script>
 
-
-
-
-
-    <!-- DELETE SCRIPTS -->
     <script>
         $(document).ready(function () {
             $('.btn-delete').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDelete').data('id', id);
-                $('#deleteConfirmationModal').modal('show');
-                $('.modal-backdrop').remove();
+                $('#confirmDelete').on('hidden.bs.modal', function () {
+                    $('.modal-backdrop').remove();
+                });
             });
 
             $('#confirmDelete').click(function () {
@@ -333,11 +274,11 @@ session_start();
         function deleteData(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/pets-population-code.php',
+                url: '/benguetlivestock/backend/commercial-poultry-code.php',
                 data: { deleteData: true, id: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/pets-population.php';
+                    window.location.href = '/benguetlivestock/frontend/commercial-poultry.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -346,35 +287,8 @@ session_start();
         }
     </script>
 
-    <script>
-        var totalDog = <?php echo $totalDog; ?>;
-        var totalCat = <?php echo $totalCat; ?>;
-    </script>
-
-    <script>
-        // Function to calculate and update totals in the modal
-        function submitTotalModal() {
-            <?php
-            // Assuming these variables are already defined in your PHP code
-            echo "var totalDog = $totalDog;\n";
-            echo "var totalCat = $totalCat;\n";
-            ?>
-
-            // Update the modal content
-            document.getElementById('totalTableBody').innerHTML = `
-    <tr>
-        <td>Dog</td>
-        <td>${totalDog}</td>
-    </tr>
-    <tr>
-        <td>Cat</td>
-        <td>${totalCat}</td>
-    </tr>
-        `;
-        }
-    </script>
-
-    <script src="/benguetlivestock/assets/js/content-js/pets-population-script.js"></script>
+    <!-- JS for Update and Delete 'script.js'-->
+    <script src="/benguetlivestock/assets/js/content-js/commercial-poultry-script.js"></script>
 </body>
 
 </html>
