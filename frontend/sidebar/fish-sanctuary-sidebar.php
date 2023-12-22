@@ -24,6 +24,7 @@
             </li>
 
 
+
             <!-- Population -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#population"
@@ -70,24 +71,23 @@
 
             <!-- Yearly -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#yearly"
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#yearly"
                     aria-expanded="true" aria-controls="yearly" id="yearly-link">
                     <img src="/BenguetLivestock/assets/images/yearly.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2"><strong>Yearly</strong>
+                        class="img mr-2">Yearly
                 </a>
-                <ul id="yearly" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                <ul id="yearly" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link active"
+                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Pet Trend
-                                (Yearly)</strong></a>
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Pet Trend
+                            (Yearly)</a>
                     </li>
 
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/poultry-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Poultry
-                            Trend
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Poultry Trend
                             (Yearly)</a>
                     </li>
                     <li class="sidebar-item">
@@ -120,7 +120,7 @@
                 </a>
                 <ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/frontend/breeding-stations.php" class="sidebar-link active"><img
+                        <a href="/BenguetLivestock/frontend/breeding-stations.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/breeding_stations.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Breeding
                             Stations/Multiplier Farms/Demo Farms</a>
@@ -141,18 +141,17 @@
             </li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#fish"
+                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#fish"
                     aria-expanded="false" aria-controls="fish">
                     <img src="/BenguetLivestock/assets/images/fish.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Fishery Data
+                        class="img mr-2"><strong>Fishery Data</strong>
                 </a>
-                <ul id="fish" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="fish" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/fish-sanctuary.php" class="sidebar-link"><img
+                        <a href="/benguetlivestock/frontend/fish-sanctuary.php" class="sidebar-link active"><img
                                 src="/BenguetLivestock/assets/images/fish_sanctuaries.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Fish
-                            Sanctuaries/Estimated Area</a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Fish
+                                Sanctuaries/Estimated Area</strong></a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_fish.png"
