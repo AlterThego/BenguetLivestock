@@ -79,8 +79,6 @@ session_start();
                                         data-target="#exampleModal">
                                         Add data
                                     </button>
-                                    <a data-toggle="modal" href="#advancedOptionModal"
-                                        class="btn btn-warning float-end">Advanced Options</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="display table-bordered" id="main-table">

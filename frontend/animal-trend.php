@@ -151,7 +151,7 @@ session_start();
                                                         </td>
 
                                                         <td class=" text-center">
-                                                            <button class="btn btn-update btn-success btn-sm center"
+                                                            <button class="btn btn-update btn-warning btn-sm center"
                                                                 data-toggle="modal" data-target="#updateModal"
                                                                 data-year="<?php echo $row['livestock_year']; ?>"
                                                                 data-carabao="<?php echo $row['carabao_count']; ?>"

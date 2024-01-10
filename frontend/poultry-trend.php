@@ -76,8 +76,6 @@ session_start();
                                         data-target="#exampleModal">
                                         Add data
                                     </button>
-                                    <a data-toggle="modal" href="#advancedOptionModal"
-                                        class="btn btn-warning float-end">Advanced Options</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="display table-bordered" id="main-table">
@@ -136,7 +134,7 @@ session_start();
 
 
                                                         <td>
-                                                            <button class="btn btn-update btn-success btn-sm"
+                                                            <button class="btn btn-update btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModal"
                                                                 data-year="<?php echo $row['poultry_year']; ?>"
                                                                 data-layers="<?php echo $row['layers_count']; ?>"

@@ -163,7 +163,6 @@
                 </ul>
             </li>
 
-            <!-- Beekeeping -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#bee"
                     aria-expanded="false" aria-controls="bee">
@@ -173,9 +172,8 @@
                 </a>
                 <ul id="bee" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img
-                                src="/BenguetLivestock/assets/images/honey_bee.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Honey Bee
+                        <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/honey_bee.png"
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Honey Bee
                             Colonies/Number of Beekeepers</a>
                     </li>
                     <li class="sidebar-item">

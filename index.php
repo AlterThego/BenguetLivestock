@@ -322,6 +322,8 @@
                                                         fill: false
                                                     },
 
+                                                    
+                                            
                                                 ]
 
                                             },
@@ -432,9 +434,12 @@
                 info: false,
                 dom: 'Bfrtip',
                 orderable: false,
-
+                style: {
+                    fontSize: '14px',
+                }
             });
         </script>
+
 
         <!-- Comparison Tables -->
         <script>
@@ -450,6 +455,10 @@
                     paging: false,
                     info: false,
                     ordering: false,
+                    "drawCallback": function (settings) {
+                        // Manually set the font size for the DataTable
+                        $(tableId).css('font-size', '15px'); // Adjust the size as needed
+                    }
                 });
             }
 
