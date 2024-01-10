@@ -192,8 +192,7 @@
                 <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
                     <img src="/BenguetLivestock/assets/images/health.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    <strong>Health and Diseases</strong>
+                        class="img mr-2"><strong>Health and Diseases</strong>
                 </a>
                 <ul id="health" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
@@ -203,8 +202,9 @@
                                 Diseases</strong></a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
+                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/animal_death.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
                             Deaths due to Disease Infections</a>
                     </li>
 

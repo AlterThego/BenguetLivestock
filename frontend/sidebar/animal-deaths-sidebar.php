@@ -24,7 +24,6 @@
             </li>
 
 
-
             <!-- Population -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#population"
@@ -78,7 +77,7 @@
                 </a>
                 <ul id="yearly" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-link"
+                        <a href="/benguetlivestock/frontend/pet-trend.php" class="sidebar-line"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
                                 alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Pet Trend
                             (Yearly)</a>
@@ -87,7 +86,8 @@
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/poultry-trend.php" class="sidebar-link"
                             data-bs-parent="#yearly"><img src="/BenguetLivestock/assets/images/poultry_trend.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Poultry Trend
+                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Poultry
+                            Trend
                             (Yearly)</a>
                     </li>
                     <li class="sidebar-item">
@@ -112,26 +112,25 @@
 
             <!-- Breeding and Farms -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#farms"
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#farms"
                     aria-expanded="false" aria-controls="farms">
                     <img src="/BenguetLivestock/assets/images/farm.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2"><strong>Breeding and Farms</strong>
+                        class="img mr-2">
+                    Breeding and Farms
                 </a>
-                <ul id="farms" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                <ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/frontend/breeding-stations.php" class="sidebar-link"><img
+                        <a href="/BenguetLivestock/frontend/breeding-stations.php" class="sidebar-link active"><img
                                 src="/BenguetLivestock/assets/images/breeding_stations.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Breeding
                             Stations/Multiplier Farms/Demo Farms</a>
                     </li>
-
                     <li class="sidebar-item">
-                        <a href="/BenguetLivestock/frontend/commercial-poultry.php" class="sidebar-link active"><img
+                        <a href="/BenguetLivestock/frontend/commercial-poultry.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/piggery_farm.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Commercial Poultry,
-                                Cattle, and Piggery Farms</strong></a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Commercial Poultry,
+                            Cattle, and Piggery Farms</a>
                     </li>
-
                     <li class="sidebar-item">
                         <a href="/BenguetLivestock/frontend/veterinary-poultry.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/farm_supplies.png" alt="Logo"
@@ -164,20 +163,18 @@
                 </ul>
             </li>
 
-            <!-- Beekeeping -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#bee"
                     aria-expanded="false" aria-controls="bee">
                     <img src="/BenguetLivestock/assets/images/bee.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Beekeeping
+                        class="img mr-2">Beekeeping
                 </a>
                 <ul id="bee" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/honey_bee.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Honey Bee
-                            Colonies/Number of Beekeepers</a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of
+                            Honey Bee Colonies/Number of Beekeepers</a>
                     </li>
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link"><img
@@ -191,22 +188,23 @@
 
             <!-- Health and Diseases -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#health"
+                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
                     <img src="/BenguetLivestock/assets/images/health.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Health and Diseases
+                        class="img mr-2"><strong>Health and Diseases</strong>
                 </a>
-                <ul id="health" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="health" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_deaths.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
+                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/yearly_deaths.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
                             Diseases</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
-                            Deaths due to Disease Infections</a>
+                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link active"><img
+                                src="/BenguetLivestock/assets/images/animal_death.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Number of Animal
+                                Deaths due to Disease Infections</strong></a>
                     </li>
 
                     <li class="sidebar-item">

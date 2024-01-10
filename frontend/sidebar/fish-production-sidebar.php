@@ -201,7 +201,7 @@
                             Diseases</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
+                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
                                 alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
                             Deaths due to Disease Infections</a>
                     </li>
