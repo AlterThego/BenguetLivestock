@@ -60,7 +60,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -84,119 +84,121 @@ session_start();
                                     <h6 class="text-right text-sm"><i>Note: Only 1 row is allowed here (This Year)</i>
                                     </h6>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
+                                <div class="table-responsive">
+                                    <table class="display table-bordered table-responsive" id="main-table">
+                                        <thead class="thead-light">
 
-                                        <tr>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col">Layers</th>
-                                            <th scope="col">Broiler</th>
-                                            <th scope="col">Native/ Range</th>
-                                            <th scope="col">Fighting/ Fancy Fowl</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                            <tr>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col">Layers</th>
+                                                <th scope="col">Broiler</th>
+                                                <th scope="col">Native/ Range</th>
+                                                <th scope="col">Fighting/ Fancy Fowl</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM poultrypopulation;";
+                                            $fetch_query = "SELECT * FROM poultrypopulation;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $totalLayers = $totalBroiler = $totalNative = $totalFighting = 0;
+                                            $totalLayers = $totalBroiler = $totalNative = $totalFighting = 0;
 
-                                        $layersData = [];
-                                        $broilerData = [];
-                                        $nativeData = [];
-                                        $fightingData = [];
+                                            $layersData = [];
+                                            $broilerData = [];
+                                            $nativeData = [];
+                                            $fightingData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalLayers += $row['layers_count'];
-                                                $totalBroiler += $row['broiler_count'];
-                                                $totalNative += $row['native_count'];
-                                                $totalFighting += $row['fighting_count'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $totalLayers += $row['layers_count'];
+                                                    $totalBroiler += $row['broiler_count'];
+                                                    $totalNative += $row['native_count'];
+                                                    $totalFighting += $row['fighting_count'];
 
-                                                $layersData[] = $row['layers_count'];
-                                                $broilerData[] = $row['broiler_count'];
-                                                $nativeData[] = $row['native_count'];
-                                                $fightingData[] = $row['fighting_count'];
-                                                ?>
-                                                <tr>
-                                                    <td style="display: none;">
-                                                        <?php echo $row['poultry_id']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['layers_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['broiler_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['native_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['fighting_count'], 0, '.', ','); ?>
-                                                    </td>
+                                                    $layersData[] = $row['layers_count'];
+                                                    $broilerData[] = $row['broiler_count'];
+                                                    $nativeData[] = $row['native_count'];
+                                                    $fightingData[] = $row['fighting_count'];
+                                                    ?>
+                                                    <tr>
+                                                        <td style="display: none;">
+                                                            <?php echo $row['poultry_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['layers_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['broiler_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['native_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['fighting_count'], 0, '.', ','); ?>
+                                                        </td>
 
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-id="<?php echo $row['poultry_id'] ?>"
-                                                            data-layers="<?php echo $row['layers_count']; ?>"
-                                                            data-broiler="<?php echo $row['broiler_count']; ?>"
-                                                            data-native="<?php echo $row['native_count']; ?>"
-                                                            data-fighting="<?php echo $row['fighting_count']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="../backend/poultry-population-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['poultry_id']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-id="<?php echo $row['poultry_id'] ?>"
+                                                                data-layers="<?php echo $row['layers_count']; ?>"
+                                                                data-broiler="<?php echo $row['broiler_count']; ?>"
+                                                                data-native="<?php echo $row['native_count']; ?>"
+                                                                data-fighting="<?php echo $row['fighting_count']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="../backend/poultry-population-code.php" method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['poultry_id']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
 
-                                        ?>
+                                            ?>
 
-                                    </tbody>
+                                        </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td>
-                                            <?php echo number_format($totalLayers, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalBroiler, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalNative, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalFighting, 0, '.', ','); ?>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2"></td>
-                                    </tr>
-
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td>
+                                                <?php echo number_format($totalLayers, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalBroiler, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalNative, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalFighting, 0, '.', ','); ?>
+                                            </td>
+                                            <td></td>
+                                            <td colspan="2"></td>
+                                        </tr>
 
 
-                                </table>
+
+                                    </table>
+                                </div>
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalModal()"
                                         data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
@@ -210,7 +212,7 @@ session_start();
                 <!-- Visual Representation -->
                 <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <canvas class="canvas" id="poultryPopulationChart"></canvas>
                             </div>
@@ -291,9 +293,7 @@ session_start();
             ],
             autoWidth: false,
             search: true,
-            // info: false,
             paging: false,
-            order: [[1, 'asc']],
             dom: 'Bfrtip',
             buttons: [
                 {

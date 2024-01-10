@@ -44,7 +44,7 @@ li {
     max-width: 264px;
     min-width: 264px;
     transition: all 0.35s ease-in-out;
-    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.1);
+    /* box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.1); */
     z-index: 1111;
     border-radius: 10px;
 
@@ -113,7 +113,7 @@ a.sidebar-link {
     right: 1.5rem;
     top: 1.4rem;
     transform: rotate(-135deg);
-    transition: all .2s ease-out;
+    transition: all .1s ease-out;
 }
 
 #population > .sidebar-item > .sidebar-link {
@@ -188,5 +188,6 @@ body.modal-open a.sidebar-link:hover {
         width: auto;
     }
 }
+
 
 

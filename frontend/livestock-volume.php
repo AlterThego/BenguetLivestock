@@ -82,161 +82,163 @@ session_start();
                                         Add data
                                     </button>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ZIP Code</th>
-                                            <th scope="col">Municipality</th>
-                                            <th scope="col">Cattle</th>
-                                            <th scope="col">Swine</th>
-                                            <th scope="col">Carabao</th>
-                                            <th scope="col">Goat</th>
-                                            <th scope="col">Chicken</th>
-                                            <th scope="col">Duck</th>
-                                            <th scope="col">Fish</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">ZIP Code</th>
+                                                <th scope="col">Municipality</th>
+                                                <th scope="col">Cattle</th>
+                                                <th scope="col">Swine</th>
+                                                <th scope="col">Carabao</th>
+                                                <th scope="col">Goat</th>
+                                                <th scope="col">Chicken</th>
+                                                <th scope="col">Duck</th>
+                                                <th scope="col">Fish</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM livestockvolume;";
+                                            $fetch_query = "SELECT * FROM livestockvolume;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $totalCattleVolume = $totalSwineVolume = $totalCarabaoVolume = $totalGoatVolume = $totalChickenVolume = $totalDuckVolume = $totalFishVolume = 0;
+                                            $totalCattleVolume = $totalSwineVolume = $totalCarabaoVolume = $totalGoatVolume = $totalChickenVolume = $totalDuckVolume = $totalFishVolume = 0;
 
-                                        $labels = [];
-                                        $cattleData = [];
-                                        $swineData = [];
-                                        $carabaoData = [];
-                                        $goatData = [];
-                                        $chickenData = [];
-                                        $duckData = [];
-                                        $fishData = [];
+                                            $labels = [];
+                                            $cattleData = [];
+                                            $swineData = [];
+                                            $carabaoData = [];
+                                            $goatData = [];
+                                            $chickenData = [];
+                                            $duckData = [];
+                                            $fishData = [];
 
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
 
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalCattleVolume += $row['cattle_volume'];
-                                                $totalSwineVolume += $row['swine_volume'];
-                                                $totalCarabaoVolume += $row['carabao_volume'];
-                                                $totalGoatVolume += $row['goat_volume'];
-                                                $totalChickenVolume += $row['chicken_volume'];
-                                                $totalDuckVolume += $row['duck_volume'];
-                                                $totalFishVolume += $row['fish_volume'];
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $totalCattleVolume += $row['cattle_volume'];
+                                                    $totalSwineVolume += $row['swine_volume'];
+                                                    $totalCarabaoVolume += $row['carabao_volume'];
+                                                    $totalGoatVolume += $row['goat_volume'];
+                                                    $totalChickenVolume += $row['chicken_volume'];
+                                                    $totalDuckVolume += $row['duck_volume'];
+                                                    $totalFishVolume += $row['fish_volume'];
 
-                                                $labels[] = $row['municipality_name'];
-                                                $cattleData[] = $row['cattle_volume'];
-                                                $swineData[] = $row['swine_volume'];
-                                                $carabaoData[] = $row['carabao_volume'];
-                                                $goatData[] = $row['goat_volume'];
-                                                $chickenData[] = $row['chicken_volume'];
-                                                $duckData[] = $row['duck_volume'];
-                                                $fishData[] = $row['fish_volume'];
+                                                    $labels[] = $row['municipality_name'];
+                                                    $cattleData[] = $row['cattle_volume'];
+                                                    $swineData[] = $row['swine_volume'];
+                                                    $carabaoData[] = $row['carabao_volume'];
+                                                    $goatData[] = $row['goat_volume'];
+                                                    $chickenData[] = $row['chicken_volume'];
+                                                    $duckData[] = $row['duck_volume'];
+                                                    $fishData[] = $row['fish_volume'];
 
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['municipality_id']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['municipality_name']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cattle_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['swine_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['carabao_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['goat_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['chicken_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['duck_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['fish_volume'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['municipality_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['municipality_name']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['cattle_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['swine_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['carabao_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['goat_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['chicken_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['duck_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['fish_volume'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-zip="<?php echo $row['municipality_id'] ?>"
-                                                            data-name="<?php echo $row['municipality_name'] ?>"
-                                                            data-cattle="<?php echo $row['cattle_volume']; ?>"
-                                                            data-swine="<?php echo $row['swine_volume']; ?>"
-                                                            data-carabao="<?php echo $row['carabao_volume']; ?>"
-                                                            data-goat="<?php echo $row['goat_volume']; ?>"
-                                                            data-chicken="<?php echo $row['chicken_volume']; ?>"
-                                                            data-duck="<?php echo $row['duck_volume']; ?>"
-                                                            data-fish="<?php echo $row['fish_volume']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-zip="<?php echo $row['municipality_id'] ?>"
+                                                                data-name="<?php echo $row['municipality_name'] ?>"
+                                                                data-cattle="<?php echo $row['cattle_volume']; ?>"
+                                                                data-swine="<?php echo $row['swine_volume']; ?>"
+                                                                data-carabao="<?php echo $row['carabao_volume']; ?>"
+                                                                data-goat="<?php echo $row['goat_volume']; ?>"
+                                                                data-chicken="<?php echo $row['chicken_volume']; ?>"
+                                                                data-duck="<?php echo $row['duck_volume']; ?>"
+                                                                data-fish="<?php echo $row['fish_volume']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="../backend/livestock-volume-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['municipality_id']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="../backend/livestock-volume-code.php" method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['municipality_id']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </tbody>
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td></td> <!-- You may leave the Municipality cell empty for the total row -->
-                                        <td>
-                                            <?php echo number_format($totalCattleVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalSwineVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalCarabaoVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalGoatVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalChickenVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalDuckVolume, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalFishVolume, 0, '.', ','); ?>
-                                        </td><!-- You may leave the Date Updated cell empty for the total row -->
-                                        <td colspan="3"></td>
-                                        <!-- You may leave the Update and Delete cells empty for the total row -->
-                                    </tr>
+                                            ?>
+                                        </tbody>
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <!-- You may leave the Municipality cell empty for the total row -->
+                                            <td>
+                                                <?php echo number_format($totalCattleVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalSwineVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalCarabaoVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalGoatVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalChickenVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalDuckVolume, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalFishVolume, 0, '.', ','); ?>
+                                            </td><!-- You may leave the Date Updated cell empty for the total row -->
+                                            <td colspan="3"></td>
+                                            <!-- You may leave the Update and Delete cells empty for the total row -->
+                                        </tr>
 
 
 
-                                </table>
-
+                                    </table>
+                                </div>
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalVolumeModal()"
                                         data-toggle="modal" data-target="#submitTotalVolumeModal">Submit Total Count

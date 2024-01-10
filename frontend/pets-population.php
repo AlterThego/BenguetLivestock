@@ -34,9 +34,6 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
 
-
-
-
     <title>Pet Population</title>
 </head>
 
@@ -61,7 +58,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -85,106 +82,108 @@ session_start();
                                     </button>
 
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ZIP Code</th>
-                                            <th scope="col">Municipality</th>
-                                            <th scope="col">Dog</th>
-                                            <th scope="col">Cat</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">ZIP Code</th>
+                                                <th scope="col">Municipality</th>
+                                                <th scope="col">Dog</th>
+                                                <th scope="col">Cat</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM petspopulation;";
+                                            $fetch_query = "SELECT * FROM petspopulation;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $labels = [];
-                                        $dogData = [];
-                                        $catData = [];
+                                            $labels = [];
+                                            $dogData = [];
+                                            $catData = [];
 
-                                        $totalCat = $totalDog = 0;
+                                            $totalCat = $totalDog = 0;
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalDog += $row['dog_count'];
-                                                $totalCat += $row['cat_count'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $totalDog += $row['dog_count'];
+                                                    $totalCat += $row['cat_count'];
 
-                                                $labels[] = $row['municipality_name'];
-                                                $dogData[] = $row['dog_count'];
-                                                $catData[] = $row['cat_count'];
+                                                    $labels[] = $row['municipality_name'];
+                                                    $dogData[] = $row['dog_count'];
+                                                    $catData[] = $row['cat_count'];
 
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['municipality_id']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['municipality_name']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cat_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['municipality_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['municipality_name']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['cat_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-zip="<?php echo $row['municipality_id'] ?>"
-                                                            data-name="<?php echo $row['municipality_name'] ?>"
-                                                            data-dog="<?php echo $row['dog_count']; ?>"
-                                                            data-cat="<?php echo $row['cat_count']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-zip="<?php echo $row['municipality_id'] ?>"
+                                                                data-name="<?php echo $row['municipality_name'] ?>"
+                                                                data-dog="<?php echo $row['dog_count']; ?>"
+                                                                data-cat="<?php echo $row['cat_count']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="../backend/pets-population-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['municipality_id']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="../backend/pets-population-code.php" method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['municipality_id']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
 
-                                        ?>
+                                            ?>
 
-                                    </tbody>
+                                        </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td></td>
-                                        <td>
-                                            <?php echo number_format($totalDog, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalCat, 0, '.', ','); ?>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2"></td>
-                                    </tr>
-
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                <?php echo number_format($totalDog, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalCat, 0, '.', ','); ?>
+                                            </td>
+                                            <td></td>
+                                            <td colspan="2"></td>
+                                        </tr>
 
 
-                                </table>
+
+                                    </table>
+                                </div>
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalModal()"
                                         data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
@@ -199,7 +198,7 @@ session_start();
                 <!-- Visual Representation -->
                 <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <canvas class="canvas" id="populationChart"></canvas>
                             </div>
@@ -267,7 +266,6 @@ session_start();
             ],
             autoWidth: false,
             search: true,
-            // info: false,
             paging: false,
             order: [[1, 'asc']],
             dom: 'Bfrtip',

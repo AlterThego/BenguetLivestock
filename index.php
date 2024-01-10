@@ -94,7 +94,6 @@
 
 
 
-
                         <!-- SVG Map -->
                         <div class="col-md-6 p-3 justify-content-center">
                             <div class="card text-center mr-3">

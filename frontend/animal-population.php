@@ -80,165 +80,169 @@ session_start();
                                         Add data
                                     </button>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ZIP Code</th>
-                                            <th scope="col">Municipality</th>
-                                            <th scope="col">Carabao</th>
-                                            <th scope="col">Cattle</th>
-                                            <th scope="col">Swine</th>
-                                            <th scope="col">Goat</th>
-                                            <th scope="col">Sheep</th>
-                                            <th scope="col">Horse</th>
-                                            <th scope="col"><i>Dog</i></th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">ZIP Code</th>
+                                                <th scope="col">Municipality</th>
+                                                <th scope="col">Carabao</th>
+                                                <th scope="col">Cattle</th>
+                                                <th scope="col">Swine</th>
+                                                <th scope="col">Goat</th>
+                                                <th scope="col">Sheep</th>
+                                                <th scope="col">Horse</th>
+                                                <th scope="col"><i>Dog</i></th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM animalpopulation;";
+                                            $fetch_query = "SELECT * FROM animalpopulation;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $totalCarabao = $totalCattle = $totalSwine = $totalGoat = $totalDog = $totalSheep = $totalHorse = 0;
+                                            $totalCarabao = $totalCattle = $totalSwine = $totalGoat = $totalDog = $totalSheep = $totalHorse = 0;
 
-                                        $labels = [];
-                                        $carabaoData = [];
-                                        $cattleData = [];
-                                        $swineData = [];
-                                        $goatData = [];
-                                        $sheepData = [];
-                                        $horseData = [];
-                                        $dogData = [];
+                                            $labels = [];
+                                            $carabaoData = [];
+                                            $cattleData = [];
+                                            $swineData = [];
+                                            $goatData = [];
+                                            $sheepData = [];
+                                            $horseData = [];
+                                            $dogData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalCarabao += $row['carabao_count'];
-                                                $totalCattle += $row['cattle_count'];
-                                                $totalSwine += $row['swine_count'];
-                                                $totalGoat += $row['goat_count'];
-                                                $totalSheep += $row['sheep_count'];
-                                                $totalHorse += $row['horse_count'];
-                                                $totalDog += $row['dog_count'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $totalCarabao += $row['carabao_count'];
+                                                    $totalCattle += $row['cattle_count'];
+                                                    $totalSwine += $row['swine_count'];
+                                                    $totalGoat += $row['goat_count'];
+                                                    $totalSheep += $row['sheep_count'];
+                                                    $totalHorse += $row['horse_count'];
+                                                    $totalDog += $row['dog_count'];
 
-                                                $labels[] = $row['municipality_name'];
-                                                $carabaoData[] = $row['carabao_count'];
-                                                $cattleData[] = $row['cattle_count'];
-                                                $swineData[] = $row['swine_count'];
-                                                $goatData[] = $row['goat_count'];
-                                                $sheepData[] = $row['sheep_count'];
-                                                $horseData[] = $row['horse_count'];
-                                                $dogData[] = $row['dog_count'];
+                                                    $labels[] = $row['municipality_name'];
+                                                    $carabaoData[] = $row['carabao_count'];
+                                                    $cattleData[] = $row['cattle_count'];
+                                                    $swineData[] = $row['swine_count'];
+                                                    $goatData[] = $row['goat_count'];
+                                                    $sheepData[] = $row['sheep_count'];
+                                                    $horseData[] = $row['horse_count'];
+                                                    $dogData[] = $row['dog_count'];
 
 
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['municipality_id']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['municipality_name']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['carabao_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['swine_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td><i>
-                                                            <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
-                                                        </i>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['municipality_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['municipality_name']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['carabao_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['swine_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td><i>
+                                                                <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                            </i>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-zip="<?php echo $row['municipality_id'] ?>"
-                                                            data-name="<?php echo $row['municipality_name'] ?>"
-                                                            data-carabao="<?php echo $row['carabao_count']; ?>"
-                                                            data-cattle="<?php echo $row['cattle_count']; ?>"
-                                                            data-swine="<?php echo $row['swine_count']; ?>"
-                                                            data-goat="<?php echo $row['goat_count']; ?>"
-                                                            data-sheep="<?php echo $row['sheep_count']; ?>"
-                                                            data-horse="<?php echo $row['horse_count']; ?>"
-                                                            data-dog="<?php echo $row['dog_count']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-zip="<?php echo $row['municipality_id'] ?>"
+                                                                data-name="<?php echo $row['municipality_name'] ?>"
+                                                                data-carabao="<?php echo $row['carabao_count']; ?>"
+                                                                data-cattle="<?php echo $row['cattle_count']; ?>"
+                                                                data-swine="<?php echo $row['swine_count']; ?>"
+                                                                data-goat="<?php echo $row['goat_count']; ?>"
+                                                                data-sheep="<?php echo $row['sheep_count']; ?>"
+                                                                data-horse="<?php echo $row['horse_count']; ?>"
+                                                                data-dog="<?php echo $row['dog_count']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="../backend/animal-population-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['municipality_id']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="../backend/animal-population-code.php" method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['municipality_id']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
 
-                                        ?>
+                                            ?>
 
-                                    </tbody>
+                                        </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td></td> <!-- You may leave the Municipality cell empty for the total row -->
-                                        <td>
-                                            <?php echo number_format($totalCarabao, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalCattle, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalSwine, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalGoat, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalSheep, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalHorse, 0, '.', ','); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo number_format($totalDog, 0, '.', ','); ?>
-                                        </td>
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <!-- You may leave the Municipality cell empty for the total row -->
+                                            <td>
+                                                <?php echo number_format($totalCarabao, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalCattle, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalSwine, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalGoat, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalSheep, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalHorse, 0, '.', ','); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($totalDog, 0, '.', ','); ?>
+                                            </td>
 
-                                        <td></td> <!-- You may leave the Date Updated cell empty for the total row -->
-                                        <td colspan="2"></td>
-                                        <!-- You may leave the Update and Delete cells empty for the total row -->
-                                    </tr>
+                                            <td></td>
+                                            <!-- You may leave the Date Updated cell empty for the total row -->
+                                            <td colspan="2"></td>
+                                            <!-- You may leave the Update and Delete cells empty for the total row -->
+                                        </tr>
 
 
 
-                                </table>
+                                    </table>
+                                </div>
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalModal()"
                                         data-toggle="modal" data-target="#submitTotalModal">Submit Total Count

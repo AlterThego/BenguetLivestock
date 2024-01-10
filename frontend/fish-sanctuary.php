@@ -74,7 +74,7 @@ session_start();
                             unset($_SESSION['status']);
                         }
                         ?>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <div class="card-header mb-3">
                                     <h4 class="text-center font-weight-bold">Fish Sanctuaries Estimated Area (Kapangan
@@ -88,94 +88,96 @@ session_start();
                                     </button>
 
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Barangay</th>
-                                            <th scope="col">Area (km/s)</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Barangay</th>
+                                                <th scope="col">Area (km/s)</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM fishsanctuary;";
+                                            $fetch_query = "SELECT * FROM fishsanctuary;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $labels = [];
-                                        $area = [];
+                                            $labels = [];
+                                            $area = [];
 
-                                        $totalArea = 0;
+                                            $totalArea = 0;
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $totalArea += $row['area'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $totalArea += $row['area'];
 
-                                                $labels[] = $row['barangay_name'];
-                                                $areaData[] = $row['area'];
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['barangay_id']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['barangay_name'];
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo sprintf("%.2f", $row['area']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    $labels[] = $row['barangay_name'];
+                                                    $areaData[] = $row['area'];
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['barangay_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['barangay_name'];
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['area']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-warning btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal"
-                                                            data-id="<?php echo $row['barangay_id'] ?>"
-                                                            data-name="<?php echo $row['barangay_name'] ?>"
-                                                            data-area="<?php echo $row['area']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="../backend/fish-sanctuary-code.php" method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['barangay_id']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-id="<?php echo $row['barangay_id'] ?>"
+                                                                data-name="<?php echo $row['barangay_name'] ?>"
+                                                                data-area="<?php echo $row['area']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="../backend/fish-sanctuary-code.php" method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['barangay_id']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
 
-                                        ?>
+                                            ?>
 
-                                    </tbody>
+                                        </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td></td>
-                                        <td>
-                                            <?php echo sprintf("%.2f", $totalArea); ?>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="2"></td>
-                                    </tr>
-
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $totalArea); ?>
+                                            </td>
+                                            <td></td>
+                                            <td colspan="2"></td>
+                                        </tr>
 
 
-                                </table>
+
+                                    </table>
+                                </div>
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalModal()"
                                         data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
@@ -185,7 +187,38 @@ session_start();
 
                         </div>
 
-                        <div class="col-md-6">
+                    </div>
+                </div>
+
+                <!-- Main Table Visual Representation -->
+                <div class="container-fluid mt-1">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <canvas class="canvas" id="fishSanctuaryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Table -->
+                <div class="container-fluid mt-3">
+                    <div class="row justify-content-center">
+                        <?php
+                        if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+                            ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <?php echo $_SESSION['status']; ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <?php
+                            unset($_SESSION['status']);
+                        }
+                        ?>
+
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -210,112 +243,103 @@ session_start();
                                     </button> -->
 
                                 </div>
-                                <table class="display table-bordered table-responsive" id="yearly-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Area</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="yearly-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Area</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM yearlyfishsanctuary;";
+                                            $fetch_query = "SELECT * FROM yearlyfishsanctuary;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $yearlyArea = 0;
+                                            $yearlyArea = 0;
 
-                                        $yearlyLabel =[];
-                                        $yearlyData =[];
+                                            $yearlyLabel = [];
+                                            $yearlyData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $yearlyArea += $row['total_area'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $yearlyArea += $row['total_area'];
 
-                                                $yearlyLabel[] =$row['year'];
-                                                $yearlyData[] =$row['total_area'];
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['year']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo sprintf("%.2f", $row['total_area']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    $yearlyLabel[] = $row['year'];
+                                                    $yearlyData[] = $row['total_area'];
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['year']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['total_area']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update-yearly btn-success btn-sm"
-                                                            data-toggle="modal" data-target="#updateModalYearly"
-                                                            data-year="<?php echo $row['year'] ?>"
-                                                            data-total-area="<?php echo $row['total_area']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update-yearly btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModalYearly"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-total-area="<?php echo $row['total_area']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-
-                                                    <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/fish-sanctuary-code.php"
-                                                            method="post">
-                                                            <input type="hidden" name="id_yearly"
-                                                                value="<?php echo $row['year']; ?>">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-delete-yearly btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteConfirmationModalYearly">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
+
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            <form action="/benguetlivestock/backend/fish-sanctuary-code.php"
+                                                                method="post">
+                                                                <input type="hidden" name="id_yearly"
+                                                                    value="<?php echo $row['year']; ?>">
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-delete-yearly btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteConfirmationModalYearly">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
 
 
-                                                </tr>
-                                                <?php
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
 
-                                        ?>
+                                            ?>
 
-                                    </tbody>
+                                        </tbody>
 
-                                    <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                        <td>Total</td>
-                                        <td>
-                                            <?php echo sprintf("%.2f", $yearlyArea); ?>
-                                        </td>
-                                        <td></td>
-                                        <td colspan="1"></td>
-                                    </tr>
-
+                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
+                                            <td>Total</td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $yearlyArea); ?>
+                                            </td>
+                                            <td></td>
+                                            <td colspan="1"></td>
+                                        </tr>
 
 
-                                </table>
+
+                                    </table>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
 
-                <!-- Visual Representation -->
-                <div class="container-fluid mt-1">
-                    <div class="row justify-content-center ">
-                        <div class="col-md-12">
-                            <div class="card p-3">
-                                <canvas class="canvas" id="fishSanctuaryChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Visual Representation -->
+                <!-- Secondary Table Visual Representation -->
                 <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">

@@ -34,7 +34,7 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-    <title>tst</title>
+    <title>Commerical, Cattle, and Piggery Farms</title>
 </head>
 
 <body>
@@ -48,7 +48,7 @@ session_start();
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
                 <button class="btn" type="button">
-                    <i class="fa-solid fa-bars"></i>
+                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
                 </button>
             </nav>
 
@@ -56,7 +56,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -78,87 +78,91 @@ session_start();
                                         Add data
                                     </button>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Poultry Farms</th>
-                                            <th scope="col">Cattle Farms</th>
-                                            <th scope="col">Piggery Farms</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Poultry Farms</th>
+                                                <th scope="col">Cattle Farms</th>
+                                                <th scope="col">Piggery Farms</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM commercialpoultry;";
+                                            $fetch_query = "SELECT * FROM commercialpoultry;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $yearData = [];
-                                        $poultryData = [];
-                                        $cattleData = [];
-                                        $poultryData = [];
+                                            $yearData = [];
+                                            $poultryData = [];
+                                            $cattleData = [];
+                                            $poultryData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $yearData[] = $row['year'];
-                                                $poultryData[] = $row['poultry_count'];
-                                                $cattleData[] = $row['cattle_count'];
-                                                $piggeryData[] = $row['piggery_count'];
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $yearData[] = $row['year'];
+                                                    $poultryData[] = $row['poultry_count'];
+                                                    $cattleData[] = $row['cattle_count'];
+                                                    $piggeryData[] = $row['piggery_count'];
 
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['year']; ?>
-                                                    </td>
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['year']; ?>
+                                                        </td>
 
-                                                    <td>
-                                                        <?php echo number_format($row['poultry_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['piggery_count'], 0, '.', ','); ?>
-                                                    </td>
+                                                        <td>
+                                                            <?php echo number_format($row['poultry_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['piggery_count'], 0, '.', ','); ?>
+                                                        </td>
 
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update btn-success btn-sm" data-toggle="modal"
-                                                            data-target="#updateModal" data-year="<?php echo $row['year'] ?>"
-                                                            data-year="<?php echo $row['year'] ?>"
-                                                            data-poultry="<?php echo $row['poultry_count'] ?>"
-                                                            data-cattle="<?php echo $row['cattle_count'] ?>"
-                                                            data-piggery="<?php echo $row['piggery_count'] ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-poultry="<?php echo $row['poultry_count'] ?>"
+                                                                data-cattle="<?php echo $row['cattle_count'] ?>"
+                                                                data-piggery="<?php echo $row['piggery_count'] ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/commercial-poultry-code.php"
-                                                            method="post">
-                                                            <input type="hidden" name="id" value="<?php echo $row['year']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
 
-                                </table>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="/benguetlivestock/backend/commercial-poultry-code.php"
+                                                                method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['year']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +171,7 @@ session_start();
                 <!-- Visual Representation -->
                 <div class="container-fluid mb-5 mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <canvas class="canvas" id="commercialPoultryChart"></canvas>
                             </div>
@@ -231,7 +235,7 @@ session_start();
             lengthChange: false,
             columnDefs: [
                 { targets: [5, 6], orderable: false },
-                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
+                { "className": "dt-center", "targets": "_all" }
             ],
             columns: [
                 { "width": "14.29%" },
@@ -240,17 +244,49 @@ session_start();
                 { "width": "14.29%" },
                 { "width": "14.29%" },
                 { "width": "14.29%" },
-                { "width": "14.29%" },
+                { "width": "14.29%" }
             ],
             autoWidth: false,
             search: true,
-            // info: false,
-            paging: false,
+            paging: true,
+            dom: 'Bfrtip',
+            order: [[0, 'desc']],
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4]
+                    }
+                },
+                'print'
+            ],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "drawCallback": function (settings) {
                 // Manually set the font size for the DataTable
                 $('#main-table').css('font-size', '14px'); // Adjust the size as needed
-            },
+            }
+
         });
+
+
     </script>
 
     <script>

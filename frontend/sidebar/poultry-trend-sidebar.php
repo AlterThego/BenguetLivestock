@@ -135,7 +135,7 @@
                         <a href="/BenguetLivestock/frontend/veterinary-poultry.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/farm_supplies.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Veterinary
-                                and Poultry Farm Supplies</a>
+                            and Poultry Farm Supplies</a>
                     </li>
                 </ul>
             </li>
@@ -148,15 +148,16 @@
                     Fishery Data
                 </a>
                 <ul id="fish" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
+                    <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/fish-sanctuary.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/fish_sanctuaries.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Fish
                             Sanctuaries/Estimated Area</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_fish.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Fish
+                        <a href="/benguetlivestock/frontend/fish-production.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/yearly_fish.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Fish
                             Production</a>
                     </li>
                 </ul>

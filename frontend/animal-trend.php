@@ -81,108 +81,110 @@ session_start();
                                         Add data
                                     </button>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Carabao</th>
-                                            <th scope="col">Cattle</th>
-                                            <th scope="col">Swine</th>
-                                            <th scope="col">Goat</th>
-                                            <th scope="col">Sheep</th>
-                                            <th scope="col">Horse</th>
-                                            <th scope="col">Dog</th>
-                                            <th scope="col" style="color: red;">Total</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th class="text-center" scope="col">Update</th>
-                                            <th class="text-center" scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Carabao</th>
+                                                <th scope="col">Cattle</th>
+                                                <th scope="col">Swine</th>
+                                                <th scope="col">Goat</th>
+                                                <th scope="col">Sheep</th>
+                                                <th scope="col">Horse</th>
+                                                <th scope="col">Dog</th>
+                                                <th scope="col" style="color: red;">Total</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th class="text-center" scope="col">Update</th>
+                                                <th class="text-center" scope="col">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM animaltrend";
+                                            $fetch_query = "SELECT * FROM animaltrend";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['livestock_year']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['carabao_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['swine_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
-                                                    </td>
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['livestock_year']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['carabao_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['cattle_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['swine_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['goat_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['sheep_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['horse_count'], 0, '.', ','); ?>
+                                                        </td>
 
-                                                    <td><i>
-                                                            <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
-                                                        </i>
-                                                    </td>
-                                                    <td style="color: red; font-weight:bold;">
-                                                        <!-- Total of layers, broiler, native, and fighting -->
-                                                        <?php
-                                                        $total = $row['carabao_count'] + $row['cattle_count'] + $row['swine_count'] + $row['goat_count']
-                                                            + $row['dog_count'] + $row['sheep_count'] + $row['horse_count'];
-                                                        echo number_format($total, 0, '.', ',');
-                                                        ?>
-                                                    </td>
+                                                        <td><i>
+                                                                <?php echo number_format($row['dog_count'], 0, '.', ','); ?>
+                                                            </i>
+                                                        </td>
+                                                        <td style="color: red; font-weight:bold;">
+                                                            <!-- Total of layers, broiler, native, and fighting -->
+                                                            <?php
+                                                            $total = $row['carabao_count'] + $row['cattle_count'] + $row['swine_count'] + $row['goat_count']
+                                                                + $row['dog_count'] + $row['sheep_count'] + $row['horse_count'];
+                                                            echo number_format($total, 0, '.', ',');
+                                                            ?>
+                                                        </td>
 
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class=" text-center">
-                                                        <button class="btn btn-update btn-success btn-sm center"
-                                                            data-toggle="modal" data-target="#updateModal"
-                                                            data-year="<?php echo $row['livestock_year']; ?>"
-                                                            data-carabao="<?php echo $row['carabao_count']; ?>"
-                                                            data-cattle="<?php echo $row['cattle_count']; ?>"
-                                                            data-swine="<?php echo $row['swine_count']; ?>"
-                                                            data-goat="<?php echo $row['goat_count']; ?>"
-                                                            data-dog="<?php echo $row['dog_count']; ?>"
-                                                            data-sheep="<?php echo $row['sheep_count']; ?>"
-                                                            data-horse="<?php echo $row['horse_count']; ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">
-                                                            Update
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/animal-trend-code.php"
-                                                            method="post">
-                                                            <input type="hidden" name="id"
-                                                                value="<?php echo $row['livestock_year']; ?>">
-                                                            <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                Delete
+                                                        <td class=" text-center">
+                                                            <button class="btn btn-update btn-success btn-sm center"
+                                                                data-toggle="modal" data-target="#updateModal"
+                                                                data-year="<?php echo $row['livestock_year']; ?>"
+                                                                data-carabao="<?php echo $row['carabao_count']; ?>"
+                                                                data-cattle="<?php echo $row['cattle_count']; ?>"
+                                                                data-swine="<?php echo $row['swine_count']; ?>"
+                                                                data-goat="<?php echo $row['goat_count']; ?>"
+                                                                data-dog="<?php echo $row['dog_count']; ?>"
+                                                                data-sheep="<?php echo $row['sheep_count']; ?>"
+                                                                data-horse="<?php echo $row['horse_count']; ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">
+                                                                Update
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
+
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="/benguetlivestock/backend/animal-trend-code.php"
+                                                                method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['livestock_year']; ?>">
+                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
+                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -196,206 +198,208 @@ session_start();
                                 <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
                                 <p class="text-left font-weight-italicized mb-3">
                                     <b>Note:</b> This prediction for animal population is based on linear regression
-                                    analysis. It's important to understand that this is not a guaranteed forecast but
+                                    analysis. It's important to understand that this is not a guaranteed forecast
+                                    but
                                     rather an estimate using statistical methods.
                                 </p>
-                                <table class="display table-bordered table-responsive" id="predicted-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Possible Carabao Count</th>
-                                            <th scope="col">Possible Cattle Count</th>
-                                            <th scope="col">Possible Swine Count</th>
-                                            <th scope="col">Possible Goat Count</th>
-                                            <th scope="col">Possible Sheep Count</th>
-                                            <th scope="col">Possible Horse Count</th>
-                                            <th scope="col">Possible Dog Count</th>
-                                            <th scope="col">Possible Total Animal Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="predicted-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Possible Carabao Count</th>
+                                                <th scope="col">Possible Cattle Count</th>
+                                                <th scope="col">Possible Swine Count</th>
+                                                <th scope="col">Possible Goat Count</th>
+                                                <th scope="col">Possible Sheep Count</th>
+                                                <th scope="col">Possible Horse Count</th>
+                                                <th scope="col">Possible Dog Count</th>
+                                                <th scope="col">Possible Total Animal Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        try {
-                                            // Analyze trends and predict the next year's counts
-                                            $max_year = 0;
-                                            $counts = array();
+                                            try {
+                                                // Analyze trends and predict the next year's counts
+                                                $max_year = 0;
+                                                $counts = array();
 
-                                            $fetch_query = "SELECT * FROM animaltrend";
-                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                                $fetch_query = "SELECT * FROM animaltrend";
+                                                $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            if ($fetch_query_run === false) {
-                                                throw new Exception("Error fetching data: " . mysqli_error($connection));
-                                            }
-
-                                            if (mysqli_num_rows($fetch_query_run) > 0) {
-                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    // Store counts for analysis
-                                                    $counts[$row['livestock_year']] = array(
-                                                        'carabao' => $row['carabao_count'],
-                                                        'cattle' => $row['cattle_count'],
-                                                        'swine' => $row['swine_count'],
-                                                        'goat' => $row['goat_count'],
-                                                        'sheep' => $row['sheep_count'],
-                                                        'horse' => $row['horse_count'],
-                                                        'dog' => $row['dog_count'],
-                                                    );
-
-                                                    // Find the maximum year
-                                                    $max_year = max($max_year, $row['livestock_year']);
-
+                                                if ($fetch_query_run === false) {
+                                                    throw new Exception("Error fetching data: " . mysqli_error($connection));
                                                 }
-                                            } else {
-                                                throw new Exception("Insufficient data for analysis.");
+
+                                                if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                        // Store counts for analysis
+                                                        $counts[$row['livestock_year']] = array(
+                                                            'carabao' => $row['carabao_count'],
+                                                            'cattle' => $row['cattle_count'],
+                                                            'swine' => $row['swine_count'],
+                                                            'goat' => $row['goat_count'],
+                                                            'sheep' => $row['sheep_count'],
+                                                            'horse' => $row['horse_count'],
+                                                            'dog' => $row['dog_count'],
+                                                        );
+
+                                                        // Find the maximum year
+                                                        $max_year = max($max_year, $row['livestock_year']);
+
+                                                    }
+                                                } else {
+                                                    throw new Exception("Insufficient data for analysis.");
+                                                }
+
+                                                // Linear regression for carabao count
+                                                if (count($counts) > 1) {
+                                                    $carabao_values = array_column($counts, 'carabao');
+                                                    $carabao_regression = linearRegression(array_keys($counts), $carabao_values);
+                                                    $predicted_carabao = $carabao_regression['slope'] * ($max_year + 1) + $carabao_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on dog analysis.");
+                                                }
+
+                                                // Linear regression for cattle count
+                                                if (count($counts) > 1) {
+                                                    $cattle_values = array_column($counts, 'cattle');
+                                                    $cattle_regression = linearRegression(array_keys($counts), $cattle_values);
+                                                    $predicted_cattle = $cattle_regression['slope'] * ($max_year + 1) + $cattle_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Linear regression for swine count
+                                                if (count($counts) > 1) {
+                                                    $swine_values = array_column($counts, 'swine');
+                                                    $swine_regression = linearRegression(array_keys($counts), $swine_values);
+                                                    $predicted_swine = $swine_regression['slope'] * ($max_year + 1) + $swine_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Linear regression for goat count
+                                                if (count($counts) > 1) {
+                                                    $goat_values = array_column($counts, 'goat');
+                                                    $goat_regression = linearRegression(array_keys($counts), $goat_values);
+                                                    $predicted_goat = $goat_regression['slope'] * ($max_year + 1) + $goat_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Linear regression for sheep count
+                                                if (count($counts) > 1) {
+                                                    $sheep_values = array_column($counts, 'sheep');
+                                                    $sheep_regression = linearRegression(array_keys($counts), $sheep_values);
+                                                    $predicted_sheep = $sheep_regression['slope'] * ($max_year + 1) + $sheep_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Linear regression for horse count
+                                                if (count($counts) > 1) {
+                                                    $horse_values = array_column($counts, 'horse');
+                                                    $horse_regression = linearRegression(array_keys($counts), $horse_values);
+                                                    $predicted_horse = $horse_regression['slope'] * ($max_year + 1) + $horse_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Linear regression for dog count
+                                                if (count($counts) > 1) {
+                                                    $dog_values = array_column($counts, 'dog');
+                                                    $dog_regression = linearRegression(array_keys($counts), $dog_values);
+                                                    $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Predicted data for next year
+                                                $predicted_year = $max_year + 1;
+                                            } catch (Exception $e) {
+                                                echo "Error: " . $e->getMessage();
+                                            }
+                                            ?>
+
+                                            <?php
+                                            // Function to calculate linear regression
+                                            function linearRegression($x, $y)
+                                            {
+                                                $n = count($x);
+
+                                                // Check if there are enough data points for regression
+                                                $minDataPoints = 2;
+                                                if ($n < $minDataPoints) {
+                                                    return null; // Return null to indicate insufficient data points
+                                                }
+
+                                                $sumX = array_sum($x);
+                                                $sumY = array_sum($y);
+                                                $sumXY = 0;
+                                                $sumX2 = 0;
+
+                                                for ($i = 0; $i < $n; $i++) {
+                                                    $sumXY += ($x[$i] * $y[$i]);
+                                                    $sumX2 += ($x[$i] * $x[$i]);
+                                                }
+
+                                                // Check if the denominator is zero
+                                                $denominator = $n * $sumX2 - $sumX * $sumX;
+                                                if ($denominator == 0) {
+                                                    return null; // Return null to indicate inability to perform linear regression
+                                                }
+
+                                                $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
+                                                $intercept = ($sumY - $slope * $sumX) / $n;
+
+                                                return array('slope' => $slope, 'intercept' => $intercept);
                                             }
 
-                                            // Linear regression for carabao count
-                                            if (count($counts) > 1) {
-                                                $carabao_values = array_column($counts, 'carabao');
-                                                $carabao_regression = linearRegression(array_keys($counts), $carabao_values);
-                                                $predicted_carabao = $carabao_regression['slope'] * ($max_year + 1) + $carabao_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on dog analysis.");
-                                            }
+                                            ?>
 
-                                            // Linear regression for cattle count
-                                            if (count($counts) > 1) {
-                                                $cattle_values = array_column($counts, 'cattle');
-                                                $cattle_regression = linearRegression(array_keys($counts), $cattle_values);
-                                                $predicted_cattle = $cattle_regression['slope'] * ($max_year + 1) + $cattle_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
+                                            <tr>
+                                                <td>
+                                                    <?php echo isset($predicted_year) ? $predicted_year : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_carabao) ? number_format($predicted_carabao, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_cattle) ? number_format($predicted_cattle, 0, '.', ',') : "N/A"; ?>
+                                                </td>
 
-                                            // Linear regression for swine count
-                                            if (count($counts) > 1) {
-                                                $swine_values = array_column($counts, 'swine');
-                                                $swine_regression = linearRegression(array_keys($counts), $swine_values);
-                                                $predicted_swine = $swine_regression['slope'] * ($max_year + 1) + $swine_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
+                                                <td>
+                                                    <?php echo isset($predicted_swine) ? number_format($predicted_swine, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_goat) ? number_format($predicted_goat, 0, '.', ',') : "N/A"; ?>
+                                                </td>
 
-                                            // Linear regression for goat count
-                                            if (count($counts) > 1) {
-                                                $goat_values = array_column($counts, 'goat');
-                                                $goat_regression = linearRegression(array_keys($counts), $goat_values);
-                                                $predicted_goat = $goat_regression['slope'] * ($max_year + 1) + $goat_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
+                                                <td>
+                                                    <?php echo isset($predicted_sheep) ? number_format($predicted_sheep, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_horse) ? number_format($predicted_horse, 0, '.', ',') : "N/A"; ?>
+                                                </td>
 
-                                            // Linear regression for sheep count
-                                            if (count($counts) > 1) {
-                                                $sheep_values = array_column($counts, 'sheep');
-                                                $sheep_regression = linearRegression(array_keys($counts), $sheep_values);
-                                                $predicted_sheep = $sheep_regression['slope'] * ($max_year + 1) + $sheep_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
-
-                                            // Linear regression for horse count
-                                            if (count($counts) > 1) {
-                                                $horse_values = array_column($counts, 'horse');
-                                                $horse_regression = linearRegression(array_keys($counts), $horse_values);
-                                                $predicted_horse = $horse_regression['slope'] * ($max_year + 1) + $horse_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
-
-                                            // Linear regression for dog count
-                                            if (count($counts) > 1) {
-                                                $dog_values = array_column($counts, 'dog');
-                                                $dog_regression = linearRegression(array_keys($counts), $dog_values);
-                                                $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
-
-                                            // Predicted data for next year
-                                            $predicted_year = $max_year + 1;
-                                        } catch (Exception $e) {
-                                            echo "Error: " . $e->getMessage();
-                                        }
-                                        ?>
-
-                                        <?php
-                                        // Function to calculate linear regression
-                                        function linearRegression($x, $y)
-                                        {
-                                            $n = count($x);
-
-                                            // Check if there are enough data points for regression
-                                            $minDataPoints = 2;
-                                            if ($n < $minDataPoints) {
-                                                return null; // Return null to indicate insufficient data points
-                                            }
-
-                                            $sumX = array_sum($x);
-                                            $sumY = array_sum($y);
-                                            $sumXY = 0;
-                                            $sumX2 = 0;
-
-                                            for ($i = 0; $i < $n; $i++) {
-                                                $sumXY += ($x[$i] * $y[$i]);
-                                                $sumX2 += ($x[$i] * $x[$i]);
-                                            }
-
-                                            // Check if the denominator is zero
-                                            $denominator = $n * $sumX2 - $sumX * $sumX;
-                                            if ($denominator == 0) {
-                                                return null; // Return null to indicate inability to perform linear regression
-                                            }
-
-                                            $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
-                                            $intercept = ($sumY - $slope * $sumX) / $n;
-
-                                            return array('slope' => $slope, 'intercept' => $intercept);
-                                        }
-
-                                        ?>
-
-                                        <tr>
-                                            <td>
-                                                <?php echo isset($predicted_year) ? $predicted_year : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_carabao) ? number_format($predicted_carabao, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_cattle) ? number_format($predicted_cattle, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo isset($predicted_swine) ? number_format($predicted_swine, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_goat) ? number_format($predicted_goat, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo isset($predicted_sheep) ? number_format($predicted_sheep, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_horse) ? number_format($predicted_horse, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo isset($predicted_dog) ? number_format($predicted_dog, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo (isset($predicted_carabao) && isset($predicted_cattle) && isset($predicted_swine)
-                                                    && isset($predicted_goat) && isset($predicted_sheep) && isset($predicted_horse) && isset($predicted_dog))
-                                                    ? number_format($predicted_carabao + $predicted_cattle + $predicted_swine + $predicted_goat +
-                                                        $predicted_sheep + $predicted_horse + $predicted_dog, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                                <td>
+                                                    <?php echo isset($predicted_dog) ? number_format($predicted_dog, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo (isset($predicted_carabao) && isset($predicted_cattle) && isset($predicted_swine)
+                                                        && isset($predicted_goat) && isset($predicted_sheep) && isset($predicted_horse) && isset($predicted_dog))
+                                                        ? number_format($predicted_carabao + $predicted_cattle + $predicted_swine + $predicted_goat +
+                                                            $predicted_sheep + $predicted_horse + $predicted_dog, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
 
 
-                                </table>
-
+                                    </table>
+                                </div>
 
                             </div>
                         </div>

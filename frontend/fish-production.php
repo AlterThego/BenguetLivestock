@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -34,13 +33,16 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
-    <title>Veterinary and Poultry Farm Supplies</title>
+
+
+
+    <title>Fish Production</title>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <?php include_once './sidebar/veterinary-poultry-sidebar.php';
+        <?php include_once './sidebar/fish-production-sidebar.php';
         ?>
 
         <!-- Main Component -->
@@ -50,10 +52,11 @@ session_start();
                 <button class="btn" type="button">
                     <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
                 </button>
+
             </nav>
+
+
             <main class="content px-3 py-2 mb-5">
-
-
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
@@ -73,22 +76,25 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold mb-5">Veterinary
-                                        and Poultry Farm Supplies</h3>
+                                    <h3 class="text-center font-weight-bold ">Area of Fish Production</h3>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
                                     </button>
+                                    <h6 class="text-right text-sm"><i>Note: Only 1 row is allowed here (This Year)</i>
+                                    </h6>
                                 </div>
-
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="display table-bordered table-responsive" id="main-table">
                                         <thead class="thead-light">
+
                                             <tr>
-                                                <th scope="col">ZIP Code</th>
-                                                <th scope="col">Municipality</th>
-                                                <th scope="col">Number</th>
                                                 <th scope="col">Date Updated</th>
+                                                <th scope="col">Fish Pond</th>
+                                                <th scope="col">Fish Cage</th>
+                                                <th scope="col">Fish in Tank</th>
+                                                <th scope="col">Rice-Fish Culture</th>
+                                                <th scope="col">Communal Bodies of Water</th>
                                                 <th scope="col" class="text-center">Update</th>
                                                 <th scope="col" class="text-center">Delete</th>
                                             </tr>
@@ -97,54 +103,73 @@ session_start();
                                             <?php
                                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM veterinarypoultrysupplies;";
+                                            $fetch_query = "SELECT * FROM fishproduction;";
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
+                                            $totalPond = $totalTank = $totalCage = $totalRiceCulture = $totalCommunal = 0;
 
-                                            $totalVeterinary = 0;
-
-                                            $municipalityData = [];
-                                            $veterinaryData = [];
+                                            $pondData = [];
+                                            $tankData = [];
+                                            $cageData = [];
+                                            $riceCultureData = [];
+                                            $communalData = [];
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalVeterinary += $row['number'];
+                                                    $totalPond += $row['fish_pond'];
+                                                    $totalTank += $row['fish_in_tank'];
+                                                    $totalCage += $row['fish_cage'];
+                                                    $totalRiceCulture += $row['rice_fish_culture'];
+                                                    $totalCommunal += $row['communal_water'];
 
-                                                    $municipalityData[] = $row['municipality_name'];
-                                                    $veterinaryData[] = $row['number'];
+                                                    $pondData[] = $row['fish_pond'];
+                                                    $tankData[] = $row['fish_in_tank'];
+                                                    $cageData[] = $row['fish_cage'];
+                                                    $riceCultureData[] = $row['rice_fish_culture'];
+                                                    $communalData[] = $row['communal_water'];
                                                     ?>
                                                     <tr>
-                                                        <td class="text-center">
-                                                            <?php echo $row['municipality_id']; ?>
+                                                        <td style="display: none;">
+                                                            <?php echo $row['id']; ?>
                                                         </td>
-                                                        <td class="text-center">
-                                                            <?php echo $row['municipality_name']; ?>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
-                                                        </td>
-
-                                                        <td class="text-center">
+                                                        <td>
                                                             <?php echo $row['date_updated']; ?>
                                                         </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['fish_pond']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['fish_cage']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['fish_in_tank']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['rice_fish_culture']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo sprintf("%.2f", $row['communal_water']); ?>
+                                                        </td>
+
 
                                                         <td class="text-center">
                                                             <button class="btn btn-update btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModal"
-                                                                data-zip="<?php echo $row['municipality_id'] ?>"
-                                                                data-name="<?php echo $row['municipality_name'] ?>"
-                                                                data-number="<?php echo $row['number']; ?>"
+                                                                data-id="<?php echo $row['id'] ?>"
+                                                                data-pond="<?php echo $row['fish_pond']; ?>"
+                                                                data-cage="<?php echo $row['fish_cage']; ?>"
+                                                                data-tank="<?php echo $row['fish_in_tank']; ?>"
+                                                                data-rice="<?php echo $row['rice_fish_culture']; ?>"
+                                                                data-communal="<?php echo $row['communal_water']; ?>"
                                                                 data-date="<?php echo $row['date_updated']; ?>">Update
-
                                                             </button>
 
                                                         </td>
                                                         <td class="text-center">
-                                                            <form action="/benguetlivestock/backend/veterinary-poultry-code.php"
-                                                                method="post">
+                                                            <form action="../backend/fish-production-code.php" method="post">
                                                                 <input type="hidden" name="id"
-                                                                    value="<?php echo $row['municipality_id']; ?>">
+                                                                    value="<?php echo $row['id']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
                                                                     Delete
@@ -155,21 +180,35 @@ session_start();
                                                     <?php
                                                 }
                                             }
+
                                             ?>
+
                                         </tbody>
 
                                         <tr class="total-row text-center" style="font-weight: bold; color: red;">
                                             <td>Total</td>
-                                            <td></td>
                                             <td>
-                                                <?php echo number_format($totalVeterinary, 0, '.', ','); ?>
+                                                <?php echo sprintf("%.2f", $totalPond); ?>
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $totalCage); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $totalTank); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $totalRiceCulture); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo sprintf("%.2f", $totalCommunal); ?>
+                                            </td>
                                             <td colspan="2"></td>
                                         </tr>
+
+
+
                                     </table>
                                 </div>
-
                                 <div class="right">
                                     <button class="btn btn-info float-right" onclick="submitTotalModal()"
                                         data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
@@ -180,18 +219,18 @@ session_start();
                     </div>
                 </div>
 
-                <!-- Visual Representation of Main Table-->
-                <div class="container-fluid mb-5 mt-1">
+                <!-- Visual Representation -->
+                <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
-                                <canvas class="canvas" id="veterinaryPoultryChart"></canvas>
+                                <canvas class="canvas" id="fishProductionChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Yearly Veterinary and Poultry Farm Supplies -->
+                <!-- Yearly Fish Production Supplies -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
@@ -210,15 +249,18 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Yearly Veterinary and Poultry Farm
-                                        Supplies</h3>
+                                    <h3 class="text-center font-weight-bold ">Yearly Fish Production</h3>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="display table-bordered" id="yearly-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
-                                                <th scope="col">Total Number</th>
+                                                <th scope="col">Yearly Fish Pond</th>
+                                                <th scope="col">Yearly Fish Cage</th>
+                                                <th scope="col">Yearly Fish Tank</th>
+                                                <th scope="col">Yearly Rice-Fish Culture</th>
+                                                <th scope="col">Yearly Communal Bodies of Water</th>
                                                 <th scope="col">Date Added</th>
                                                 <th scope="col" class="text-center">Update</th>
                                                 <th scope="col" class="text-center">Delete</th>
@@ -228,28 +270,49 @@ session_start();
                                             <?php
                                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM yearlyveterinaryandsupplies;";
+                                            $fetch_query = "SELECT * FROM yearlyfishproduction;";
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $totalYearlyVeterinary = 0;
 
-                                            $veterinaryYearData = [];
-                                            $veterinaryNumberData = [];
+
+                                            $yearlyLabel = [];
+
+                                            $yearlyPond = [];
+                                            $yearlyCage = [];
+                                            $yearlyTank = [];
+                                            $yearlyRiceCulture = [];
+                                            $yearlyCommunal = [];
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalYearlyVeterinary += $row['veterinary_number'];
 
-                                                    $veterinaryYearData[] = $row['veterinary_year'];
-                                                    $veterinaryNumberData[] = $row['veterinary_number'];
+                                                    $yearlyLabel[] = $row['year'];
+
+                                                    $yearlyPond[] = $row['yearly_pond'];
+                                                    $yearlyCage[] = $row['yearly_cage'];
+                                                    $yearlyTank[] = $row['yearly_tank'];
+                                                    $yearlyRiceCulture[] = $row['yearly_rice_culture'];
+                                                    $yearlyCommunal[] = $row['yearly_communal'];
                                                     ?>
                                                     <tr>
                                                         <td class="text-center">
-                                                            <?php echo $row['veterinary_year']; ?>
+                                                            <?php echo $row['year']; ?>
                                                         </td>
                                                         <td class="text-center">
-                                                            <?php echo number_format($row['veterinary_number'], 0, '.', ','); ?>
+                                                            <?php echo sprintf("%.2f", $row['yearly_pond']); ?>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <?php echo sprintf("%.2f", $row['yearly_cage']); ?>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <?php echo sprintf("%.2f", $row['yearly_tank']); ?>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <?php echo sprintf("%.2f", $row['yearly_rice_culture']); ?>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <?php echo sprintf("%.2f", $row['yearly_communal']); ?>
                                                         </td>
 
                                                         <td class="text-center">
@@ -259,8 +322,12 @@ session_start();
                                                         <td class="text-center">
                                                             <button class="btn btn-update-yearly btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModalYearly"
-                                                                data-year="<?php echo $row['veterinary_year'] ?>"
-                                                                data-number="<?php echo $row['veterinary_number']; ?>"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-yearly-pond="<?php echo $row['yearly_pond']; ?>"
+                                                                data-yearly-cage="<?php echo $row['yearly_cage']; ?>"
+                                                                data-yearly-tank="<?php echo $row['yearly_tank']; ?>"
+                                                                data-yearly-rice-culture="<?php echo $row['yearly_rice_culture']; ?>"
+                                                                data-yearly-communal="<?php echo $row['yearly_communal']; ?>"
                                                                 data-date="<?php echo $row['date_updated']; ?>">Update
 
                                                             </button>
@@ -268,10 +335,10 @@ session_start();
                                                         </td>
 
                                                         <td class="text-center">
-                                                            <form action="/benguetlivestock/backend/veterinary-poultry-code.php"
+                                                            <form action="/benguetlivestock/backend/fish-production-code.php"
                                                                 method="post">
                                                                 <input type="hidden" name="id_yearly"
-                                                                    value="<?php echo $row['veterinary_year']; ?>">
+                                                                    value="<?php echo $row['year']; ?>">
                                                                 <button type="button"
                                                                     class="btn btn-danger btn-delete-yearly btn-sm"
                                                                     data-toggle="modal"
@@ -288,15 +355,6 @@ session_start();
                                             }
                                             ?>
                                         </tbody>
-
-                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                            <td>Total</td>
-                                            <td>
-                                                <?php echo number_format($totalYearlyVeterinary, 0, '.', ','); ?>
-                                            </td>
-                                            <td></td>
-                                            <td colspan="2"></td>
-                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -309,11 +367,12 @@ session_start();
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
                             <div class="card p-3">
-                                <canvas class="canvas" id="yearlyVeterinarySuppliesChart"></canvas>
+                                <canvas class="canvas" id="yearlyFishProductionChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
 
 
@@ -323,86 +382,36 @@ session_start();
     </div>
 
     <!-- Add, Delete, Update Modal -->
-    <?php include './modals/veterinary-poultry-modal.php'; ?>
+    <?php include './modals/fish-production-modal.php'; ?>
 
-    <script>
-        var ctx = document.getElementById('veterinaryPoultryChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($municipalityData); ?>,
-                datasets: [{
-                    label: 'Number of Veterinary and Poultry Farm Supplies',
-                    data: <?php echo json_encode($veterinaryData); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
 
-    <script>
-        var ctx = document.getElementById('yearlyVeterinarySuppliesChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: <?php echo json_encode($veterinaryYearData); ?>,
-                datasets: [{
-                    label: 'Yearly Number of Veterinary and Poultry Farm Supplies',
-                    data: <?php echo json_encode($veterinaryNumberData); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-    <style>
-        #maintable {
-            align-items: center;
-        }
-    </style>
-
+    <!-- Main Table -->
     <script>
         var dataTable = new DataTable('#main-table', {
             lengthChange: false,
             columnDefs: [
-                { targets: [4, 5], orderable: false },
-                { "className": "dt-center", "targets": "_all" }
+                { targets: [6, 7], orderable: false },
+                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
             ],
             columns: [
-                { "width": "16.67%" },
-                { "width": "16.67%" },
-                { "width": "16.67%" },
-                { "width": "16.67%" },
-                { "width": "16.67%" },
-                { "width": "16.67%" }
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+                { "width": "12.5%" },
+
+
             ],
             autoWidth: false,
             search: true,
+            // info: false,
             paging: false,
+            order: [[0, 'asc']],
             dom: 'Bfrtip',
-            order: [[1, 'asc']],
             buttons: [
                 {
                     extend: 'copy',
@@ -431,29 +440,79 @@ session_start();
                 'print'
             ],
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+
             "drawCallback": function (settings) {
                 // Manually set the font size for the DataTable
                 $('#main-table').css('font-size', '14px'); // Adjust the size as needed
             }
-
         });
 
+    </script>
 
+    <!-- Main Visual Representation  -->
+    <script>
+        var ctx = document.getElementById('fishProductionChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Fish Pond', 'Fish Cage', 'Fish in Tank', 'Rice-Fish Culture', 'Communcal Bodies of Water'],
+                datasets: [
+                    {
+                        label: 'Area in hectares (ha)',
+                        data: [
+                            <?php echo join(',', $pondData); ?>,
+                            <?php echo join(',', $cageData); ?>,
+                            <?php echo join(',', $tankData); ?>,
+                            <?php echo join(',', $riceCultureData); ?>,
+                            <?php echo join(',', $communalData); ?>
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 205, 86, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
 
     <script>
         var dataTable = new DataTable('#yearly-table', {
             lengthChange: false,
             columnDefs: [
-                { targets: [3, 4], orderable: false },
+                { targets: [7, 8], orderable: false },
                 { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
             ],
             columns: [
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" },
+                { "width": "11.11%" }
+
             ],
             autoWidth: false,
             search: true,
@@ -466,8 +525,78 @@ session_start();
         });
     </script>
 
+    <!-- Main Visual Representation  -->
     <script>
-        var totalVeterinary = <?php echo $totalVeterinary; ?>;
+        var ctx = document.getElementById('yearlyFishProductionChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($yearlyLabel); ?>,
+                datasets: [
+                    {
+                        label: 'Pond Area (m^s)',
+                        data: <?php echo json_encode($yearlyPond); ?>,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Cage Area (m^s)',
+                        data: <?php echo json_encode($yearlyCage); ?>,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Tank Area (m^s)',
+                        data: <?php echo json_encode($yearlyTank); ?>,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Rice Culture Area (m^s)',
+                        data: <?php echo json_encode($yearlyRiceCulture); ?>,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Communal Area (m^s)',
+                        data: <?php echo json_encode($yearlyCommunal); ?>,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        var totalPond = <?php echo $totalPond; ?>;
+        var totalCage = <?php echo $totalCage; ?>;
+        var totalTank = <?php echo $totalTank; ?>;
+        var totalRiceCulture = <?php echo $totalRiceCulture; ?>;
+        var totalCommunal = <?php echo $totalCommunal; ?>;
     </script>
 
     <script>
@@ -475,27 +604,47 @@ session_start();
         function submitTotalModal() {
             <?php
             // Assuming these variables are already defined in your PHP code
-            echo "var totalVeterinary = $totalVeterinary;\n";
+            echo "var totalPond = $totalPond;\n";
+            echo "var totalCage = $totalCage;\n";
+            echo "var totalTank = $totalTank;\n";
+            echo "var totalRiceCulture = $totalRiceCulture;\n";
+            echo "var totalCommunal = $totalCommunal;\n";
             ?>
 
             // Update the modal content
             document.getElementById('totalTableBody').innerHTML = `
     <tr>
-        <td>Total Veterinary</td>
-        <td>${totalVeterinary}</td>
+        <td>Fish Pond</td>
+        <td>${totalPond}</td>
+    </tr>
+    <tr>
+        <td>Fish Cage</td>
+        <td>${totalCage}</td>
+    </tr>
+    <tr>
+        <td>Fish in Tank</td>
+        <td>${totalTank}</td>
+    </tr>
+    <tr>
+        <td>Rice Fish Culture</td>
+        <td>${totalRiceCulture}</td>
+    </tr>
+    <tr>
+        <td>Communal Bodies of Water</td>
+        <td>${totalCommunal}</td>
     </tr>
         `;
         }
     </script>
 
+    <!-- DELETE SCRIPTS -->
     <script>
         $(document).ready(function () {
             $('.btn-delete').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDelete').data('id', id);
-                $('#confirmDelete').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
+                $('#deleteConfirmationModal').modal('show');
+                $('.modal-backdrop').remove();
             });
 
             $('#confirmDelete').click(function () {
@@ -509,20 +658,18 @@ session_start();
         function deleteData(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/veterinary-poultry-code.php',
+                url: '/benguetlivestock/backend/fish-production-code.php',
                 data: { deleteData: true, id: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/veterinary-poultry.php';
+                    window.location.href = '/benguetlivestock/frontend/fish-production.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
                 }
             });
         }
-
     </script>
-
 
     <script>
         $(document).ready(function () {
@@ -547,11 +694,11 @@ session_start();
         function deleteDataYearly(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/veterinary-poultry-code.php',
+                url: '/benguetlivestock/backend/fish-production-code.php',
                 data: { deleteDataYearly: true, id_yearly: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/veterinary-poultry.php';
+                    window.location.href = '/benguetlivestock/frontend/fish-production.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -561,17 +708,7 @@ session_start();
 
     </script>
 
-
-
-
-
-
-
-
-
-
-    <!-- JS for Update and Delete 'script.js'-->
-    <script src="/benguetlivestock/assets/js/content-js/veterinary-poultry-script.js"></script>
+    <script src="/benguetlivestock/assets/js/content-js/fish-production-script.js"></script>
 </body>
 
 </html>

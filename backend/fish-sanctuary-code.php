@@ -84,7 +84,7 @@ if (isset($_POST['savedata'])) {
                         VALUES (?, ?, ?)";
 
         $stmt = mysqli_prepare($connection, $insertQuery);
-        mysqli_stmt_bind_param($stmt, "iis", $fishYear, $totalArea, $submitDateUpdated);
+        mysqli_stmt_bind_param($stmt, "ids", $fishYear, $totalArea, $submitDateUpdated);
 
         if (mysqli_stmt_execute($stmt)) {
             session_start();
@@ -122,7 +122,7 @@ if (isset($_POST['savedata'])) {
 
     $update_query = "UPDATE yearlyfishsanctuary SET total_area=?, date_updated=? WHERE year=?";
     $stmt = mysqli_prepare($connection, $update_query);
-    mysqli_stmt_bind_param($stmt, "isi", $update_area, $update_date, $update_id);
+    mysqli_stmt_bind_param($stmt, "idi", $update_area, $update_date, $update_id);
 
     $update_query_run = mysqli_stmt_execute($stmt);
 

@@ -155,8 +155,9 @@
                             Sanctuaries/Estimated Area</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_fish.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Fish
+                        <a href="/benguetlivestock/frontend/fish-production.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/yearly_fish.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Fish
                             Production</a>
                     </li>
                 </ul>

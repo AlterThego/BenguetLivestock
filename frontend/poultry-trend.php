@@ -79,8 +79,8 @@ session_start();
                                     <a data-toggle="modal" href="#advancedOptionModal"
                                         class="btn btn-warning float-end">Advanced Options</a>
                                 </div>
-                                <div>
-                                    <table class="display table-bordered table-responsive" id="main-table">
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
@@ -187,88 +187,90 @@ session_start();
                                     analysis. It's important to understand that this is not a guaranteed forecast but
                                     rather an estimate using statistical methods.
                                 </p>
-                                <table class="display table-bordered table-responsive" id="predicted-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Possible Layers Count</th>
-                                            <th scope="col">Possible Broiler Count</th>
-                                            <th scope="col">Possible Native/ Range</th>
-                                            <th scope="col">Possible Fighting/Fancy Fowl</th>
-                                            <th scope="col">Possible Total Poultry Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="predicted-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Possible Layers Count</th>
+                                                <th scope="col">Possible Broiler Count</th>
+                                                <th scope="col">Possible Native/ Range</th>
+                                                <th scope="col">Possible Fighting/Fancy Fowl</th>
+                                                <th scope="col">Possible Total Poultry Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        // Analyze trends and predict the next year's counts
-                                        $max_year = 0;
-                                        $counts = array();
+                                            // Analyze trends and predict the next year's counts
+                                            $max_year = 0;
+                                            $counts = array();
 
-                                        $fetch_query = "SELECT * FROM poultrytrend";
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query = "SELECT * FROM poultrytrend";
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                // Store counts for analysis
-                                                $counts[$row['poultry_year']] = array(
-                                                    'layers' => $row['layers_count'],
-                                                    'broiler' => $row['broiler_count'],
-                                                    'native' => $row['native_count'],
-                                                    'fighting' => $row['fighting_count']
-                                                );
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    // Store counts for analysis
+                                                    $counts[$row['poultry_year']] = array(
+                                                        'layers' => $row['layers_count'],
+                                                        'broiler' => $row['broiler_count'],
+                                                        'native' => $row['native_count'],
+                                                        'fighting' => $row['fighting_count']
+                                                    );
 
-                                                // Find the maximum year
-                                                $max_year = max($max_year, $row['poultry_year']);
+                                                    // Find the maximum year
+                                                    $max_year = max($max_year, $row['poultry_year']);
+                                                }
                                             }
-                                        }
 
-                                        // Linear regression for layers count
-                                        $layers_values = array_column($counts, 'layers');
-                                        $layers_regression = linearRegression(array_keys($counts), $layers_values);
-                                        $predicted_layers = $layers_regression['slope'] * ($max_year + 1) + $layers_regression['intercept'];
+                                            // Linear regression for layers count
+                                            $layers_values = array_column($counts, 'layers');
+                                            $layers_regression = linearRegression(array_keys($counts), $layers_values);
+                                            $predicted_layers = $layers_regression['slope'] * ($max_year + 1) + $layers_regression['intercept'];
 
-                                        // Linear regression for broiler count
-                                        $broiler_values = array_column($counts, 'broiler');
-                                        $broiler_regression = linearRegression(array_keys($counts), $broiler_values);
-                                        $predicted_broiler = $broiler_regression['slope'] * ($max_year + 1) + $broiler_regression['intercept'];
+                                            // Linear regression for broiler count
+                                            $broiler_values = array_column($counts, 'broiler');
+                                            $broiler_regression = linearRegression(array_keys($counts), $broiler_values);
+                                            $predicted_broiler = $broiler_regression['slope'] * ($max_year + 1) + $broiler_regression['intercept'];
 
-                                        // Linear regression for native count
-                                        $native_values = array_column($counts, 'native');
-                                        $native_regression = linearRegression(array_keys($counts), $native_values);
-                                        $predicted_native = $native_regression['slope'] * ($max_year + 1) + $native_regression['intercept'];
+                                            // Linear regression for native count
+                                            $native_values = array_column($counts, 'native');
+                                            $native_regression = linearRegression(array_keys($counts), $native_values);
+                                            $predicted_native = $native_regression['slope'] * ($max_year + 1) + $native_regression['intercept'];
 
-                                        // Linear regression for fighting count
-                                        $fighting_values = array_column($counts, 'fighting');
-                                        $fighting_regression = linearRegression(array_keys($counts), $fighting_values);
-                                        $predicted_fighting = $fighting_regression['slope'] * ($max_year + 1) + $fighting_regression['intercept'];
+                                            // Linear regression for fighting count
+                                            $fighting_values = array_column($counts, 'fighting');
+                                            $fighting_regression = linearRegression(array_keys($counts), $fighting_values);
+                                            $predicted_fighting = $fighting_regression['slope'] * ($max_year + 1) + $fighting_regression['intercept'];
 
-                                        // Predicted data for next year
-                                        $predicted_year = $max_year + 1;
-                                        ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $predicted_year; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($predicted_layers, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($predicted_broiler, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($predicted_native, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($predicted_fighting, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($predicted_layers + $predicted_broiler + $predicted_native + $predicted_fighting, 0, '.', ','); ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            // Predicted data for next year
+                                            $predicted_year = $max_year + 1;
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $predicted_year; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo number_format($predicted_layers, 0, '.', ','); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo number_format($predicted_broiler, 0, '.', ','); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo number_format($predicted_native, 0, '.', ','); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo number_format($predicted_fighting, 0, '.', ','); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo number_format($predicted_layers + $predicted_broiler + $predicted_native + $predicted_fighting, 0, '.', ','); ?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 <?php
                                 // Function to calculate linear regression

@@ -58,7 +58,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -82,8 +82,8 @@ session_start();
                                     <a data-toggle="modal" href="#advancedOptionModal"
                                         class="btn btn-warning float-end">Advanced Options</a>
                                 </div>
-                                <div>
-                                    <table class="display table-bordered table-responsive" id="main-table">
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
@@ -172,7 +172,7 @@ session_start();
                 <!-- Prediction -->
                 <div class="container-fluid mt-5">
                     <div class="row justify-content-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
                                 <p class="text-left font-weight-italicized mb-3">
@@ -180,127 +180,129 @@ session_start();
                                     analysis. It's important to understand that this is not a guaranteed forecast but
                                     rather an estimate using statistical methods.
                                 </p>
-                                <table class="display table-bordered table-responsive" id="predicted-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Possible Dog Count</th>
-                                            <th scope="col">Possible Cat Count</th>
-                                            <th scope="col">Possible Total Pet Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="predicted-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Possible Dog Count</th>
+                                                <th scope="col">Possible Cat Count</th>
+                                                <th scope="col">Possible Total Pet Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        try {
-                                            // Analyze trends and predict the next year's counts
-                                            $max_year = 0;
-                                            $counts = array();
+                                            try {
+                                                // Analyze trends and predict the next year's counts
+                                                $max_year = 0;
+                                                $counts = array();
 
-                                            $fetch_query = "SELECT * FROM pettrend";
-                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                                $fetch_query = "SELECT * FROM pettrend";
+                                                $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            if ($fetch_query_run === false) {
-                                                throw new Exception("Error fetching data: " . mysqli_error($connection));
-                                            }
-
-                                            if (mysqli_num_rows($fetch_query_run) > 0) {
-                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    // Store counts for analysis
-                                                    $counts[$row['pet_year']] = array(
-                                                        'dog' => $row['dog_count'],
-                                                        'cat' => $row['cat_count'],
-                                                    );
-
-                                                    // Find the maximum year
-                                                    $max_year = max($max_year, $row['pet_year']);
+                                                if ($fetch_query_run === false) {
+                                                    throw new Exception("Error fetching data: " . mysqli_error($connection));
                                                 }
-                                            } else {
-                                                throw new Exception("Insufficient data for analysis.");
+
+                                                if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                        // Store counts for analysis
+                                                        $counts[$row['pet_year']] = array(
+                                                            'dog' => $row['dog_count'],
+                                                            'cat' => $row['cat_count'],
+                                                        );
+
+                                                        // Find the maximum year
+                                                        $max_year = max($max_year, $row['pet_year']);
+                                                    }
+                                                } else {
+                                                    throw new Exception("Insufficient data for analysis.");
+                                                }
+
+                                                // Linear regression for dog count
+                                                if (count($counts) > 1) {
+                                                    $dog_values = array_column($counts, 'dog');
+                                                    $dog_regression = linearRegression(array_keys($counts), $dog_values);
+                                                    $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression analysis.");
+                                                }
+
+                                                // Linear regression for cat count
+                                                if (count($counts) > 1) {
+                                                    $cat_values = array_column($counts, 'cat');
+                                                    $cat_regression = linearRegression(array_keys($counts), $cat_values);
+                                                    $predicted_cat = $cat_regression['slope'] * ($max_year + 1) + $cat_regression['intercept'];
+                                                } else {
+                                                    throw new Exception("Insufficient data for linear regression on cat count.");
+                                                }
+
+                                                // Predicted data for next year
+                                                $predicted_year = $max_year + 1;
+                                            } catch (Exception $e) {
+                                                echo "Error: " . $e->getMessage();
+                                            }
+                                            ?>
+
+                                            <?php
+                                            // Function to calculate linear regression
+                                            // Function to calculate linear regression
+                                            // Function to calculate linear regression
+                                            function linearRegression($x, $y)
+                                            {
+                                                $n = count($x);
+
+                                                // Check if there are enough data points for regression
+                                                $minDataPoints = 2;
+                                                if ($n < $minDataPoints) {
+                                                    return null; // Return null to indicate insufficient data points
+                                                }
+
+                                                $sumX = array_sum($x);
+                                                $sumY = array_sum($y);
+                                                $sumXY = 0;
+                                                $sumX2 = 0;
+
+                                                for ($i = 0; $i < $n; $i++) {
+                                                    $sumXY += ($x[$i] * $y[$i]);
+                                                    $sumX2 += ($x[$i] * $x[$i]);
+                                                }
+
+                                                // Check if the denominator is zero
+                                                $denominator = $n * $sumX2 - $sumX * $sumX;
+                                                if ($denominator == 0) {
+                                                    return null; // Return null to indicate inability to perform linear regression
+                                                }
+
+                                                $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
+                                                $intercept = ($sumY - $slope * $sumX) / $n;
+
+                                                return array('slope' => $slope, 'intercept' => $intercept);
                                             }
 
-                                            // Linear regression for dog count
-                                            if (count($counts) > 1) {
-                                                $dog_values = array_column($counts, 'dog');
-                                                $dog_regression = linearRegression(array_keys($counts), $dog_values);
-                                                $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression analysis.");
-                                            }
+                                            ?>
 
-                                            // Linear regression for cat count
-                                            if (count($counts) > 1) {
-                                                $cat_values = array_column($counts, 'cat');
-                                                $cat_regression = linearRegression(array_keys($counts), $cat_values);
-                                                $predicted_cat = $cat_regression['slope'] * ($max_year + 1) + $cat_regression['intercept'];
-                                            } else {
-                                                throw new Exception("Insufficient data for linear regression on cat count.");
-                                            }
-
-                                            // Predicted data for next year
-                                            $predicted_year = $max_year + 1;
-                                        } catch (Exception $e) {
-                                            echo "Error: " . $e->getMessage();
-                                        }
-                                        ?>
-
-                                        <?php
-                                        // Function to calculate linear regression
-                                        // Function to calculate linear regression
-                                        // Function to calculate linear regression
-                                        function linearRegression($x, $y)
-                                        {
-                                            $n = count($x);
-
-                                            // Check if there are enough data points for regression
-                                            $minDataPoints = 2;
-                                            if ($n < $minDataPoints) {
-                                                return null; // Return null to indicate insufficient data points
-                                            }
-
-                                            $sumX = array_sum($x);
-                                            $sumY = array_sum($y);
-                                            $sumXY = 0;
-                                            $sumX2 = 0;
-
-                                            for ($i = 0; $i < $n; $i++) {
-                                                $sumXY += ($x[$i] * $y[$i]);
-                                                $sumX2 += ($x[$i] * $x[$i]);
-                                            }
-
-                                            // Check if the denominator is zero
-                                            $denominator = $n * $sumX2 - $sumX * $sumX;
-                                            if ($denominator == 0) {
-                                                return null; // Return null to indicate inability to perform linear regression
-                                            }
-
-                                            $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
-                                            $intercept = ($sumY - $slope * $sumX) / $n;
-
-                                            return array('slope' => $slope, 'intercept' => $intercept);
-                                        }
-
-                                        ?>
-
-                                        <tr>
-                                            <td>
-                                                <?php echo isset($predicted_year) ? $predicted_year : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_dog) ? number_format($predicted_dog, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo isset($predicted_cat) ? number_format($predicted_cat, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo (isset($predicted_dog) && isset($predicted_cat)) ? number_format($predicted_dog + $predicted_cat, 0, '.', ',') : "N/A"; ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                            <tr>
+                                                <td>
+                                                    <?php echo isset($predicted_year) ? $predicted_year : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_dog) ? number_format($predicted_dog, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo isset($predicted_cat) ? number_format($predicted_cat, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo (isset($predicted_dog) && isset($predicted_cat)) ? number_format($predicted_dog + $predicted_cat, 0, '.', ',') : "N/A"; ?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
 
 
-                                </table>
+                                    </table>
+                                </div>
 
 
                             </div>
@@ -313,7 +315,7 @@ session_start();
                 <!-- Visual Representation -->
                 <div class="container-fluid mt-1">
                     <div class="row justify-content-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card p-3">
                                 <canvas class="canvas" id="petTrend"></canvas>
                             </div>
@@ -423,6 +425,13 @@ session_start();
             cat: [<?php echo implode(',', array_column($counts, 'cat')); ?>],
         };
 
+        // Limit the number of years in the graph
+        // const poultryData = {
+        //     labels: [<?php echo implode(',', array_slice(array_keys($counts), -6)); ?>],
+        //     dog: [<?php echo implode(',', array_slice(array_column($counts, 'dog'), -6)); ?>],
+        //     cat: [<?php echo implode(',', array_slice(array_column($counts, 'cat'), -6)); ?>],
+        // };
+
         const predictedYear = <?php echo $predicted_year; ?>;
         const dogRegressionLine = calculateRegressionLine(poultryData.labels, poultryData.dog);
         const catRegressionLine = calculateRegressionLine(poultryData.labels, poultryData.cat);
@@ -477,8 +486,11 @@ session_start();
                             callback: function (value, index, values) {
                                 return value % 1 === 0 ? value : '';
                             }
-                        }
+                        },
+                        min: poultryData.labels[0],  // Set the minimum x-axis value
+                        max: predictedYear.toString()
                     },
+
                     y: {
                         beginAtZero: true
                     }

@@ -55,7 +55,7 @@ session_start();
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-11">
+                        <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -71,7 +71,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Animal and Fishery</h3>
+                                    <h2 class="text-center font-weight-bold ">Animal and Fishery</h2>
                                     <h4 class="text-center font-weight-bold "> Provincial Breeding Stations</h4>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModalProvincial">
@@ -80,73 +80,76 @@ session_start();
 
 
                                 </div>
-                                <table class="display table-bordered table-responsive" id="main-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">Number</th>
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="main-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Number</th>
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM provincialbreedingstations;";
+                                            $fetch_query = "SELECT * FROM provincialbreedingstations;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $yearData = [];
-                                        $numberData = [];
+                                            $yearData = [];
+                                            $numberData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                $numberData[] = $row['number'];
-                                                $yearData[] = $row['year'];
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['year']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['number'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                    $numberData[] = $row['number'];
+                                                    $yearData[] = $row['year'];
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['year']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update-provincial btn-success btn-sm"
-                                                            data-toggle="modal" data-target="#updateModalProvincial"
-                                                            data-year="<?php echo $row['year'] ?>"
-                                                            data-number="<?php echo $row['number'] ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update-provincial btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModalProvincial"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-number="<?php echo $row['number'] ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/breeding-stations-code.php"
-                                                            method="post">
-                                                            <input type="hidden" name="id" value="<?php echo $row['year']; ?>">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-delete-provincial btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteConfirmationModalProvincial">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
 
-                                </table>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="/benguetlivestock/backend/breeding-stations-code.php"
+                                                                method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['year']; ?>">
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-delete-provincial btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteConfirmationModalProvincial">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+
+                                    </table>
+                                </div>
                             </div>
 
 
@@ -179,162 +182,165 @@ session_start();
                                         Add data
                                     </button>
                                 </div>
-                                <table class="display table-bordered table-responsive" id="secondary-table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Year</th>
-                                            <th scope="col">La Trinidad</th>
-                                            <th scope="col">Tuba</th>
-                                            <th scope="col">Itogon</th>
-                                            <th scope="col">Bokod</th>
-                                            <th scope="col">Kabayan</th>
-                                            <th scope="col">Buguias</th>
-                                            <th scope="col">Mankayan</th>
-                                            <th scope="col">Bakun</th>
-                                            <th scope="col">Kibungan</th>
-                                            <th scope="col">Atok</th>
-                                            <th scope="col">Kapangan</th>
-                                            <th scope="col">Sablan</th>
-                                            <th scope="col">Tublay</th>
+                                <div class="table-responsive">
+                                    <table class="display table-bordered" id="secondary-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">La Trinidad</th>
+                                                <th scope="col">Tuba</th>
+                                                <th scope="col">Itogon</th>
+                                                <th scope="col">Bokod</th>
+                                                <th scope="col">Kabayan</th>
+                                                <th scope="col">Buguias</th>
+                                                <th scope="col">Mankayan</th>
+                                                <th scope="col">Bakun</th>
+                                                <th scope="col">Kibungan</th>
+                                                <th scope="col">Atok</th>
+                                                <th scope="col">Kapangan</th>
+                                                <th scope="col">Sablan</th>
+                                                <th scope="col">Tublay</th>
 
-                                            <th scope="col">Date Updated</th>
-                                            <th scope="col" class="text-center">Update</th>
-                                            <th scope="col" class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                                <th scope="col">Date Updated</th>
+                                                <th scope="col" class="text-center">Update</th>
+                                                <th scope="col" class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                        $fetch_query = "SELECT * FROM municipalitybreedingstations;";
+                                            $fetch_query = "SELECT * FROM municipalitybreedingstations;";
 
-                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                        $yearData2 = [];
-                                        $latrinidadData = [];
-                                        $tubaData = [];
-                                        $itogonData = [];
-                                        $bokodData = [];
-                                        $kabayanData = [];
-                                        $buguiasData = [];
-                                        $mankayanData = [];
-                                        $bakunData = [];
-                                        $kibunganData = [];
-                                        $atokData = [];
-                                        $kapanganData = [];
-                                        $sablanData = [];
-                                        $tublayData = [];
+                                            $yearData2 = [];
+                                            $latrinidadData = [];
+                                            $tubaData = [];
+                                            $itogonData = [];
+                                            $bokodData = [];
+                                            $kabayanData = [];
+                                            $buguiasData = [];
+                                            $mankayanData = [];
+                                            $bakunData = [];
+                                            $kibunganData = [];
+                                            $atokData = [];
+                                            $kapanganData = [];
+                                            $sablanData = [];
+                                            $tublayData = [];
 
-                                        if (mysqli_num_rows($fetch_query_run) > 0) {
-                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                            if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
 
-                                                $yearData2[] = $row['year'];
-                                                $latrinidadData[] = $row['latrinidad_count'];
-                                                $tubaData[] = $row['tuba_count'];
-                                                $itogonData[] = $row['itogon_count'];
-                                                $bokodData[] = $row['bokod_count'];
-                                                $kabayanData[] = $row['kabayan_count'];
-                                                $buguiasData[] = $row['buguias_count'];
-                                                $mankayanData[] = $row['mankayan_count'];
-                                                $bakunData[] = $row['bakun_count'];
-                                                $kibunganData[] = $row['kibungan_count'];
-                                                $atokData[] = $row['atok_count'];
-                                                $kapanganData[] = $row['kapangan_count'];
-                                                $sablanData[] = $row['sablan_count'];
-                                                $tublayData[] = $row['tublay_count'];
+                                                    $yearData2[] = $row['year'];
+                                                    $latrinidadData[] = $row['latrinidad_count'];
+                                                    $tubaData[] = $row['tuba_count'];
+                                                    $itogonData[] = $row['itogon_count'];
+                                                    $bokodData[] = $row['bokod_count'];
+                                                    $kabayanData[] = $row['kabayan_count'];
+                                                    $buguiasData[] = $row['buguias_count'];
+                                                    $mankayanData[] = $row['mankayan_count'];
+                                                    $bakunData[] = $row['bakun_count'];
+                                                    $kibunganData[] = $row['kibungan_count'];
+                                                    $atokData[] = $row['atok_count'];
+                                                    $kapanganData[] = $row['kapangan_count'];
+                                                    $sablanData[] = $row['sablan_count'];
+                                                    $tublayData[] = $row['tublay_count'];
 
 
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo $row['year']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['latrinidad_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['tuba_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['itogon_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['bokod_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['kabayan_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['buguias_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['mankayan_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['bakun_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['kibungan_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['atok_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['kapangan_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['sablan_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo number_format($row['tublay_count'], 0, '.', ','); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['date_updated']; ?>
-                                                    </td>
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $row['year']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['latrinidad_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['tuba_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['itogon_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['bokod_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['kabayan_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['buguias_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['mankayan_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['bakun_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['kibungan_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['atok_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['kapangan_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['sablan_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['tublay_count'], 0, '.', ','); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $row['date_updated']; ?>
+                                                        </td>
 
-                                                    <td class="text-center">
-                                                        <button class="btn btn-update-municipality btn-success btn-sm"
-                                                            data-toggle="modal" data-target="#updateModalMunicipality"
-                                                            data-year="<?php echo $row['year'] ?>"
-                                                            data-latrinidad="<?php echo $row['latrinidad_count'] ?>"
-                                                            data-tuba="<?php echo $row['tuba_count'] ?>"
-                                                            data-itogon="<?php echo $row['itogon_count'] ?>"
-                                                            data-bokod="<?php echo $row['bokod_count'] ?>"
-                                                            data-kabayan="<?php echo $row['kabayan_count'] ?>"
-                                                            data-buguias="<?php echo $row['buguias_count'] ?>"
-                                                            data-mankayan="<?php echo $row['mankayan_count'] ?>"
-                                                            data-bakun="<?php echo $row['bakun_count'] ?>"
-                                                            data-kibungan="<?php echo $row['kibungan_count'] ?>"
-                                                            data-atok="<?php echo $row['atok_count'] ?>"
-                                                            data-kapangan="<?php echo $row['kapangan_count'] ?>"
-                                                            data-sablan="<?php echo $row['sablan_count'] ?>"
-                                                            data-tublay="<?php echo $row['tublay_count'] ?>"
-                                                            data-date="<?php echo $row['date_updated']; ?>">Update
+                                                        <td class="text-center">
+                                                            <button class="btn btn-update-municipality btn-warning btn-sm"
+                                                                data-toggle="modal" data-target="#updateModalMunicipality"
+                                                                data-year="<?php echo $row['year'] ?>"
+                                                                data-latrinidad="<?php echo $row['latrinidad_count'] ?>"
+                                                                data-tuba="<?php echo $row['tuba_count'] ?>"
+                                                                data-itogon="<?php echo $row['itogon_count'] ?>"
+                                                                data-bokod="<?php echo $row['bokod_count'] ?>"
+                                                                data-kabayan="<?php echo $row['kabayan_count'] ?>"
+                                                                data-buguias="<?php echo $row['buguias_count'] ?>"
+                                                                data-mankayan="<?php echo $row['mankayan_count'] ?>"
+                                                                data-bakun="<?php echo $row['bakun_count'] ?>"
+                                                                data-kibungan="<?php echo $row['kibungan_count'] ?>"
+                                                                data-atok="<?php echo $row['atok_count'] ?>"
+                                                                data-kapangan="<?php echo $row['kapangan_count'] ?>"
+                                                                data-sablan="<?php echo $row['sablan_count'] ?>"
+                                                                data-tublay="<?php echo $row['tublay_count'] ?>"
+                                                                data-date="<?php echo $row['date_updated']; ?>">Update
 
-                                                        </button>
-
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="/benguetlivestock/backend/breeding-station-code.php"
-                                                            method="post">
-                                                            <input type="hidden" name="id" value="<?php echo $row['year']; ?>">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-delete-municipality btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteConfirmationModalMunicipality">
-                                                                Delete
                                                             </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                        $recentYears = array_slice($yearData2, -3);
-                                        ?>
-                                    </tbody>
 
-                                </table>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <form action="/benguetlivestock/backend/breeding-station-code.php"
+                                                                method="post">
+                                                                <input type="hidden" name="id"
+                                                                    value="<?php echo $row['year']; ?>">
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-delete-municipality btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#deleteConfirmationModalMunicipality">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            $recentYears = array_slice($yearData2, -3);
+                                            ?>
+                                        </tbody>
+
+                                    </table>
+                                </div>
                             </div>
 
                         </div>
@@ -365,23 +371,56 @@ session_start();
             lengthChange: false,
             columnDefs: [
                 { targets: [3, 4], orderable: false },
-                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
+                { "className": "dt-center", "targets": "_all" }
             ],
             columns: [
-                { "width": "30%" },
-                { "width": "30%" },
-                { "width": "30%" },
-                { "width": "30%" },
-                { "width": "30%" }],
+                { "width": "20%" },
+                { "width": "20%" },
+                { "width": "20%" },
+                { "width": "20%" },
+                { "width": "20%" }
+            ],
             autoWidth: false,
             search: true,
+            paging: true,
+            dom: 'Bfrtip',
             order: [[0, 'desc']],
-            paging: false,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 6]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 6]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 6]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 6]
+                    }
+                },
+                'print'
+            ],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "drawCallback": function (settings) {
                 // Manually set the font size for the DataTable
                 $('#main-table').css('font-size', '14px'); // Adjust the size as needed
-            },
+            }
+
         });
+
+
     </script>
 
     <script>
