@@ -219,6 +219,7 @@
             </li>
 
 
+            <!-- Veterinary Services -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#veterinary"
                     aria-expanded="false" aria-controls="veterinary">
@@ -228,15 +229,10 @@
                 </a>
                 <ul id="veterinary" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/num_veterinary.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Veterinary
+                        <a href="/benguetlivestock/frontend/veterinary-clinics.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/clinic.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Veterinary
                             Clinics</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/clinic.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Number of
-                            Veterinary and Poultry Farm
-                            Supplies</a>
                     </li>
                 </ul>
             </li>

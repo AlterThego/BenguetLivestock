@@ -164,13 +164,12 @@
             </li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#bee"
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#bee"
                     aria-expanded="false" aria-controls="bee">
                     <img src="/BenguetLivestock/assets/images/bee.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    <strong>Beekeeping</strong>
+                        class="img mr-2">Beekeeping
                 </a>
-                <ul id="bee" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+                <ul id="bee" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/honey_bee.png" alt="Logo"
@@ -178,10 +177,10 @@
                             Honey Bee Colonies/Number of Beekeepers</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link active"><img
+                        <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/bee_colonies.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Yearly Honey Bee
-                                Colonies and Beekeepers</strong></a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Honey Bee
+                            Colonies and Beekeepers</a>
                     </li>
 
                 </ul>
@@ -192,8 +191,7 @@
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
                     <img src="/BenguetLivestock/assets/images/health.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Health and Diseases
+                        class="img mr-2">Health and Diseases
                 </a>
                 <ul id="health" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
@@ -206,7 +204,7 @@
                         <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img
                                 src="/BenguetLivestock/assets/images/animal_death.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
-                            Deaths due to Disease Infections</a>
+                            Deaths due to Disease Infections></a>
                     </li>
 
                     <li class="sidebar-item">
@@ -221,18 +219,17 @@
 
             <!-- Veterinary Services -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#veterinary"
+                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#veterinary"
                     aria-expanded="false" aria-controls="veterinary">
                     <img src="/BenguetLivestock/assets/images/veterinary.png" alt="Logo"
-                        style="height: 25px; width: 25px;" class="img mr-2">
-                    Veterinary Services
+                        style="height: 25px; width: 25px;" class="img mr-2"><strong>Veterinary Services</strong>
                 </a>
-                <ul id="veterinary" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="veterinary" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/veterinary-clinics.php" class="sidebar-link"><img
+                        <a href="/benguetlivestock/frontend/veterinary-clinics.php" class="sidebar-link active"><img
                                 src="/BenguetLivestock/assets/images/clinic.png" alt="Logo"
-                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Veterinary
-                            Clinics</a>
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Number of Veterinary
+                                Clinics</strong></a>
                     </li>
                 </ul>
             </li>

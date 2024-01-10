@@ -34,16 +34,13 @@ session_start();
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
 
 
-
-
-
-    <title>Fish Sanctuary</title>
+    <title>Number of Veterinary Clinics</title>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar -->
-        <?php include_once './sidebar/fish-sanctuary-sidebar.php';
+        <?php include_once './sidebar/veterinary-clinics-sidebar.php';
         ?>
 
         <!-- Main Component -->
@@ -73,16 +70,14 @@ session_start();
                             <?php
                             unset($_SESSION['status']);
                         }
+
                         ?>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold">Fish Sanctuaries Estimated Area (Kapangan
-                                        and Itogon)</h4>
-                                    <p style="font-size: 14px;"><i><b>Note:</b>
-                                            Tinongdan is a neighborhood within the Itogon municipality.</i></p>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" <button
-                                        type="button" class="btn btn-primary" data-toggle="modal"
+                                    <h4 class="text-center font-weight-bold ">Government Veterinary Clinics
+                                    </h4>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
                                     </button>
@@ -92,9 +87,9 @@ session_start();
                                     <table class="display table-bordered" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Barangay</th>
-                                                <th scope="col">Area (km/s)</th>
+                                                <th scope="col">ZIP Code</th>
+                                                <th scope="col">Municipality</th>
+                                                <th scope="col">Number</th>
                                                 <th scope="col">Date Updated</th>
                                                 <th scope="col" class="text-center">Update</th>
                                                 <th scope="col" class="text-center">Delete</th>
@@ -104,32 +99,32 @@ session_start();
                                             <?php
                                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM fishsanctuary;";
+                                            $fetch_query = "SELECT * FROM governmentveterinaryclinics;";
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
                                             $labels = [];
-                                            $area = [];
+                                            $governmentVeterinaryClinicData = [];
 
-                                            $totalArea = 0;
+                                            $totalNumber = 0;
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalArea += $row['area'];
+                                                    $totalNumber += $row['number'];
 
-                                                    $labels[] = $row['barangay_name'];
-                                                    $areaData[] = $row['area'];
+                                                    $labels[] = $row['municipality_name'];
+                                                    $governmentVeterinaryClinicData[] = $row['number'];
+
                                                     ?>
                                                     <tr>
                                                         <td>
-                                                            <?php echo $row['barangay_id']; ?>
+                                                            <?php echo $row['municipality_id']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $row['barangay_name'];
-                                                            ?>
+                                                            <?php echo $row['municipality_name']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo sprintf("%.2f", $row['area']); ?>
+                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
                                                         </td>
                                                         <td>
                                                             <?php echo $row['date_updated']; ?>
@@ -138,17 +133,18 @@ session_start();
                                                         <td class="text-center">
                                                             <button class="btn btn-update btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModal"
-                                                                data-id="<?php echo $row['barangay_id'] ?>"
-                                                                data-name="<?php echo $row['barangay_name'] ?>"
-                                                                data-area="<?php echo $row['area']; ?>"
+                                                                data-zip="<?php echo $row['municipality_id'] ?>"
+                                                                data-name="<?php echo $row['municipality_name'] ?>"
+                                                                data-number="<?php echo $row['number']; ?>"
                                                                 data-date="<?php echo $row['date_updated']; ?>">Update
+
                                                             </button>
 
                                                         </td>
                                                         <td class="text-center">
-                                                            <form action="../backend/fish-sanctuary-code.php" method="post">
+                                                            <form action="../backend/veterinary-clinics-code.php" method="post">
                                                                 <input type="hidden" name="id"
-                                                                    value="<?php echo $row['barangay_id']; ?>">
+                                                                    value="<?php echo $row['municipality_id']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
                                                                     Delete
@@ -168,57 +164,24 @@ session_start();
                                             <td>Total</td>
                                             <td></td>
                                             <td>
-                                                <?php echo sprintf("%.2f", $totalArea); ?>
+                                                <?php echo number_format($totalNumber, 0, '.', ','); ?>
                                             </td>
-                                            <td></td>
-                                            <td colspan="2"></td>
+                                            <td colspan="3"></td>
                                         </tr>
 
 
 
                                     </table>
                                 </div>
-                                <div class="right">
-                                    <button class="btn btn-info float-right" onclick="submitTotalModal()"
-                                        data-toggle="modal" data-target="#submitTotalModal">Submit Total Count
-                                    </button>
+
+                                <div class="card mt-5">
+                                    <canvas class="canvas" id="governmentVeterinaryClinicsChart"></canvas>
                                 </div>
                             </div>
 
                         </div>
 
-                    </div>
-                </div>
-
-                <!-- Main Table Visual Representation -->
-                <div class="container-fluid mt-1">
-                    <div class="row justify-content-center ">
-                        <div class="col-md-12">
-                            <div class="card p-3">
-                                <canvas class="canvas" id="fishSanctuaryChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Secondary Table -->
-                <div class="container-fluid mt-3">
-                    <div class="row justify-content-center">
-                        <?php
-                        if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                            ?>
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <?php echo $_SESSION['status']; ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <?php
-                            unset($_SESSION['status']);
-                        }
-                        ?>
-
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
                                 ?>
@@ -235,20 +198,21 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Yearly Record of Fish
-                                        Sanctuaries</h4>
-                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
+                                    <h4 class="text-center font-weight-bold ">Private Veterinary Clinics
+                                    </h4>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#addPrivateModal">
                                         Add data
-                                    </button> -->
+                                    </button>
 
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="yearly-table">
+                                    <table class="display table-bordered" id="secondary-table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th scope="col">Year</th>
-                                                <th scope="col">Area</th>
+                                                <th scope="col">ZIP Code</th>
+                                                <th scope="col">Municipality</th>
+                                                <th scope="col">Number</th>
                                                 <th scope="col">Date Updated</th>
                                                 <th scope="col" class="text-center">Update</th>
                                                 <th scope="col" class="text-center">Delete</th>
@@ -258,28 +222,31 @@ session_start();
                                             <?php
                                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM yearlyfishsanctuary;";
+                                            $fetch_query = "SELECT * FROM privateveterinaryclinics;";
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $yearlyArea = 0;
+                                            $privateClinics = 0;
 
-                                            $yearlyLabel = [];
-                                            $yearlyData = [];
+                                            $privateLabel = [];
+                                            $privateVeterinaryClinicsData = [];
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $yearlyArea += $row['total_area'];
+                                                    $privateClinics += $row['number'];
 
-                                                    $yearlyLabel[] = $row['year'];
-                                                    $yearlyData[] = $row['total_area'];
+                                                    $privateLabel[] = $row['municipality_name'];
+                                                    $privateVeterinaryClinicsData[] = $row['number'];
                                                     ?>
                                                     <tr>
                                                         <td>
-                                                            <?php echo $row['year']; ?>
+                                                            <?php echo $row['municipality_id']; ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo sprintf("%.2f", $row['total_area']); ?>
+                                                            <?php echo $row['municipality_name']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
                                                         </td>
                                                         <td>
                                                             <?php echo $row['date_updated']; ?>
@@ -288,8 +255,9 @@ session_start();
                                                         <td class="text-center">
                                                             <button class="btn btn-update-yearly btn-warning btn-sm"
                                                                 data-toggle="modal" data-target="#updateModalYearly"
-                                                                data-year="<?php echo $row['year'] ?>"
-                                                                data-total-area="<?php echo $row['total_area']; ?>"
+                                                                data-private-zip="<?php echo $row['municipality_id'] ?>"
+                                                                data-private-name="<?php echo $row['municipality_name'] ?>"
+                                                                data-private-number="<?php echo $row['number']; ?>"
                                                                 data-date="<?php echo $row['date_updated']; ?>">Update
 
                                                             </button>
@@ -297,10 +265,10 @@ session_start();
                                                         </td>
 
                                                         <td class="text-center">
-                                                            <form action="/benguetlivestock/backend/fish-sanctuary-code.php"
+                                                            <form action="/benguetlivestock/backend/veterinary-clinics-code.php"
                                                                 method="post">
                                                                 <input type="hidden" name="id_yearly"
-                                                                    value="<?php echo $row['year']; ?>">
+                                                                    value="<?php echo $row['municipality_id']; ?>">
                                                                 <button type="button"
                                                                     class="btn btn-danger btn-delete-yearly btn-sm"
                                                                     data-toggle="modal"
@@ -322,80 +290,44 @@ session_start();
 
                                         <tr class="total-row text-center" style="font-weight: bold; color: red;">
                                             <td>Total</td>
-                                            <td>
-                                                <?php echo sprintf("%.2f", $yearlyArea); ?>
-                                            </td>
                                             <td></td>
-                                            <td colspan="1"></td>
+                                            <td>
+                                                <?php echo number_format($privateClinics, 0, '.', ','); ?>
+                                            </td>
+                                            <td colspan="3"></td>
                                         </tr>
 
 
 
                                     </table>
                                 </div>
+
+                                <div class="card mt-5">
+                                    <canvas class="canvas" id="privateVeterinaryClinicsChart"></canvas>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <!-- Secondary Table Visual Representation -->
-                <div class="container-fluid mt-1">
-                    <div class="row justify-content-center ">
-                        <div class="col-md-12">
-                            <div class="card p-3">
-                                <canvas class="canvas" id="yearlyFishSanctuaryChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
             </main>
 
         </div>
     </div>
 
     <!-- Add, Delete, Update Modal -->
-    <?php include './modals/fish-sanctuary-modal.php'; ?>
+    <?php include './modals/veterinary-clinics-modal.php'; ?>
 
 
     <script>
-        var ctx = document.getElementById('fishSanctuaryChart').getContext('2d');
+        var ctx = document.getElementById('governmentVeterinaryClinicsChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: <?php echo json_encode($labels); ?>,
                 datasets: [{
-                    label: 'Area(km/s)',
-                    data: <?php echo json_encode($areaData); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-    <script>
-        var ctx = document.getElementById('yearlyFishSanctuaryChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: <?php echo json_encode($yearlyLabel); ?>,
-                datasets: [{
-                    label: 'Area(km/s)',
-                    data: <?php echo json_encode($yearlyData); ?>,
+                    label: 'Government Veterinary Clinics',
+                    data: <?php echo json_encode($governmentVeterinaryClinicData); ?>,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -418,8 +350,7 @@ session_start();
             lengthChange: false,
             columnDefs: [
                 { targets: [4, 5], orderable: false },
-                { "className": "dt-center", "targets": "_all" },
-                // Disable sorting for columns with index 4 (Update) and 5 (Delete)
+                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
             ],
             columns: [
                 { "width": "16.67%" },
@@ -431,9 +362,8 @@ session_start();
             ],
             autoWidth: false,
             search: true,
-            // info: false,
             paging: false,
-            order: [[0, 'asc']],
+            order: [[1, 'asc']],
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -473,19 +403,20 @@ session_start();
     </script>
 
     <script>
-        var dataTable = new DataTable('#yearly-table', {
+        var dataTable = new DataTable('#secondary-table', {
             lengthChange: false,
             columnDefs: [
-                { targets: [3, 4], orderable: false },
+                { targets: [4, 5], orderable: false },
                 { "className": "dt-center", "targets": "_all" },
                 // Disable sorting for columns with index 4 (Update) and 5 (Delete)
             ],
             columns: [
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
-                { "width": "20%" },
+                { "width": "16.67%" },
+                { "width": "16.67%" },
+                { "width": "16.67%" },
+                { "width": "16.67%" },
+                { "width": "16.67%" },
+                { "width": "16.67%" }
             ],
             autoWidth: false,
             search: true,
@@ -524,12 +455,37 @@ session_start();
 
             "drawCallback": function (settings) {
                 // Manually set the font size for the DataTable
-                $('#yearly-table').css('font-size', '14px'); // Adjust the size as needed
+                $('#secondary-table').css('font-size', '14px'); // Adjust the size as needed
             }
         });
 
     </script>
 
+    <script>
+        var ctx = document.getElementById('privateVeterinaryClinicsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($privateLabel); ?>,
+                datasets: [{
+                    label: 'Private Veterinary Clinics',
+                    data: <?php echo json_encode($privateVeterinaryClinicsData); ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 
 
@@ -556,11 +512,11 @@ session_start();
         function deleteData(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/fish-sanctuary-code.php',
+                url: '/benguetlivestock/backend/veterinary-clinics-code.php',
                 data: { deleteData: true, id: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/fish-sanctuary.php';
+                    window.location.href = '/benguetlivestock/frontend/veterinary-clinics.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -570,25 +526,7 @@ session_start();
     </script>
 
     <script>
-        var totalArea = <?php echo $totalArea; ?>;
-    </script>
-
-    <script>
-        // Function to calculate and update totals in the modal
-        function submitTotalModal() {
-            <?php
-            // Assuming these variables are already defined in your PHP code
-            echo "var totalArea = $totalArea;\n";
-            ?>
-
-            // Update the modal content
-            document.getElementById('totalTableBody').innerHTML = `
-    <tr>
-        <td>Total Area</td>
-        <td>${totalArea}</td>
-    </tr>
-        `;
-        }
+        var totalAnimalDeaths = <?php echo $totalNumber; ?>;
     </script>
 
     <script>
@@ -614,11 +552,11 @@ session_start();
         function deleteDataYearly(id) {
             $.ajax({
                 type: 'POST',
-                url: '/benguetlivestock/backend/fish-sanctuary-code.php',
+                url: '/benguetlivestock/backend/veterinary-clinics-code.php',
                 data: { deleteDataYearly: true, id_yearly: id },
                 success: function (response) {
                     // Redirect to index.php after successful deletion
-                    window.location.href = '/benguetlivestock/frontend/fish-sanctuary.php';
+                    window.location.href = '/benguetlivestock/frontend/veterinary-clinics.php';
                 },
                 error: function (error) {
                     console.error('Error during deletion:', error);
@@ -628,7 +566,7 @@ session_start();
 
     </script>
 
-    <script src="/benguetlivestock/assets/js/content-js/fish-sanctuary-script.js"></script>
+    <script src="/benguetlivestock/assets/js/content-js/veterinary-clinics-script.js"></script>
 </body>
 
 </html>
