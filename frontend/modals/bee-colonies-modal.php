@@ -156,11 +156,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="/benguetlivestock/backend/pets-population-code.php">
+            <form method="post" action="/benguetlivestock/backend/bee-colonies-code.php">
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label for="petYear">Pet Year</label>
-                        <input type="number" class="form-control" name="petYear" value="<?php echo date('Y'); ?>"
+                        <label for="beeYear">Bee Year</label>
+                        <input type="number" class="form-control" name="beeYear" value="<?php echo date('Y'); ?>"
                             min="1900" max="<?php echo date('Y'); ?>" required>
                     </div>
 
@@ -170,8 +170,8 @@
                         </tbody>
 
                         <tfoot>
-                            <input type="hidden" name="totalDog" value="<?php echo $totalDog; ?>">
-                            <input type="hidden" name="totalCat" value="<?php echo $totalCat; ?>">
+                            <input type="hidden" name="totalHoneyBeeColonies" value="<?php echo $totalHoneyBeeColonies; ?>">
+                            <input type="hidden" name="totalBeekeepers" value="<?php echo $totalBeekeepers; ?>">
                         </tfoot>
                     </table>
 

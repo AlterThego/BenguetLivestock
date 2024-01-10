@@ -163,6 +163,7 @@
                 </ul>
             </li>
 
+            <!-- Beekeeping -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#bee"
                     aria-expanded="false" aria-controls="bee">
@@ -178,7 +179,7 @@
                             Colonies/Number of Beekeepers</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/bee_colonies.png"
+                        <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/bee_colonies.png"
                                 alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Honey Bee
                             Colonies and Beekeepers</a>
                     </li>

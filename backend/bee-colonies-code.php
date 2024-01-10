@@ -74,14 +74,14 @@ if (isset($_POST['savedata'])) {
 } elseif (isset($_POST['submitData'])) {
     try {
         // Update variables with values from the form submission
-        $Dog = isset($_POST['totalDog']) ? $_POST['totalDog'] : 0;
-        $Cat = isset($_POST['totalCat']) ? $_POST['totalCat'] : 0;
+        $Dog = isset($_POST['totalHoneyBeeColonies']) ? $_POST['totalHoneyBeeColonies'] : 0;
+        $Cat = isset($_POST['totalBeekeepers']) ? $_POST['totalBeekeepers'] : 0;
 
-        $petYear = isset($_POST['petYear']) ? $_POST['petYear'] : 0;
+        $petYear = isset($_POST['beeYear']) ? $_POST['beeYear'] : 0;
         $submitDateUpdated = isset($_POST['submitDateUpdated']) ? $_POST['submitDateUpdated'] : date('Y-m-d');
 
         // Perform the database insertion using prepared statements to prevent SQL injection
-        $insertQuery = "INSERT INTO pettrend (pet_year, dog_count, cat_count, date_updated) 
+        $insertQuery = "INSERT INTO beetrend (bee_year, colonies_count, beekeepers_count, date_updated) 
                         VALUES (?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($connection, $insertQuery);
@@ -90,7 +90,7 @@ if (isset($_POST['savedata'])) {
         if (mysqli_stmt_execute($stmt)) {
             session_start();
             $_SESSION['status'] = 'Total Count Submitted Successfully';
-            header('location: ../frontend/pets-population.php');
+            header('location: ../frontend/bee-colonies.php');
             exit();
         } else {
             throw new Exception('Failed to execute the database insertion');
@@ -98,7 +98,7 @@ if (isset($_POST['savedata'])) {
     } catch (Exception $e) {
         session_start();
         $_SESSION['status'] = 'Failed: Year Already Exists!! '; //. $e->getMessage()
-        header('location: ../frontend/pets-population.php');
+        header('location: ../frontend/bee-colonies.php');
         exit();
     }
 }
