@@ -16,10 +16,10 @@
                 Menu
             </li>
             <li class="sidebar-item">
-                <a href="/benguetlivestock/index.php" class="sidebar-link active" id="dashboard-link">
+                <a href="/benguetlivestock/index.php" class="sidebar-link" id="dashboard-link">
                     <img src="/BenguetLivestock/assets/images/dashboard.png" alt="Logo"
                         style="height: 25px; width: 25px;" class="img mr-2">
-                    <strong>Dashboard</strong>
+                    Dashboard
                 </a>
             </li>
 
@@ -144,8 +144,7 @@
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#fish"
                     aria-expanded="false" aria-controls="fish">
                     <img src="/BenguetLivestock/assets/images/fish.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Fishery Data
+                        class="img mr-2">Fishery Data
                 </a>
                 <ul id="fish" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
@@ -163,6 +162,7 @@
                 </ul>
             </li>
 
+            <!-- Beekeeping -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#bee"
                     aria-expanded="false" aria-controls="bee">
@@ -172,13 +172,15 @@
                 </a>
                 <ul id="bee" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/honey_bee.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Honey Bee
+                        <a href="/benguetlivestock/frontend/bee-colonies.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/honey_bee.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Honey Bee
                             Colonies/Number of Beekeepers</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/bee_colonies.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Honey Bee
+                        <a href="/benguetlivestock/frontend/bee-trend.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/bee_colonies.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Honey Bee
                             Colonies and Beekeepers</a>
                     </li>
 
@@ -186,17 +188,17 @@
             </li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#health"
+                <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
                     <img src="/BenguetLivestock/assets/images/health.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2">
-                    Health and Diseases
+                        class="img mr-2"><strong>Health and Diseases</strong>
                 </a>
-                <ul id="health" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <ul id="health" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/common_disease.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
-                            Diseases</a>
+                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link active"><img
+                                src="/BenguetLivestock/assets/images/common_disease.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Common Animal
+                                Diseases</strong></a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
