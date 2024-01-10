@@ -232,8 +232,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Yearly Record of Fish
-                                        Sanctuaries</h4>
+                                    <h4 class="text-center font-weight-bold ">Yearly Record of Common Animal Diseases</h4>
                                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
@@ -365,7 +364,7 @@ session_start();
             data: {
                 labels: <?php echo json_encode($labels); ?>,
                 datasets: [{
-                    label: 'Number',
+                    label: 'Number per Disease',
                     data: <?php echo json_encode($numberData); ?>,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',

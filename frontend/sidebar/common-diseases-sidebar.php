@@ -187,16 +187,18 @@
                 </ul>
             </li>
 
+            <!-- Health and Diseases -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed active" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
                     <img src="/BenguetLivestock/assets/images/health.png" alt="Logo" style="height: 25px; width: 25px;"
-                        class="img mr-2"><strong>Health and Diseases</strong>
+                        class="img mr-2">
+                    <strong>Health and Diseases</strong>
                 </a>
                 <ul id="health" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
                         <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link active"><img
-                                src="/BenguetLivestock/assets/images/common_disease.png" alt="Logo"
+                                src="/BenguetLivestock/assets/images/yearly_deaths.png" alt="Logo"
                                 style="height: 20px; width: 20px;" class="img mr-2 ml-4"><strong>Common Animal
                                 Diseases</strong></a>
                     </li>
@@ -211,13 +213,6 @@
                                 alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animals
                             Affected with Diseases</a>
                     </li>
-
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_deaths.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Common Animal
-                            Diseases, and Deaths</a>
-                    </li>
-
                 </ul>
             </li>
 

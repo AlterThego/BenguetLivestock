@@ -188,6 +188,8 @@
 
                 </ul>
             </li>
+
+            <!-- Health and Diseases -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#health"
                     aria-expanded="false" aria-controls="health">
@@ -197,8 +199,9 @@
                 </a>
                 <ul id="health" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/common_disease.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
+                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/yearly_deaths.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
                             Diseases</a>
                     </li>
                     <li class="sidebar-item">
@@ -212,13 +215,6 @@
                                 alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animals
                             Affected with Diseases</a>
                     </li>
-
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_deaths.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Yearly Common Animal
-                            Diseases, and Deaths</a>
-                    </li>
-
                 </ul>
             </li>
 
