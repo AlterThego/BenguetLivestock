@@ -198,23 +198,27 @@
                 </a>
                 <ul id="health" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/yearly_deaths.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
+                        <a href="/benguetlivestock/frontend/common-diseases.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/yearly_deaths.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Common Animal
                             Diseases</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img src="/BenguetLivestock/assets/images/animal_death.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
+                        <a href="/benguetlivestock/frontend/animal-deaths.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/animal_death.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animal
                             Deaths due to Disease Infections</a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link"><img src="/BenguetLivestock/assets/images/affected_animals.png"
-                                alt="Logo" style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animals
+                        <a href="/benguetlivestock/frontend/affected-animals.php" class="sidebar-link"><img
+                                src="/BenguetLivestock/assets/images/affected_animals.png" alt="Logo"
+                                style="height: 20px; width: 20px;" class="img mr-2 ml-4">Number of Animals
                             Affected with Diseases</a>
                     </li>
                 </ul>
             </li>
+
 
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#veterinary"

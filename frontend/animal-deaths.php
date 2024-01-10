@@ -230,8 +230,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Yearly Record of Animal Deaths due to
-                                        Disease Infection
+                                    <h4 class="text-center font-weight-bold ">Yearly Record of Animal Deaths due to Disease Infection
                                     </h4>
                                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
@@ -504,7 +503,7 @@ session_start();
                 labels: <?php echo json_encode($yearlyLabel); ?>,
                 datasets: [{
                     label: 'Yearly Number',
-                    data: <?php echo json_encode($yearlyDeathsData); ?>,
+                    data: <?php echo json_encode($yearlyDeaths); ?>,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
