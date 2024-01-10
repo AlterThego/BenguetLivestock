@@ -322,8 +322,8 @@
                                                         fill: false
                                                     },
 
-                                                    
-                                            
+
+
                                                 ]
 
                                             },
@@ -339,26 +339,33 @@
                             <div class="col-md-5">
                                 <div class="card p-3">
                                     <h4 class="text-center font-weight-bold ">Number of Veterinary and
-                                        Poultry Farm
-                                        Supplies
+                                        Poultry Farm Supplies
                                     </h4>
                                     <div>
-                                        <div style="width: 90%%;">
+                                        <div style="width: 90%;">
                                             <canvas id="myPieChart"></canvas>
                                         </div>
 
                                         <script>
-                                            // Sample data for the pie chart
-                                            const data = {
-                                                labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+                                            // Fetch data for veterinary and poultry supplies from PHP
+                                            const veterinaryData = {
+                                                labels: <?php echo json_encode($labels); ?>,
                                                 datasets: [{
-                                                    data: [12, 19, 3, 5, 2],
+                                                    data: <?php echo json_encode($numberData); ?>,
                                                     backgroundColor: [
                                                         'red',
                                                         'orange',
                                                         'yellow',
                                                         'green',
-                                                        'blue'
+                                                        'blue',
+                                                        'purple',
+                                                        'pink',
+                                                        'brown',
+                                                        'teal',
+                                                        'cyan',
+                                                        'magenta',
+                                                        'lime',
+                                                        'indigo'
                                                     ],
                                                     borderColor: 'white',
                                                     borderWidth: 2
@@ -366,9 +373,9 @@
                                             };
 
                                             // Configuration for the pie chart
-                                            const config = {
+                                            const veterinaryConfig = {
                                                 type: 'pie',
-                                                data: data,
+                                                data: veterinaryData,
                                                 options: {
                                                     responsive: true,
                                                     plugins: {
@@ -377,20 +384,19 @@
                                                         },
                                                         title: {
                                                             display: true,
-                                                            text: 'Sample Pie Chart'
+                                                            text: 'Veterinary and Poultry Supplies'
                                                         }
                                                     }
                                                 },
                                             };
 
-                                            // Create the pie chart
-                                            const myPieChart = new Chart(document.getElementById('myPieChart'), config);
+                                            // Create the pie chart for veterinary and poultry supplies
+                                            const veterinaryPieChart = new Chart(document.getElementById('myPieChart'), veterinaryConfig);
                                         </script>
-
-
                                     </div>
                                 </div>
                             </div>
+
 
 
 

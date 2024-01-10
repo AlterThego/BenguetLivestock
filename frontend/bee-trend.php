@@ -167,7 +167,8 @@ session_start();
                             <div class="card p-3">
                                 <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
                                 <p class="text-left font-weight-italicized mb-3">
-                                    <b>Note:</b> This prediction for honey bee colonies and number of beekeepers is based on linear regression
+                                    <b>Note:</b> This prediction for honey bee colonies and number of beekeepers is
+                                    based on linear regression
                                     analysis. It's important to understand that this is not a guaranteed forecast but
                                     rather an estimate using statistical methods.
                                 </p>
@@ -550,16 +551,25 @@ session_start();
             });
         }
     </script>
-
-
-
-
-
-
-
-
-
     <script src="/benguetlivestock/assets/js/content-js/bee-trend-script.js"></script>
+
+    <script>
+        // Save scroll position to sessionStorage before the page reloads
+        window.onbeforeunload = function () {
+            sessionStorage.setItem("scrollPos", window.scrollY);
+        };
+    </script>
+
+    <script>
+        // Restore scroll position from sessionStorage on page load
+        window.onload = function () {
+            var scrollPos = sessionStorage.getItem("scrollPos");
+            if (scrollPos !== null) {
+                window.scrollTo(0, scrollPos);
+                sessionStorage.removeItem("scrollPos");
+            }
+        };
+    </script>
 </body>
 
 </html>

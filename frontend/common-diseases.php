@@ -232,7 +232,8 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Yearly Record of Common Animal Diseases</h4>
+                                    <h4 class="text-center font-weight-bold ">Yearly Record of Common Animal Diseases
+                                    </h4>
                                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#addModal">
                                         Add data
@@ -319,7 +320,7 @@ session_start();
                                         <tr class="total-row text-center" style="font-weight: bold; color: red;">
                                             <td>Total</td>
                                             <td>
-                                            <?php echo number_format($yearlyNumber, 0, '.', ','); ?>
+                                                <?php echo number_format($yearlyNumber, 0, '.', ','); ?>
                                             </td>
                                             <td></td>
                                             <td colspan="1"></td>
@@ -625,6 +626,24 @@ session_start();
     </script>
 
     <script src="/benguetlivestock/assets/js/content-js/common-diseases-script.js"></script>
+
+    <script>
+        // Save scroll position to sessionStorage before the page reloads
+        window.onbeforeunload = function () {
+            sessionStorage.setItem("scrollPos", window.scrollY);
+        };
+    </script>
+
+    <script>
+        // Restore scroll position from sessionStorage on page load
+        window.onload = function () {
+            var scrollPos = sessionStorage.getItem("scrollPos");
+            if (scrollPos !== null) {
+                window.scrollTo(0, scrollPos);
+                sessionStorage.removeItem("scrollPos");
+            }
+        };
+    </script>
 </body>
 
 </html>

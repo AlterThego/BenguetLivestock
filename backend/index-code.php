@@ -32,6 +32,17 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Add similar lines for other livestock
 }
 
+$sql = "SELECT municipality_name, number FROM veterinarypoultrysupplies";
+$resultveterinary = mysqli_query($connection, $sql);
+
+$labels = [];
+$numberData = [];
+
+while ($row = mysqli_fetch_assoc($resultveterinary)) {
+    $labels[] = $row['municipality_name'];
+    $numberData[] = $row['number'];
+}
+
 
 // Close the database connection
 mysqli_close($connection);

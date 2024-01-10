@@ -33,6 +33,12 @@ if (isset($_POST['savedata'])) {
         }
     } catch (Exception $e) {
         $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        echo "<script>
+            toastr.warning('Failed to Add: Update or delete existing data. Error: " . $e->getMessage() . "', 'Warning', {
+                closeButton: true,
+                progressBar: true,
+            });
+        </script>";
         header('location: /benguetlivestock/frontend/pets-population.php');
     }
 } elseif (isset($_POST['updateData'])) {
@@ -70,11 +76,11 @@ if (isset($_POST['savedata'])) {
         $_SESSION['status'] = 'Failed to Delete: ' . mysqli_error($connection);
         exit(); // Stop further execution
     }
-    
+
 } elseif (isset($_POST['submitData'])) {
     try {
         // Update variables with values from the form submission
-        $Dog= isset($_POST['totalDog']) ? $_POST['totalDog'] : 0;
+        $Dog = isset($_POST['totalDog']) ? $_POST['totalDog'] : 0;
         $Cat = isset($_POST['totalCat']) ? $_POST['totalCat'] : 0;
 
         $petYear = isset($_POST['petYear']) ? $_POST['petYear'] : 0;

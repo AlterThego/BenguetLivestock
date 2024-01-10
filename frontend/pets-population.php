@@ -16,6 +16,7 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -32,6 +33,8 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
+
 
 
     <title>Pet Population</title>
@@ -61,17 +64,36 @@ session_start();
                         <div class="col-md-12">
                             <?php
                             if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
+                                $toastType = 'success'; // Default to success
+                            
+                                // Check if the status message indicates an error
+                                if (strpos(strtolower($_SESSION['status']), 'failed') !== false || strpos(strtolower($_SESSION['status']), 'error') !== false) {
+                                    $toastType = 'error';
+                                }
+
+                                echo "<script>
+        // Display Toastr notification with custom options based on success or warning
+        toastr.$toastType('{$_SESSION['status']}', 'Status', {
+            closeButton: false,
+            debug: false,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: 'toast-top-center',
+            preventDuplicates: false,
+            onclick: null,
+            showDuration: '300',
+            hideDuration: '1000',
+            timeOut: '5000',
+            extendedTimeOut: '1000',
+            showEasing: 'swing',
+            hideEasing: 'linear',
+            showMethod: 'fadeIn',
+            hideMethod: 'fadeOut',
+        });
+    </script>";
+
                                 unset($_SESSION['status']);
                             }
-
                             ?>
                             <div class="card p-3">
                                 <div class="card-header mb-3">
@@ -373,6 +395,24 @@ session_start();
     </script>
 
     <script src="/benguetlivestock/assets/js/content-js/pets-population-script.js"></script>
+
+    <script>
+        // Save scroll position to sessionStorage before the page reloads
+        window.onbeforeunload = function () {
+            sessionStorage.setItem("scrollPos", window.scrollY);
+        };
+    </script>
+
+    <script>
+        // Restore scroll position from sessionStorage on page load
+        window.onload = function () {
+            var scrollPos = sessionStorage.getItem("scrollPos");
+            if (scrollPos !== null) {
+                window.scrollTo(0, scrollPos);
+                sessionStorage.removeItem("scrollPos");
+            }
+        };
+    </script>
 </body>
 
 </html>
