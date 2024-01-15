@@ -32,13 +32,14 @@ if (isset($_POST['savedata'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
-        echo "<script>
-            toastr.warning('Failed to Add: Update or delete existing data. Error: " . $e->getMessage() . "', 'Warning', {
-                closeButton: true,
-                progressBar: true,
-            });
-        </script>";
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
+        // $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        // echo "<script>
+        //     toastr.warning('Failed to Add: Update or delete existing data. Error: " . $e->getMessage() . "', 'Warning', {
+        //         closeButton: true,
+        //         progressBar: true,
+        //     });
+        // </script>";
         header('location: /benguetlivestock/frontend/pets-population.php');
     }
 } elseif (isset($_POST['updateData'])) {

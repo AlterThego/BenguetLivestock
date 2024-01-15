@@ -14,6 +14,7 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
@@ -33,9 +34,8 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
-
-
 
     <title>Pet Population</title>
 </head>
@@ -45,67 +45,130 @@ session_start();
         <!-- Sidebar -->
         <?php include_once './sidebar/pets-population-sidebar.php';
         ?>
-
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
+            <main class="content py-2 mb-5">
+                <?php
+                $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-            </nav>
+                $fetch_query = "SELECT * FROM petspopulation;";
+
+                $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                $totalCat = $totalDog = 0;
+
+                if (mysqli_num_rows($fetch_query_run) > 0) {
+                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                        $totalDog += $row['dog_count'];
+                        $totalCat += $row['cat_count'];
+                    }
+                }
+                ?>
+
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card p-2" style="align-items: center;">
+                                <h5 class="text-left font-weight-bold">Dogs: </h5>
+                                <?php echo number_format($totalDog, 0, '.', ','); ?>
+                            </div>
+                            <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                <canvas id="dogChart" class="p-2"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card p-2" style="align-items: center;">
+                                <h5 class="text-left font-weight-bold">Cats: </h5>
+                                <?php echo number_format($totalCat, 0, '.', ','); ?>
+                            </div>
+                            <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                <canvas id="catChart" class="p-2"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card p-2" style="align-items: center; color: #FF0000; ">
+                                <h5 class="text-left font-weight-bold">Total Pets: </h5>
+                                <?php echo number_format($totalCat + $totalDog, 0, '.', ','); ?>
+                            </div>
+                            <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                <canvas id="totalChart" class="p-2"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <?php
+                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+
+                            // Get the maximum year
+                            $max_year_query = "SELECT MAX(pet_year) AS max_year FROM pettrend;";
+                            $max_year_result = mysqli_query($connection, $max_year_query);
+
+                            if ($max_year_result) {
+                                $max_year_row = mysqli_fetch_assoc($max_year_result);
+                                $max_year = $max_year_row['max_year'];
+
+                                // Fetch data for the maximum year
+                                $fetch_query = "SELECT pet_year, dog_count, cat_count FROM pettrend WHERE pet_year = $max_year;";
+                                $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                                if ($fetch_query_run) {
+                                    $data = mysqli_fetch_assoc($fetch_query_run);
+
+                                    // Access the values
+                                    $recent_year = $data['pet_year'];
+                                    $dog_count = $data['dog_count'];
+                                    $cat_count = $data['cat_count'];
+
+                                    // Now you can use $recent_year, $dog_count, and $cat_count as needed
+                                } else {
+                                    echo "Error fetching data: " . mysqli_error($connection);
+                                }
+                            } else {
+                                echo "Error fetching max year: " . mysqli_error($connection);
+                            }
+                            ?>
+                            <div class="card p-2" style="align-items: center; color: #008000;">
+                                <h5 class="text-left font-weight-bold">Recent Year: </h5>
+                                <?php echo ($recent_year); ?>
+                            </div>
+                            <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                <canvas id="petTrend" class="p-1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-            <main class="content px-3 py-2 mb-5">
-                <!-- Main Table -->
+                <div class="container-fluid mt-3">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="text-left font-weight-bold">Pet Population</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addModal">
+                                            + Add data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                $toastType = 'success'; // Default to success
-                            
-                                // Check if the status message indicates an error
-                                if (strpos(strtolower($_SESSION['status']), 'failed') !== false || strpos(strtolower($_SESSION['status']), 'error') !== false) {
-                                    $toastType = 'error';
-                                }
-
-                                echo "<script>
-        // Display Toastr notification with custom options based on success or warning
-        toastr.$toastType('{$_SESSION['status']}', 'Status', {
-            closeButton: false,
-            debug: false,
-            newestOnTop: false,
-            progressBar: true,
-            positionClass: 'toast-top-center',
-            preventDuplicates: false,
-            onclick: null,
-            showDuration: '300',
-            hideDuration: '1000',
-            timeOut: '5000',
-            extendedTimeOut: '1000',
-            showEasing: 'swing',
-            hideEasing: 'linear',
-            showMethod: 'fadeIn',
-            hideMethod: 'fadeOut',
-        });
-    </script>";
-
-                                unset($_SESSION['status']);
-                            }
+                            <?php include_once '../assets/toastr.php';
                             ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Pet Population</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
-                                        Add data
-                                    </button>
-
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">ZIP Code</th>
@@ -129,17 +192,11 @@ session_start();
                                             $dogData = [];
                                             $catData = [];
 
-                                            $totalCat = $totalDog = 0;
-
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalDog += $row['dog_count'];
-                                                    $totalCat += $row['cat_count'];
-
                                                     $labels[] = $row['municipality_name'];
                                                     $dogData[] = $row['dog_count'];
                                                     $catData[] = $row['cat_count'];
-
                                                     ?>
                                                     <tr>
                                                         <td>
@@ -165,7 +222,7 @@ session_start();
                                                                 data-name="<?php echo $row['municipality_name'] ?>"
                                                                 data-dog="<?php echo $row['dog_count']; ?>"
                                                                 data-cat="<?php echo $row['cat_count']; ?>"
-                                                                data-date="<?php echo $row['date_updated']; ?>">Update
+                                                                data-date="<?php echo $row['date_updated']; ?>">* Update
 
                                                             </button>
 
@@ -176,7 +233,7 @@ session_start();
                                                                     value="<?php echo $row['municipality_id']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                    Delete
+                                                                    - Delete
                                                                 </button>
                                                             </form>
                                                         </td>
@@ -236,6 +293,7 @@ session_start();
     <?php include './modals/pets-population-modal.php'; ?>
 
 
+    <!-- Primary Chart -->
     <script>
         var ctx = document.getElementById('populationChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -245,14 +303,14 @@ session_start();
                 datasets: [{
                     label: 'Dog Population',
                     data: <?php echo json_encode($dogData); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: 'rgba(75, 192, 192, 1)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Cat Population',
                     data: <?php echo json_encode($catData); ?>,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(255, 99, 132, 1)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 }]
@@ -269,70 +327,11 @@ session_start();
         });
     </script>
 
-    <script>
-        var dataTable = new DataTable('#main-table', {
-            lengthChange: false,
-            columnDefs: [
-                { targets: [5, 6], orderable: false },
-                { "className": "dt-center", "targets": "_all" } // Disable sorting for columns with index 4 (Update) and 5 (Delete)
-            ],
-            columns: [
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-                { "width": "14.29%" },
-
-            ],
-            autoWidth: false,
-            search: true,
-            paging: false,
-            order: [[1, 'asc']],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
-                    }
-                },
-                'print'
-            ],
-            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-
-            "drawCallback": function (settings) {
-                // Manually set the font size for the DataTable
-                $('#main-table').css('font-size', '14px'); // Adjust the size as needed
-            }
-        });
-
-    </script>
+    <!-- Table settings js -->
+    <script src="/benguetlivestock/assets/js/table-js/pets-population-table.js"></script>
 
 
-
-
-
-    <!-- DELETE SCRIPTS -->
+    <!-- Delete Script -->
     <script>
         $(document).ready(function () {
             $('.btn-delete').click(function () {
@@ -366,11 +365,14 @@ session_start();
         }
     </script>
 
-    <script>
+
+    <!-- <script>
         var totalDog = <?php echo $totalDog; ?>;
         var totalCat = <?php echo $totalCat; ?>;
-    </script>
+    </script> -->
 
+
+    <!-- Submit Summary -->
     <script>
         // Function to calculate and update totals in the modal
         function submitTotalModal() {
@@ -394,25 +396,33 @@ session_start();
         }
     </script>
 
+    <!-- Placeholder script -->
     <script src="/benguetlivestock/assets/js/content-js/pets-population-script.js"></script>
 
+    <!-- Save page state to Local Storage js -->
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
+
+    <!-- Chart.js -->
     <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
+        var dogPercentage = <?php echo ($totalDog / ($totalCat + $totalDog)) * 100; ?>;
+        var catPercentage = <?php echo ($totalCat / ($totalCat + $totalDog)) * 100; ?>;
     </script>
 
     <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
+        var recentYear = <?php echo json_encode($recent_year); ?>;
+        var dogCount = <?php echo json_encode($dog_count); ?>;
+        var catCount = <?php echo json_encode($cat_count); ?>;
     </script>
+    <script src="/benguetlivestock/assets/js/chart.js/pets-population-chart.js"></script>
+    <!-- Close -->
+
+    
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
+
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
+
 </body>
 
 </html>

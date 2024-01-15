@@ -1,10 +1,10 @@
 <!-- Add Modal -->
-<div class="modal fade p-0" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade p-0" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add data</h5>
+                <h5 class="modal-title" id="addModalLabel">Add data</h5>
                 <button type="button " class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,26 +22,26 @@
                         // Set the default year to the next year
                         $defaultYear = $currentYear;
                         ?>
-                        <input type="number" class="form-control" name="year" placeholder="Enter Year" min="1900"
-                            max="2099" value="<?php echo $defaultYear; ?>">
+                        <input type="number" id="year" class="form-control" name="year" placeholder="Enter Year"
+                            min="1900" max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
 
 
                     <div class="form-group mb-3">
                         <label for="dog_count">Yearly <b>Dog</b></label>
-                        <input type="number" class="form-control" name="dog_count"
-                            placeholder="Enter yearly dog count">
+                        <input type="number" id="dog_count" class="form-control" name="dog_count"
+                            placeholder="Enter Yearly Dog Count">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="cat_count">Yearly <b>Cat</b></label>
-                        <input type="number" class="form-control" name="cat_count"
-                            placeholder="Enter yearly broiler count">
+                        <input type="number" id="cat_count" class="form-control" name="cat_count"
+                            placeholder="Enter Yearly Cat Count">
                     </div>
-                    
+
                     <div class="form-group mb-3">
                         <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
+                        <input type="date" id="date_updated" class="form-control" name="date_updated"
                             value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>

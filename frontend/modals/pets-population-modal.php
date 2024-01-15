@@ -13,6 +13,7 @@
                 <div class="modal-body">
                     <div class="form-group mb-3">
                         <label for="zip">ZIP Code and Municipality</label>
+                        <input type="text" id="zip" name="zip" hidden />
                         <select class="form-control" name="zip">
                             <?php
                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
@@ -50,17 +51,19 @@
 
                     <div class="form-group mb-3">
                         <label for="dog_count">Dog</label>
-                        <input type="number" class="form-control" name="dog_count" placeholder="Enter Dog Count">
+                        <input type="number" class="form-control" id="dog_count" name="dog_count"
+                            placeholder="Enter Dog Count">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="cat_count">Cat</label>
-                        <input type="number" class="form-control" name="cat_count" placeholder="Enter Cat Count">
+                        <input type="number" class="form-control" id="cat_count" name="cat_count"
+                            placeholder="Enter Cat Count">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
+                        <input type="date" class="form-control" id="date_updated" name="date_updated"
                             value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
@@ -160,8 +163,8 @@
                 <div class="modal-body">
                     <div class="form-group mb-3">
                         <label for="petYear">Pet Year</label>
-                        <input type="number" class="form-control" name="petYear" value="<?php echo date('Y'); ?>"
-                            min="1900" max="<?php echo date('Y'); ?>" required>
+                        <input type="number" class="form-control" id="petYear" name="petYear"
+                            value="<?php echo date('Y'); ?>" min="1900" max="<?php echo date('Y'); ?>" required>
                     </div>
 
                     <table class="table table-bordered">

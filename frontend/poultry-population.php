@@ -14,8 +14,11 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
+
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -32,6 +35,9 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
+
 
 
 
@@ -47,45 +53,158 @@ session_start();
 
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
+            <main class="content py-2 mb-5">
+                <?php
+                $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-            </nav>
+                $fetch_query = "SELECT * FROM poultrypopulation;";
+
+                $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                $totalLayers = $totalBroiler = $totalNative = $totalFighting = 0;
+
+                if (mysqli_num_rows($fetch_query_run) > 0) {
+                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                        $totalLayers += $row['layers_count'];
+                        $totalNative += $row['native_count'];
+                        $totalBroiler += $row['broiler_count'];
+                        $totalFighting += $row['fighting_count'];
+                    }
+                }
+                ?>
+
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card" style="height: 400px; width: 100%; align-items: center;">
+                                <canvas id="poultryChart" class="p-2"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="card p-2" style="align-items: center;">
+                                    <h5 class="text-left font-weight-bold">Poultry Population Summary Report </h5>
+                                    <p>Here is the summary of the poultry population data:</p>
+                                </div>
 
 
-            <main class="content px-3 py-2 mb-5">
+                                <div class="col-md-6 p-3">
+                                    <div class="row">
+                                        <!-- Top-Right Quadrant -->
+                                        <div class="col-md-6 p-1">
+                                            <div class="card"
+                                                style="height: 100%; background-color: rgba(54, 162, 235, 0.8)">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">Native</h5>
+                                                    <p class="card-text text-center">
+                                                        <?php echo $totalNative; ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Bottom-Right Quadrant -->
+                                        <div class="col-md-6 p-1">
+                                            <div class="card"
+                                                style="height: 100%; background-color: rgba(255, 206, 86, 0.8)">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">Broiler</h5>
+                                                    <p class="card-text text-center">
+                                                        <?php echo $totalBroiler; ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- Bottom-Left Quadrant -->
+                                        <div class="col-md-6 p-1" style="bottom: 0; left: 0;">
+                                            <div class="card"
+                                                style="height: 100%;  background-color: rgba(75, 192, 192, 0.8)">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">Fighting</h5>
+                                                    <p class="card-text text-center">
+                                                        <?php echo $totalFighting; ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Top-Left Quadrant -->
+                                        <div class="col-md-6 p-1" style="top: 0; left: 0;">
+                                            <div class="card"
+                                                style="height: 100%; background-color: rgba(255, 99, 132, 0.8);">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">Layers</h5>
+                                                    <p class="card-text text-center">
+                                                        <?php echo $totalLayers; ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-6 p-3">
+                                    <div class="card p-2" style="height: 250px; width: 100%;">
+                                        <p>Distribution of Poultry Types:</p>
+                                        <?php
+                                        $percentageLayers = ($totalLayers != 0) ? round(($totalLayers / ($totalLayers + $totalNative + $totalBroiler + $totalFighting)) * 100, 2) : 0;
+                                        $percentageNative = ($totalNative != 0) ? round(($totalNative / ($totalLayers + $totalNative + $totalBroiler + $totalFighting)) * 100, 2) : 0;
+                                        $percentageBroiler = ($totalBroiler != 0) ? round(($totalBroiler / ($totalLayers + $totalNative + $totalBroiler + $totalFighting)) * 100, 2) : 0;
+                                        $percentageFighting = ($totalFighting != 0) ? round(($totalFighting / ($totalLayers + $totalNative + $totalBroiler + $totalFighting)) * 100, 2) : 0;
+                                        ?>
+                                        <ul>
+                                            <li>Layers:
+                                                <?php echo $percentageLayers; ?>%
+                                            </li>
+                                            <li>Native:
+                                                <?php echo $percentageNative; ?>%
+                                            </li>
+                                            <li>Broiler:
+                                                <?php echo $percentageBroiler; ?>%
+                                            </li>
+                                            <li>Fighting:
+                                                <?php echo $percentageFighting; ?>%
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid mt-3">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="text-left font-weight-bold">Poultry Population</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addModal">
+                                            + Add data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
+                            <?php include_once '../assets/toastr.php';
                             ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Poultry Population</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
-                                        Add data
-                                    </button>
-                                    <h6 class="text-right text-sm"><i>Note: Only 1 row is allowed here (This Year)</i>
-                                    </h6>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered table-responsive" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
 
                                             <tr>
@@ -106,8 +225,6 @@ session_start();
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $totalLayers = $totalBroiler = $totalNative = $totalFighting = 0;
-
                                             $layersData = [];
                                             $broilerData = [];
                                             $nativeData = [];
@@ -115,10 +232,6 @@ session_start();
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalLayers += $row['layers_count'];
-                                                    $totalBroiler += $row['broiler_count'];
-                                                    $totalNative += $row['native_count'];
-                                                    $totalFighting += $row['fighting_count'];
 
                                                     $layersData[] = $row['layers_count'];
                                                     $broilerData[] = $row['broiler_count'];
@@ -154,7 +267,7 @@ session_start();
                                                                 data-broiler="<?php echo $row['broiler_count']; ?>"
                                                                 data-native="<?php echo $row['native_count']; ?>"
                                                                 data-fighting="<?php echo $row['fighting_count']; ?>"
-                                                                data-date="<?php echo $row['date_updated']; ?>">Update
+                                                                data-date="<?php echo $row['date_updated']; ?>">* Update
                                                             </button>
 
                                                         </td>
@@ -164,7 +277,7 @@ session_start();
                                                                     value="<?php echo $row['poultry_id']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                    Delete
+                                                                    - Delete
                                                                 </button>
                                                             </form>
                                                         </td>
@@ -176,27 +289,6 @@ session_start();
                                             ?>
 
                                         </tbody>
-
-                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                            <td>Total</td>
-                                            <td>
-                                                <?php echo number_format($totalLayers, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($totalBroiler, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($totalNative, 0, '.', ','); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo number_format($totalFighting, 0, '.', ','); ?>
-                                            </td>
-                                            <td></td>
-                                            <td colspan="2"></td>
-                                        </tr>
-
-
-
                                     </table>
                                 </div>
                                 <div class="right">
@@ -233,30 +325,27 @@ session_start();
             type: 'bar',
             data: {
                 labels: ['Layers', 'Broiler', 'Native', 'Fighting'],
-                datasets: [
-                    {
-                        label: 'Count per Type',
-                        data: [
-                            <?php echo join(',', $layersData); ?>,
-                            <?php echo join(',', $broilerData); ?>,
-                            <?php echo join(',', $nativeData); ?>,
-                            <?php echo join(',', $fightingData); ?>
-                        ],
-                        backgroundColor: [
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(54, 162, 235, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(255, 205, 86, 1)',
-                            'rgba(54, 162, 235, 1)'
-                        ],
-                        borderWidth: 1
-                    }
-                ]
+                datasets: [{
+                    data: [
+                        <?php echo join(',', $layersData); ?>,
+                        <?php echo join(',', $broilerData); ?>,
+                        <?php echo join(',', $nativeData); ?>,
+                        <?php echo join(',', $fightingData); ?>
+                    ],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
             },
             options: {
                 responsive: true,
@@ -265,10 +354,16 @@ session_start();
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
         });
     </script>
+
 
 
 
@@ -409,25 +504,32 @@ session_start();
         }
     </script>
 
+    <script>
+        var ctx = document.getElementById('poultryChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: ['Layers', 'Native', 'Broiler', 'Fighting'],
+                datasets: [{
+                    data: [totalLayers, totalNative, totalBroiler, totalFighting],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                    ],
+                }],
+            },
+        });
+    </script>
+
     <script src="/benguetlivestock/assets/js/content-js/poultry-population-script.js"></script>
 
-    <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
-    </script>
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
 
-    <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
-    </script>
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 </body>
 
 </html>

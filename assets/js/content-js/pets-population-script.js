@@ -1,7 +1,9 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
+// const toggler = document.querySelector(".btn");
+// toggler.addEventListener("click", function () {
+//     document.querySelector("#sidebar").classList.toggle("collapsed");
+// });
+
+
 
 $(document).ready(function () {
 
@@ -16,8 +18,8 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_dog_count').attr('placeholder', dog_count);
-        $('#update_cat_count').attr('placeholder', cat_count);
+        $('#update_dog_count').val(dog_count);
+        $('#update_cat_count').val(cat_count);
 
         // $('#update_cat_count').attr('placeholder', cat_count);
 

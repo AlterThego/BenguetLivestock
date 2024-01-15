@@ -34,7 +34,7 @@ if (isset($_POST['savedata'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
         header('location: /benguetlivestock/frontend/poultry-population.php');
     }
 } elseif (isset($_POST['updateData'])) {

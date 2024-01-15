@@ -15,8 +15,10 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -33,6 +35,8 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
 
 
 
@@ -48,40 +52,192 @@ session_start();
 
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
-            </nav>
-            <main class="content px-3 py-2 mb-5  table-responsive">
+            <main class="content py-2 mb-5  table-responsive">
+                <?php
+                $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+
+                try {
+                    // Analyze trends and predict the next year's counts
+                    $max_year = 0;
+                    $counts = array();
+
+                    $fetch_query = "SELECT * FROM pettrend";
+                    $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                    if ($fetch_query_run === false) {
+                        throw new Exception("Error fetching data: " . mysqli_error($connection));
+                    }
+
+                    if (mysqli_num_rows($fetch_query_run) > 0) {
+                        while ($row = mysqli_fetch_array($fetch_query_run)) {
+                            // Store counts for analysis
+                            $counts[$row['pet_year']] = array(
+                                'dog' => $row['dog_count'],
+                                'cat' => $row['cat_count'],
+                            );
+
+                            // Find the maximum year
+                            $max_year = max($max_year, $row['pet_year']);
+                        }
+                    } else {
+                        throw new Exception("Insufficient data for analysis.");
+                    }
+
+                    // Linear regression for dog count
+                    if (count($counts) > 1) {
+                        $dog_values = array_column($counts, 'dog');
+                        $dog_regression = linearRegression(array_keys($counts), $dog_values);
+                        $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
+                    } else {
+                        throw new Exception("Insufficient data for linear regression analysis.");
+                    }
+
+                    // Linear regression for cat count
+                    if (count($counts) > 1) {
+                        $cat_values = array_column($counts, 'cat');
+                        $cat_regression = linearRegression(array_keys($counts), $cat_values);
+                        $predicted_cat = $cat_regression['slope'] * ($max_year + 1) + $cat_regression['intercept'];
+                    } else {
+                        throw new Exception("Insufficient data for linear regression on cat count.");
+                    }
+
+                    // Predicted data for next year
+                    $predicted_year = $max_year + 1;
+                } catch (Exception $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+                ?>
+
+                <?php
+                // Function to calculate linear regression
+                function linearRegression($x, $y)
+                {
+                    $n = count($x);
+
+                    // Check if there are enough data points for regression
+                    $minDataPoints = 2;
+                    if ($n < $minDataPoints) {
+                        return null; // Return null to indicate insufficient data points
+                    }
+
+                    $sumX = array_sum($x);
+                    $sumY = array_sum($y);
+                    $sumXY = 0;
+                    $sumX2 = 0;
+
+                    for ($i = 0; $i < $n; $i++) {
+                        $sumXY += ($x[$i] * $y[$i]);
+                        $sumX2 += ($x[$i] * $x[$i]);
+                    }
+
+                    // Check if the denominator is zero
+                    $denominator = $n * $sumX2 - $sumX * $sumX;
+                    if ($denominator == 0) {
+                        return null; // Return null to indicate inability to perform linear regression
+                    }
+
+                    $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
+                    $intercept = ($sumY - $slope * $sumX) / $n;
+
+                    return array('slope' => $slope, 'intercept' => $intercept);
+                }
+
+                ?>
+
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="p-2 mb-1">
+                                <h4 class="align-text-center"><strong>Linear Regression Analysis:
+                                        </br>Anticipated
+                                        Census
+                                        for
+                                        the Upcoming Year:
+                                        <?php echo ($predicted_year); ?>
+                                    </strong>
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card p-2" style="align-items: center;">
+                                        <h6 class="font-weight-bold align-text-center">Dog :
+                                            <?php echo number_format($predicted_dog, 0, '.', ','); ?>
+                                        </h6>
+
+                                        <div style="align-items: center;">
+                                            <canvas class="canvas" style="height: 150px; width: 100%"
+                                                id="dogPrediction"></canvas>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card p-2" style="align-items: center;">
+                                        <h6 class="font-weight-bold align-text-center">Cat :
+                                            <?php echo number_format($predicted_cat, 0, '.', ','); ?>
+                                        </h6>
+
+                                        <div style="align-items: center;">
+                                            <canvas class="canvas" style="height: 150px; width: 100%"
+                                                id="catPrediction"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="font-weight-italicized p-2 ml-2">
+                                    <b>Note: </b>It is important to understand that this is not a guaranteed
+                                    forecast
+                                    but
+                                    rather an estimate using statistical methods.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card p-3" style="align-items: center; color: #FF0000; ">
+                                <h5 class="text-left font-weight-bold">Total Pets:
+                                    <?php echo number_format($predicted_dog + $predicted_cat, 0, '.', ','); ?>
+                                </h5>
+                                <div style="align-items: center;">
+                                    <canvas class="canvas" style="height: 275px; width: 100%"
+                                        id="totalPrediction"></canvas>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!-- Main Table -->
+                <div class="container-fluid">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="text-left font-weight-bold">Pet Population</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addModal">
+                                            + Add data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
+                            <?php include_once '../assets/toastr.php';
                             ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Pet Trend</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal">
-                                        Add data
-                                    </button>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
@@ -103,9 +259,7 @@ session_start();
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-
                                                     ?>
-
                                                     <tr>
                                                         <td>
                                                             <?php echo $row['pet_year'] ?>
@@ -134,7 +288,7 @@ session_start();
                                                                 data-dog="<?php echo $row['dog_count']; ?>"
                                                                 data-cat="<?php echo $row['cat_count']; ?>"
                                                                 data-date="<?php echo $row['date_updated']; ?>">
-                                                                Update
+                                                                * Update
                                                             </button>
 
                                                         </td>
@@ -145,7 +299,7 @@ session_start();
                                                                     value="<?php echo $row['pet_year']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                    Delete
+                                                                    - Delete
                                                                 </button>
                                                             </form>
                                                         </td>
@@ -167,19 +321,20 @@ session_start();
                 </div>
 
 
-                <!-- Prediction -->
-                <div class="container-fluid mt-5">
+                <!-- <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
+
                         <div class="col-md-12">
                             <div class="card p-3">
                                 <h4 class="text-center font-weight-bold mb-3">Linear Regression Analysis</h4>
                                 <p class="text-left font-weight-italicized mb-3">
                                     <b>Note:</b> This prediction for pet population is based on linear regression
-                                    analysis. It's important to understand that this is not a guaranteed forecast but
+                                    analysis. It's important to understand that this is not a guaranteed forecast
+                                    but
                                     rather an estimate using statistical methods.
                                 </p>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="predicted-table">
+                                    <table class="row-border" id="predicted-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
@@ -189,98 +344,7 @@ session_start();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            try {
-                                                // Analyze trends and predict the next year's counts
-                                                $max_year = 0;
-                                                $counts = array();
-
-                                                $fetch_query = "SELECT * FROM pettrend";
-                                                $fetch_query_run = mysqli_query($connection, $fetch_query);
-
-                                                if ($fetch_query_run === false) {
-                                                    throw new Exception("Error fetching data: " . mysqli_error($connection));
-                                                }
-
-                                                if (mysqli_num_rows($fetch_query_run) > 0) {
-                                                    while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                        // Store counts for analysis
-                                                        $counts[$row['pet_year']] = array(
-                                                            'dog' => $row['dog_count'],
-                                                            'cat' => $row['cat_count'],
-                                                        );
-
-                                                        // Find the maximum year
-                                                        $max_year = max($max_year, $row['pet_year']);
-                                                    }
-                                                } else {
-                                                    throw new Exception("Insufficient data for analysis.");
-                                                }
-
-                                                // Linear regression for dog count
-                                                if (count($counts) > 1) {
-                                                    $dog_values = array_column($counts, 'dog');
-                                                    $dog_regression = linearRegression(array_keys($counts), $dog_values);
-                                                    $predicted_dog = $dog_regression['slope'] * ($max_year + 1) + $dog_regression['intercept'];
-                                                } else {
-                                                    throw new Exception("Insufficient data for linear regression analysis.");
-                                                }
-
-                                                // Linear regression for cat count
-                                                if (count($counts) > 1) {
-                                                    $cat_values = array_column($counts, 'cat');
-                                                    $cat_regression = linearRegression(array_keys($counts), $cat_values);
-                                                    $predicted_cat = $cat_regression['slope'] * ($max_year + 1) + $cat_regression['intercept'];
-                                                } else {
-                                                    throw new Exception("Insufficient data for linear regression on cat count.");
-                                                }
-
-                                                // Predicted data for next year
-                                                $predicted_year = $max_year + 1;
-                                            } catch (Exception $e) {
-                                                echo "Error: " . $e->getMessage();
-                                            }
-                                            ?>
-
-                                            <?php
-                                            // Function to calculate linear regression
-                                            // Function to calculate linear regression
-                                            // Function to calculate linear regression
-                                            function linearRegression($x, $y)
-                                            {
-                                                $n = count($x);
-
-                                                // Check if there are enough data points for regression
-                                                $minDataPoints = 2;
-                                                if ($n < $minDataPoints) {
-                                                    return null; // Return null to indicate insufficient data points
-                                                }
-
-                                                $sumX = array_sum($x);
-                                                $sumY = array_sum($y);
-                                                $sumXY = 0;
-                                                $sumX2 = 0;
-
-                                                for ($i = 0; $i < $n; $i++) {
-                                                    $sumXY += ($x[$i] * $y[$i]);
-                                                    $sumX2 += ($x[$i] * $x[$i]);
-                                                }
-
-                                                // Check if the denominator is zero
-                                                $denominator = $n * $sumX2 - $sumX * $sumX;
-                                                if ($denominator == 0) {
-                                                    return null; // Return null to indicate inability to perform linear regression
-                                                }
-
-                                                $slope = ($n * $sumXY - $sumX * $sumY) / $denominator;
-                                                $intercept = ($sumY - $slope * $sumX) / $n;
-
-                                                return array('slope' => $slope, 'intercept' => $intercept);
-                                            }
-
-                                            ?>
 
                                             <tr>
                                                 <td>
@@ -306,9 +370,7 @@ session_start();
                             </div>
                         </div>
                     </div>
-                </div>
-
-
+                </div> -->
 
                 <!-- Visual Representation -->
                 <div class="container-fluid mt-1">
@@ -320,7 +382,6 @@ session_start();
                         </div>
                     </div>
                 </div>
-
 
             </main>
         </div>
@@ -392,6 +453,9 @@ session_start();
     <script>
         var dataTable = new DataTable('#predicted-table', {
             lengthChange: false,
+            columnDefs: [
+                { "className": "dt-center", "targets": "_all" }
+            ],
             columns: [
                 { "width": "16.67%" },
                 { "width": "16.67%" },
@@ -520,6 +584,160 @@ session_start();
 
 
 
+    <script>
+        const ctx4 = document.getElementById('totalPrediction');
+
+        // Dog and Cat data
+        const petData = {
+            labels: [<?php echo implode(',', array_slice(array_keys($counts), -6)); ?>],
+            dog: [<?php echo implode(',', array_slice(array_column($counts, 'dog'), -6)); ?>],
+            cat: [<?php echo implode(',', array_slice(array_column($counts, 'cat'), -6)); ?>],
+        };
+
+
+        petData.labels.push(predictedYear.toString());
+        const totalData = [<?php echo implode(',', array_map(function ($count) {
+            return array_sum($count);
+        }, $counts)); ?>, predictedTotal];
+
+        new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: poultryData.labels,
+                datasets: [{
+                    label: 'Total Pet Count',
+                    data: [<?php echo implode(',', array_map(function ($count) {
+                        return array_sum($count);
+                    }, $counts)); ?>, predictedTotal],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                    borderWidth: 4, // Increase the line width for emphasis
+                    borderDash: [10, 10], // Use a dashed line for emphasis
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        ticks: {
+                            callback: function (value, index, values) {
+                                return value % 1 === 0 ? value : '';
+                            }
+                        },
+                        min: poultryData.labels[0],  // Set the minimum x-axis value
+                        max: predictedYear.toString()
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        const ctx2 = document.getElementById('dogPrediction');
+
+        // Dog data
+        const dogData = {
+            labels: [<?php echo implode(',', array_slice(array_keys($counts), -1)); ?>],
+            dog: [<?php echo implode(',', array_slice(array_column($counts, 'dog'), -1)); ?>],
+        };
+
+        // Add the predicted data for 2023
+        dogData.labels.push(predictedYear.toString());
+        dogData.dog.push(predicteddog);
+
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: dogData.labels,
+                datasets: [{
+                    label: ' ',
+                    data: dogData.dog,
+                    fill: false,
+                    borderColor: 'rgb(0, 102, 255)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        ticks: {
+                            callback: function (value, index, values) {
+                                return value % 1 === 0 ? value : '';
+                            }
+                        },
+                        min: dogData.labels[0],  // Set the minimum x-axis value
+                        max: predictedYear.toString()
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const ctx3 = document.getElementById('catPrediction');
+
+        // Dog data
+        const catData = {
+            labels: [<?php echo implode(',', array_slice(array_keys($counts), -1)); ?>],
+            cat: [<?php echo implode(',', array_slice(array_column($counts, 'cat'), -1)); ?>],
+        };
+
+        catData.labels.push(predictedYear.toString());
+        catData.cat.push(predictedcat);
+
+        new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: catData.labels,
+                datasets: [{
+                    label: ' ',
+                    data: catData.cat,
+                    fill: false,
+                    borderColor: 'rgb(255, 153, 51)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        ticks: {
+                            callback: function (value, index, values) {
+                                return value % 1 === 0 ? value : '';
+                            }
+                        },
+                        min: catData.labels[0],  // Set the minimum x-axis value
+                        max: predictedYear.toString()
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+
 
 
 
@@ -585,23 +803,11 @@ session_start();
 
     <script src="/benguetlivestock/assets/js/content-js/pet-trend-script.js"></script>
 
-    <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
-    </script>
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
 
-    <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
-    </script>
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
+
 </body>
 
 </html>
