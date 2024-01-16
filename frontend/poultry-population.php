@@ -89,54 +89,57 @@ session_start();
 
 
                                 <div class="col-md-6 p-3">
-                                    <div class="row">
-                                        <!-- Top-Right Quadrant -->
-                                        <div class="col-md-6 p-1">
-                                            <div class="card"
-                                                style="height: 100%; background-color: rgba(54, 162, 235, 0.8)">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-center">Native</h5>
-                                                    <p class="card-text text-center">
-                                                        <?php echo $totalNative; ?>
-                                                    </p>
+                                    <div class="card">
+                                        <div class="row">
+
+                                            <!-- Top-Right Quadrant -->
+                                            <div class="col-md-6 p-1">
+                                                <div class="card"
+                                                    style="height: 100%; background-color: rgba(54, 162, 235, 0.8)">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Native</h5>
+                                                        <p class="card-text text-center">
+                                                            <?php echo $totalNative; ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Bottom-Right Quadrant -->
+                                            <div class="col-md-6 p-1">
+                                                <div class="card"
+                                                    style="height: 100%; background-color: rgba(255, 206, 86, 0.8)">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Broiler</h5>
+                                                        <p class="card-text text-center">
+                                                            <?php echo $totalBroiler; ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Bottom-Right Quadrant -->
-                                        <div class="col-md-6 p-1">
-                                            <div class="card"
-                                                style="height: 100%; background-color: rgba(255, 206, 86, 0.8)">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-center">Broiler</h5>
-                                                    <p class="card-text text-center">
-                                                        <?php echo $totalBroiler; ?>
-                                                    </p>
+                                        <div class="row">
+                                            <!-- Bottom-Left Quadrant -->
+                                            <div class="col-md-6 p-1" style="bottom: 0; left: 0;">
+                                                <div class="card"
+                                                    style="height: 100%;  background-color: rgba(75, 192, 192, 0.8)">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Fighting</h5>
+                                                        <p class="card-text text-center">
+                                                            <?php echo $totalFighting; ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <!-- Bottom-Left Quadrant -->
-                                        <div class="col-md-6 p-1" style="bottom: 0; left: 0;">
-                                            <div class="card"
-                                                style="height: 100%;  background-color: rgba(75, 192, 192, 0.8)">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-center">Fighting</h5>
-                                                    <p class="card-text text-center">
-                                                        <?php echo $totalFighting; ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Top-Left Quadrant -->
-                                        <div class="col-md-6 p-1" style="top: 0; left: 0;">
-                                            <div class="card"
-                                                style="height: 100%; background-color: rgba(255, 99, 132, 0.8);">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-center">Layers</h5>
-                                                    <p class="card-text text-center">
-                                                        <?php echo $totalLayers; ?>
-                                                    </p>
+                                            <!-- Top-Left Quadrant -->
+                                            <div class="col-md-6 p-1" style="top: 0; left: 0;">
+                                                <div class="card"
+                                                    style="height: 100%; background-color: rgba(255, 99, 132, 0.8);">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-center">Layers</h5>
+                                                        <p class="card-text text-center">
+                                                            <?php echo $totalLayers; ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

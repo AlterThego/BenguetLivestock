@@ -33,7 +33,7 @@ if (isset($_POST['savedata'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
         header('location: /benguetlivestock/frontend/common-diseases.php');
     }
 } elseif (isset($_POST['updateData'])) {
@@ -117,7 +117,7 @@ if (isset($_POST['savedata'])) {
 } elseif (isset($_POST['updateDataYearly'])) {
     // Update existing data
     $update_id = mysqli_real_escape_string($connection, $_POST['update_year']);
-    $update_number= mysqli_real_escape_string($connection, $_POST['update_number_yearly']);
+    $update_number = mysqli_real_escape_string($connection, $_POST['update_number_yearly']);
     $update_date = mysqli_real_escape_string($connection, $_POST['update_date']);
 
     $update_query = "UPDATE yearlydiseases SET number=?, date_updated=? WHERE year=?";

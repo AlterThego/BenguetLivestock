@@ -14,8 +14,10 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -32,6 +34,8 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
 
 
     <title>Animal Population</title>
@@ -45,43 +49,210 @@ session_start();
 
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
+            <main class="content py-2 mb-5">
+                <?php
+                $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-            </nav>
+                $fetch_query = "SELECT * FROM animalpopulation;";
+
+                $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                $totalCarabao = $totalCattle = $totalSwine = $totalGoat = $totalDog = $totalSheep = $totalHorse = 0;
+
+                if (mysqli_num_rows($fetch_query_run) > 0) {
+                    while ($row = mysqli_fetch_array($fetch_query_run)) {
+                        $totalCarabao += $row['carabao_count'];
+                        $totalCattle += $row['cattle_count'];
+                        $totalSwine += $row['swine_count'];
+                        $totalGoat += $row['goat_count'];
+                        $totalSheep += $row['sheep_count'];
+                        $totalHorse += $row['horse_count'];
+                        $totalDog += $row['dog_count'];
+                    }
+                }
+                ?>
+
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row mb-2">
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Carabao</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalCarabao, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="carabaoChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Cattle</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalCattle, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="cattleChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Swine</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalSwine, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="swineChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Dog</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalDog, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="dogChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
 
 
-            <main class="content px-3 py-2 mb-5">
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Goat</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalGoat, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="goatChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Sheep</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalSheep, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="sheepChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card p-2">
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <h6>Horse</h6>
+                                            </div>
+                                            <div class="col text-right">
+                                                <h6>
+                                                    <?php echo number_format($totalHorse, 0, '.', ','); ?>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="height: 150px; width: 100%; align-items: center;">
+                                        <canvas id="horseChart" class="p-1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-2" style="align-items: center; color: #FF6666; ">
+                                <h5 class="text-left font-weight-bold">Overall Animals:
+                                    <?php echo number_format($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep +
+                                        $totalHorse + $totalDog, 0, '.', ','); ?>
+                                </h5>
+
+                            </div>
+                            <div class="card" style="height: 375px; width: 100%; align-items: center;">
+                                <canvas id="overallChart" class="p-2"></canvas>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- Title + Add -->
+                <div class="container-fluid mt-3">
+                    <div class="row justify-content-center ">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="text-left font-weight-bold">Animal Population</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#addModal">
+                                            + Add data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
+                            <?php include_once '../assets/toastr.php';
                             ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Animal Population</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
-                                        Add data
-                                    </button>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">ZIP Code</th>
@@ -106,8 +277,6 @@ session_start();
 
                                             $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $totalCarabao = $totalCattle = $totalSwine = $totalGoat = $totalDog = $totalSheep = $totalHorse = 0;
-
                                             $labels = [];
                                             $carabaoData = [];
                                             $cattleData = [];
@@ -119,14 +288,6 @@ session_start();
 
                                             if (mysqli_num_rows($fetch_query_run) > 0) {
                                                 while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalCarabao += $row['carabao_count'];
-                                                    $totalCattle += $row['cattle_count'];
-                                                    $totalSwine += $row['swine_count'];
-                                                    $totalGoat += $row['goat_count'];
-                                                    $totalSheep += $row['sheep_count'];
-                                                    $totalHorse += $row['horse_count'];
-                                                    $totalDog += $row['dog_count'];
-
                                                     $labels[] = $row['municipality_name'];
                                                     $carabaoData[] = $row['carabao_count'];
                                                     $cattleData[] = $row['cattle_count'];
@@ -135,7 +296,6 @@ session_start();
                                                     $sheepData[] = $row['sheep_count'];
                                                     $horseData[] = $row['horse_count'];
                                                     $dogData[] = $row['dog_count'];
-
 
                                                     ?>
                                                     <tr>
@@ -183,7 +343,7 @@ session_start();
                                                                 data-sheep="<?php echo $row['sheep_count']; ?>"
                                                                 data-horse="<?php echo $row['horse_count']; ?>"
                                                                 data-dog="<?php echo $row['dog_count']; ?>"
-                                                                data-date="<?php echo $row['date_updated']; ?>">Update
+                                                                data-date="<?php echo $row['date_updated']; ?>">* Update
 
                                                             </button>
 
@@ -194,7 +354,7 @@ session_start();
                                                                     value="<?php echo $row['municipality_id']; ?>">
                                                                 <button type="button" class="btn btn-danger btn-delete btn-sm"
                                                                     data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                    Delete
+                                                                    - Delete
                                                                 </button>
                                                             </form>
                                                         </td>
@@ -273,6 +433,7 @@ session_start();
                         </div>
                     </div>
                 </div>
+
             </main>
         </div>
     </div>
@@ -514,23 +675,35 @@ session_start();
 
     <script src="/benguetlivestock/assets/js/content-js/animal-population-script.js"></script>
 
+    <!-- Chart.js -->
     <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
+        var carabaoPercentage = <?php echo ($totalCarabao / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var cattlePercentage = <?php echo ($totalCattle / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var swinePercentage = <?php echo ($totalSwine / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var goatPercentage = <?php echo ($totalGoat / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var sheepPercentage = <?php echo ($totalSheep / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var horsePercentage = <?php echo ($totalHorse / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
+        var dogPercentage = <?php echo ($totalDog / ($totalCarabao + $totalCattle + $totalSwine + $totalGoat + $totalSheep + $totalHorse + $totalDog)) * 100; ?>;
     </script>
 
     <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
+        var carabaoCount = <?php echo json_encode($carabao_count); ?>;
+        var cattleCount = <?php echo json_encode($cattle_count); ?>;
+        var swineCount = <?php echo json_encode($swine_count); ?>;
+        var goatCount = <?php echo json_encode($goat_count); ?>;
+        var sheepCount = <?php echo json_encode($sheep_count); ?>;
+        var horseCount = <?php echo json_encode($horse_count); ?>;
+        var dogCount = <?php echo json_encode($dog_count); ?>;
     </script>
+    <script src="/benguetlivestock/assets/js/chart.js/animal-population-chart.js"></script>
+    <!-- Close -->
+
+    <!-- Save State of Page Script -->
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 </body>
 
 </html>

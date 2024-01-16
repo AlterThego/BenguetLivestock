@@ -20,13 +20,13 @@ $(document).ready(function () {
 
         // Set the values in the update modal fields
         $('#update_year').val(year);
-        $('#update_carabao').attr('placeholder', carabao);
-        $('#update_cattle').attr('placeholder', cattle);
-        $('#update_swine').attr('placeholder', swine);
-        $('#update_goat').attr('placeholder', goat);
-        $('#update_dog').attr('placeholder', dog);
-        $('#update_sheep').attr('placeholder', sheep);
-        $('#update_horse').attr('placeholder', horse);
+        $('#update_carabao').val(carabao);
+        $('#update_cattle').val(cattle);
+        $('#update_swine').val(swine);
+        $('#update_goat').val(goat);
+        $('#update_dog').val(dog);
+        $('#update_sheep').val(sheep);
+        $('#update_horse').val(horse);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];

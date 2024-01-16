@@ -209,7 +209,7 @@ session_start();
 
 
 
-                <!-- Main Table -->
+
                 <div class="container-fluid">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
@@ -230,6 +230,7 @@ session_start();
                     </div>
                 </div>
 
+                <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
@@ -589,31 +590,27 @@ session_start();
 
         // Dog and Cat data
         const petData = {
-            labels: [<?php echo implode(',', array_slice(array_keys($counts), -6)); ?>],
-            dog: [<?php echo implode(',', array_slice(array_column($counts, 'dog'), -6)); ?>],
-            cat: [<?php echo implode(',', array_slice(array_column($counts, 'cat'), -6)); ?>],
+            labels: [<?php echo implode(',', array_slice(array_keys($counts), -2)); ?>],
+            dog: [<?php echo implode(',', array_slice(array_column($counts, 'dog'), -2)); ?>],
+            cat: [<?php echo implode(',', array_slice(array_column($counts, 'cat'), -2)); ?>],
         };
 
-
-        petData.labels.push(predictedYear.toString());
-        const totalData = [<?php echo implode(',', array_map(function ($count) {
+        const totalData = [<?php echo array_sum(array_slice(array_map(function ($count) {
             return array_sum($count);
-        }, $counts)); ?>, predictedTotal];
+        }, $counts), -2)); ?>, predictedTotal];
 
         new Chart(ctx4, {
             type: 'line',
             data: {
-                labels: poultryData.labels,
+                labels: petData.labels,
                 datasets: [{
                     label: 'Total Pet Count',
-                    data: [<?php echo implode(',', array_map(function ($count) {
-                        return array_sum($count);
-                    }, $counts)); ?>, predictedTotal],
+                    data: totalData,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1,
-                    borderWidth: 4, // Increase the line width for emphasis
-                    borderDash: [10, 10], // Use a dashed line for emphasis
+                    borderWidth: 4,
+                    borderDash: [10, 10],
                 }]
             },
             options: {
@@ -628,8 +625,8 @@ session_start();
                                 return value % 1 === 0 ? value : '';
                             }
                         },
-                        min: poultryData.labels[0],  // Set the minimum x-axis value
-                        max: predictedYear.toString()
+                        min: petData.labels[0],
+                        max: petData.labels[1] // Set the maximum x-axis value to the second-to-last label
                     },
                     y: {
                         beginAtZero: true
@@ -637,8 +634,8 @@ session_start();
                 }
             }
         });
-
     </script>
+
 
     <script>
         const ctx2 = document.getElementById('dogPrediction');
@@ -803,8 +800,10 @@ session_start();
 
     <script src="/benguetlivestock/assets/js/content-js/pet-trend-script.js"></script>
 
+    <!-- Save State of Page Script -->
     <script src="/benguetlivestock/assets/js/save-state.js"></script>
-
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
     <!-- Dropdown Script -->
     <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 

@@ -40,7 +40,8 @@ var dogChart = new Chart(ctx1, {
             data: [dogPercentage, catPercentage, 100 - dogPercentage - catPercentage],
             backgroundColor: ['rgba(255, 206, 86, 1)', 'rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0)'],
             borderColor: ['rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 255, 255, 0)'],
-            borderWidth: 1
+            borderWidth: 1,
+            hoverOffset: 25
         }]
     }
 });
@@ -54,7 +55,8 @@ var catChart = new Chart(ctx2, {
             data: [dogPercentage, catPercentage, 100 - dogPercentage - catPercentage],
             backgroundColor: ['rgba(255, 255, 255, 0)', 'rgba(255, 99, 132, 1)', 'rgba(255, 255, 255, 0)'],
             borderColor: ['rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 255, 255, 0)'],
-            borderWidth: 1
+            borderWidth: 1,
+            hoverOffset: 25
         }]
     }
 });
@@ -67,9 +69,10 @@ var totalChart = new Chart(ctx3, {
             data: [dogPercentage, catPercentage, 100 - dogPercentage - catPercentage],
             backgroundColor: ['rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 255, 255, 0)'],
             borderColor: ['rgba(235, 186, 66, 1)', 'rgba(235, 79, 112, 1)', 'rgba(255, 255, 255, 0)'],
-            borderWidth: 1
+            borderWidth: 1,
+            hoverOffset: 25
         }]
-    }
+    },
 });
 
 

@@ -15,7 +15,7 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_clinics_count').attr('placeholder', clinics_count);
+        $('#update_clinics_count').val(clinics_count);
 
         // $('#update_cat_count').attr('placeholder', cat_count);
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
 
         $('#update_private_id').val(private_id);
         $('#update_private_name').val(private_name);
-        $('#update_private_clinics_count').attr('placeholder', private_number);
+        $('#update_private_clinics_count').val(private_number);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];

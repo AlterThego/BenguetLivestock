@@ -31,7 +31,7 @@ if (isset($_POST['savedata'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
         header('location: /benguetlivestock/frontend/animal-deaths.php');
     }
 } elseif (isset($_POST['updateData'])) {
@@ -121,7 +121,7 @@ if (isset($_POST['savedata'])) {
 
     $update_query = "UPDATE yearlydeaths SET total_deaths=?, date_updated=? WHERE year=?";
     $stmt = mysqli_prepare($connection, $update_query);
-    mysqli_stmt_bind_param($stmt, "isi", $update_deaths , $update_date, $update_id);
+    mysqli_stmt_bind_param($stmt, "isi", $update_deaths, $update_date, $update_id);
 
     $update_query_run = mysqli_stmt_execute($stmt);
 

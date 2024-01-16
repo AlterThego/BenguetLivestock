@@ -35,7 +35,7 @@ if (isset($_POST['savedata'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
         header('location: /benguetlivestock/frontend/fish-production.php');
     }
 } elseif (isset($_POST['updateData'])) {
@@ -137,8 +137,17 @@ if (isset($_POST['savedata'])) {
 
     $update_query = "UPDATE yearlyfishproduction SET yearly_pond=?,yearly_cage=?,yearly_tank=?,yearly_rice_culture=?,yearly_communal=?, date_updated=? WHERE year=?";
     $stmt = mysqli_prepare($connection, $update_query);
-    mysqli_stmt_bind_param($stmt, "dddddsi", $update_pond_yearly,$update_cage_yearly,$update_tank_yearly,
-    $update_rice_yearly,$update_communal_yearly, $update_date, $update_id);
+    mysqli_stmt_bind_param(
+        $stmt,
+        "dddddsi",
+        $update_pond_yearly,
+        $update_cage_yearly,
+        $update_tank_yearly,
+        $update_rice_yearly,
+        $update_communal_yearly,
+        $update_date,
+        $update_id
+    );
 
     $update_query_run = mysqli_stmt_execute($stmt);
 

@@ -21,13 +21,13 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_carabao_count').attr('placeholder', carabao_count);
-        $('#update_cattle_count').attr('placeholder', cattle_count);
-        $('#update_swine_count').attr('placeholder', swine_count);
-        $('#update_goat_count').attr('placeholder', goat_count);
-        $('#update_dog_count').attr('placeholder', dog_count);
-        $('#update_sheep_count').attr('placeholder', sheep_count);
-        $('#update_horse_count').attr('placeholder', horse_count);
+        $('#update_carabao_count').val(carabao_count);
+        $('#update_cattle_count').val(cattle_count);
+        $('#update_swine_count').val(swine_count);
+        $('#update_goat_count').val(goat_count);
+        $('#update_dog_count').val(dog_count);
+        $('#update_sheep_count').val(sheep_count);
+        $('#update_horse_count').val(horse_count);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];
@@ -41,10 +41,10 @@ $(document).ready(function () {
     });
 
 
-  
 
 
-    
+
+
 
 
 

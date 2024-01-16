@@ -164,8 +164,9 @@
 
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
-                                <a href="#" class="nav__dropdown-item">Beekeepers and Colonies</a>
-                                <a href="#" class="nav__dropdown-item">Trend</a>
+                                <a href="/benguetlivestock/frontend/bee-colonies.php"
+                                    class="nav__dropdown-item">Beekeepers and Colonies</a>
+                                <a href="/benguetlivestock/frontend/bee-trend.php" class="nav__dropdown-item">Trend</a>
                             </div>
                         </div>
                     </div>

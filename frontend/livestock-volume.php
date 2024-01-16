@@ -16,8 +16,10 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -34,6 +36,9 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
+
 
 
 
@@ -48,42 +53,36 @@ session_start();
 
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
-
-            </nav>
-
-            <main class="content px-3 py-2 mb-5">
+            <main class="content py-2 mb-5">
                 <!-- Main Table -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <div class="container-fluid mt-3">
+                            <div class="row justify-content-center ">
+                                <div class="col-md-12">
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h5 class="text-left font-weight-bold">Yearly Livestock Volume</h5>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#addModal">
+                                                    + Add data
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <?php include_once '../assets/toastr.php';
                             ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Volume of Livestock</h3>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
-                                        Add data
-                                    </button>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">ZIP Code</th>
@@ -562,23 +561,12 @@ session_start();
         }
     </script>
 
-    <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
-    </script>
-
-    <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
-    </script>
+    <!-- Save State of Page Script -->
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 
 
 

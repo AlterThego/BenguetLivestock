@@ -28,7 +28,7 @@ if (isset($_POST['savedataProvincial'])) {
             throw new Exception("Creation failed");
         }
     } catch (Exception $e) {
-        $_SESSION['status'] = 'Failed to Add: Update or delete existing data. Error: ' . $e->getMessage();
+        $_SESSION['status'] = 'Failed to Add: Update or delete existing data.';
         header('location: /benguetlivestock/frontend/breeding-stations.php');
     }
 } elseif (isset($_POST['updateDataProvincial'])) {
@@ -133,8 +133,25 @@ if (isset($_POST['savedataMunicipality'])) {
     bokod_count=?, kabayan_count=?, buguias_count=?,  mankayan_count=?, bakun_count=?, kibungan_count=?, 
     atok_count=?, kapangan_count=?, sablan_count=?, tublay_count=?, date_updated=? WHERE year=?";
     $stmt = mysqli_prepare($connection, $update_query);
-    mysqli_stmt_bind_param($stmt, "iiiiiiiiiiiiisi", $Ulatrinidad, $uTuba, $uItogon, $uBokod, $uKabayan, $uBuguias, $uMankayan,
-        $uBakun, $uKibungan, $uAtok, $uKapangan, $uSablan, $uTublay, $update_date, $year);
+    mysqli_stmt_bind_param(
+        $stmt,
+        "iiiiiiiiiiiiisi",
+        $Ulatrinidad,
+        $uTuba,
+        $uItogon,
+        $uBokod,
+        $uKabayan,
+        $uBuguias,
+        $uMankayan,
+        $uBakun,
+        $uKibungan,
+        $uAtok,
+        $uKapangan,
+        $uSablan,
+        $uTublay,
+        $update_date,
+        $year
+    );
 
     $update_query_run = mysqli_stmt_execute($stmt);
 

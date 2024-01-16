@@ -138,7 +138,7 @@ session_start();
                     </div>
                 </div>
 
-
+                <!-- Title + Add -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center ">
                         <div class="col-md-12">
@@ -399,9 +399,6 @@ session_start();
     <!-- Placeholder script -->
     <script src="/benguetlivestock/assets/js/content-js/pets-population-script.js"></script>
 
-    <!-- Save page state to Local Storage js -->
-    <script src="/benguetlivestock/assets/js/save-state.js"></script>
-
     <!-- Chart.js -->
     <script>
         var dogPercentage = <?php echo ($totalDog / ($totalCat + $totalDog)) * 100; ?>;
@@ -416,10 +413,11 @@ session_start();
     <script src="/benguetlivestock/assets/js/chart.js/pets-population-chart.js"></script>
     <!-- Close -->
 
-    
+
+    <!-- Save State of Page Script -->
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
     <!-- Sidebar Responsive Script -->
     <script src="/benguetlivestock/assets/js/sidebar.js"></script>
-
     <!-- Dropdown Script -->
     <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 

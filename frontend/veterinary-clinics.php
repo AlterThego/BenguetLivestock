@@ -14,8 +14,10 @@ session_start();
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap-5-css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/styles.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/boxicons/css/boxicons.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/benguetlivestock/assets/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/benguetlivestock/assets/css/toastr.min.css">
 
     <!-- FINAL JS -->
     <script src="/benguetlivestock/assets/js/dependencies-js/jquery-3.7.0.js"></script>
@@ -32,6 +34,8 @@ session_start();
     <script src='/benguetlivestock/assets/js/dependencies-js/popper.min.js'></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/bootstrap-5-js/bootstrap.min.js"></script>
     <script src="/benguetlivestock/assets/js/dependencies-js/chart.umd.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/iconify.min.js"></script>
+    <script src="/benguetlivestock/assets/js/dependencies-js/toastr.min.js"></script>
 
 
     <title>Number of Veterinary Clinics</title>
@@ -45,269 +49,257 @@ session_start();
 
         <!-- Main Component -->
         <div class="main" id="main-component">
-            <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Button for sidebar toggle -->
-                <button class="btn" type="button">
-                    <img src="../assets/images/sidebar-toggle.png" style="width: 20px; height: 20px;" />
-                </button>
-
-            </nav>
-
-
-            <main class="content px-3 py-2 mb-5">
+            <main class="content py-2 mb-5">
                 <!-- Main Table -->
-                <div class="container-fluid mt-3">
+                <div class="container-fluid">
                     <div class="row justify-content-center">
-                        <?php
-                        if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                            ?>
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <?php echo $_SESSION['status']; ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <?php
-                            unset($_SESSION['status']);
-                        }
-
+                        <?php include_once '../assets/toastr.php';
                         ?>
+
                         <div class="col-md-6">
-                            <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Government Veterinary Clinics
-                                    </h4>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addModal">
-                                        Add data
-                                    </button>
+                            <!-- Title + Add -->
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="card p-3 mb-1">
+                                            <canvas class="canvas" id="governmentVeterinaryClinicsChart"></canvas>
+                                        </div>
 
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col">ZIP Code</th>
-                                                <th scope="col">Municipality</th>
-                                                <th scope="col">Number</th>
-                                                <th scope="col">Date Updated</th>
-                                                <th scope="col" class="text-center">Update</th>
-                                                <th scope="col" class="text-center">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                        <div class="card p-3">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h5 class="text-left font-weight-bold">Government
+                                                        Veterinary Clinics
+                                                    </h5>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                                        data-target="#addModal">
+                                                        + Add data
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                            $fetch_query = "SELECT * FROM governmentveterinaryclinics;";
+                                        <div class="card p-3">
+                                            <div class="table-responsive">
+                                                <table class="row-border" id="main-table">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">ZIP Code</th>
+                                                            <th scope="col">Municipality</th>
+                                                            <th scope="col">Number</th>
+                                                            <th scope="col">Date Updated</th>
+                                                            <th scope="col" class="text-center">Update</th>
+                                                            <th scope="col" class="text-center">Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                                        $fetch_query = "SELECT * FROM governmentveterinaryclinics;";
 
-                                            $labels = [];
-                                            $governmentVeterinaryClinicData = [];
+                                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $totalNumber = 0;
+                                                        $labels = [];
+                                                        $governmentVeterinaryClinicData = [];
 
-                                            if (mysqli_num_rows($fetch_query_run) > 0) {
-                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $totalNumber += $row['number'];
+                                                        $governmentClinics = 0;
 
-                                                    $labels[] = $row['municipality_name'];
-                                                    $governmentVeterinaryClinicData[] = $row['number'];
+                                                        if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                                $governmentClinics += $row['number'];
 
-                                                    ?>
-                                                    <tr>
+                                                                $labels[] = $row['municipality_name'];
+                                                                $governmentVeterinaryClinicData[] = $row['number'];
+
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $row['municipality_id']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['municipality_name']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo number_format($row['number'], 0, '.', ','); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['date_updated']; ?>
+                                                                    </td>
+
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-update btn-warning btn-sm"
+                                                                            data-toggle="modal" data-target="#updateModal"
+                                                                            data-zip="<?php echo $row['municipality_id'] ?>"
+                                                                            data-name="<?php echo $row['municipality_name'] ?>"
+                                                                            data-number="<?php echo $row['number']; ?>"
+                                                                            data-date="<?php echo $row['date_updated']; ?>">*
+                                                                            Update
+
+                                                                        </button>
+
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <form action="../backend/veterinary-clinics-code.php"
+                                                                            method="post">
+                                                                            <input type="hidden" name="id"
+                                                                                value="<?php echo $row['municipality_id']; ?>">
+                                                                            <button type="button"
+                                                                                class="btn btn-danger btn-delete btn-sm"
+                                                                                data-toggle="modal"
+                                                                                data-target="#deleteConfirmationModal">
+                                                                                - Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        }
+
+                                                        ?>
+
+                                                    </tbody>
+
+                                                    <tr class="total-row text-center"
+                                                        style="font-weight: bold; color: red;">
+                                                        <td>Total</td>
+                                                        <td></td>
                                                         <td>
-                                                            <?php echo $row['municipality_id']; ?>
+                                                            <?php echo number_format($governmentClinics, 0, '.', ','); ?>
                                                         </td>
-                                                        <td>
-                                                            <?php echo $row['municipality_name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['date_updated']; ?>
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <button class="btn btn-update btn-warning btn-sm"
-                                                                data-toggle="modal" data-target="#updateModal"
-                                                                data-zip="<?php echo $row['municipality_id'] ?>"
-                                                                data-name="<?php echo $row['municipality_name'] ?>"
-                                                                data-number="<?php echo $row['number']; ?>"
-                                                                data-date="<?php echo $row['date_updated']; ?>">Update
-
-                                                            </button>
-
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <form action="../backend/veterinary-clinics-code.php" method="post">
-                                                                <input type="hidden" name="id"
-                                                                    value="<?php echo $row['municipality_id']; ?>">
-                                                                <button type="button" class="btn btn-danger btn-delete btn-sm"
-                                                                    data-toggle="modal" data-target="#deleteConfirmationModal">
-                                                                    Delete
-                                                                </button>
-                                                            </form>
-                                                        </td>
+                                                        <td colspan="3"></td>
                                                     </tr>
-                                                    <?php
-                                                }
-                                            }
 
-                                            ?>
-
-                                        </tbody>
-
-                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                            <td>Total</td>
-                                            <td></td>
-                                            <td>
-                                                <?php echo number_format($totalNumber, 0, '.', ','); ?>
-                                            </td>
-                                            <td colspan="3"></td>
-                                        </tr>
+                                                </table>
+                                            </div>
 
 
-
-                                    </table>
-                                </div>
-
-                                <div class="card mt-5">
-                                    <canvas class="canvas" id="governmentVeterinaryClinicsChart"></canvas>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
 
                         </div>
 
                         <div class="col-md-6">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="card mb-2 p-3">
+                                            <canvas class="canvas" id="privateVeterinaryClinicsChart"></canvas>
+                                        </div>
 
-                            ?>
-                            <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h4 class="text-center font-weight-bold ">Private Veterinary Clinics
-                                    </h4>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addPrivateModal">
-                                        Add data
-                                    </button>
+                                        <div class="card p-3">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h5 class="font-weight-bold">Private Veterinary Clinics
+                                                    </h5>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                                        data-target="#addPrivateModal">+
+                                                        Add data</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="display table-bordered" id="secondary-table">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col">ZIP Code</th>
-                                                <th scope="col">Municipality</th>
-                                                <th scope="col">Number</th>
-                                                <th scope="col">Date Updated</th>
-                                                <th scope="col" class="text-center">Update</th>
-                                                <th scope="col" class="text-center">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
+                                        <div class="card p-3">
+                                            <div class="table-responsive">
+                                                <table class="row-border" id="secondary-table">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th scope="col">ZIP Code</th>
+                                                            <th scope="col">Municipality</th>
+                                                            <th scope="col">Number</th>
+                                                            <th scope="col">Date Updated</th>
+                                                            <th scope="col" class="text-center">Update</th>
+                                                            <th scope="col" class="text-center">Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
-                                            $fetch_query = "SELECT * FROM privateveterinaryclinics;";
+                                                        $fetch_query = "SELECT * FROM privateveterinaryclinics;";
 
-                                            $fetch_query_run = mysqli_query($connection, $fetch_query);
+                                                        $fetch_query_run = mysqli_query($connection, $fetch_query);
 
-                                            $privateClinics = 0;
+                                                        $privateClinics = 0;
 
-                                            $privateLabel = [];
-                                            $privateVeterinaryClinicsData = [];
+                                                        $privateLabel = [];
+                                                        $privateVeterinaryClinicsData = [];
 
-                                            if (mysqli_num_rows($fetch_query_run) > 0) {
-                                                while ($row = mysqli_fetch_array($fetch_query_run)) {
-                                                    $privateClinics += $row['number'];
+                                                        if (mysqli_num_rows($fetch_query_run) > 0) {
+                                                            while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                                                $privateClinics += $row['number'];
 
-                                                    $privateLabel[] = $row['municipality_name'];
-                                                    $privateVeterinaryClinicsData[] = $row['number'];
-                                                    ?>
-                                                    <tr>
+                                                                $privateLabel[] = $row['municipality_name'];
+                                                                $privateVeterinaryClinicsData[] = $row['number'];
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $row['municipality_id']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['municipality_name']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo number_format($row['number'], 0, '.', ','); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row['date_updated']; ?>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-update-yearly btn-warning btn-sm"
+                                                                            data-toggle="modal" data-target="#updateModalYearly"
+                                                                            data-private-zip="<?php echo $row['municipality_id'] ?>"
+                                                                            data-private-name="<?php echo $row['municipality_name'] ?>"
+                                                                            data-private-number="<?php echo $row['number']; ?>"
+                                                                            data-date="<?php echo $row['date_updated']; ?>">*
+                                                                            Update
+                                                                        </button>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <form
+                                                                            action="/benguetlivestock/backend/veterinary-clinics-code.php"
+                                                                            method="post">
+                                                                            <input type="hidden" name="id_yearly"
+                                                                                value="<?php echo $row['municipality_id']; ?>">
+                                                                            <button type="button"
+                                                                                class="btn btn-danger btn-delete-yearly btn-sm"
+                                                                                data-toggle="modal"
+                                                                                data-target="#deleteConfirmationModalYearly">-
+                                                                                Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                    <tr class="total-row text-center"
+                                                        style="font-weight: bold; color: red;">
+                                                        <td>Total</td>
+                                                        <td></td>
                                                         <td>
-                                                            <?php echo $row['municipality_id']; ?>
+                                                            <?php echo number_format($privateClinics, 0, '.', ','); ?>
                                                         </td>
-                                                        <td>
-                                                            <?php echo $row['municipality_name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo number_format($row['number'], 0, '.', ','); ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $row['date_updated']; ?>
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <button class="btn btn-update-yearly btn-warning btn-sm"
-                                                                data-toggle="modal" data-target="#updateModalYearly"
-                                                                data-private-zip="<?php echo $row['municipality_id'] ?>"
-                                                                data-private-name="<?php echo $row['municipality_name'] ?>"
-                                                                data-private-number="<?php echo $row['number']; ?>"
-                                                                data-date="<?php echo $row['date_updated']; ?>">Update
-
-                                                            </button>
-
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <form action="/benguetlivestock/backend/veterinary-clinics-code.php"
-                                                                method="post">
-                                                                <input type="hidden" name="id_yearly"
-                                                                    value="<?php echo $row['municipality_id']; ?>">
-                                                                <button type="button"
-                                                                    class="btn btn-danger btn-delete-yearly btn-sm"
-                                                                    data-toggle="modal"
-                                                                    data-target="#deleteConfirmationModalYearly">
-                                                                    Delete
-                                                                </button>
-                                                            </form>
-                                                        </td>
-
-
+                                                        <td colspan="3"></td>
                                                     </tr>
-                                                    <?php
-                                                }
-                                            }
-
-                                            ?>
-
-                                        </tbody>
-
-                                        <tr class="total-row text-center" style="font-weight: bold; color: red;">
-                                            <td>Total</td>
-                                            <td></td>
-                                            <td>
-                                                <?php echo number_format($privateClinics, 0, '.', ','); ?>
-                                            </td>
-                                            <td colspan="3"></td>
-                                        </tr>
-
-
-
-                                    </table>
-                                </div>
-
-                                <div class="card mt-5">
-                                    <canvas class="canvas" id="privateVeterinaryClinicsChart"></canvas>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </main>
@@ -464,7 +456,7 @@ session_start();
     <script>
         var ctx = document.getElementById('privateVeterinaryClinicsChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'radar',
             data: {
                 labels: <?php echo json_encode($privateLabel); ?>,
                 datasets: [{
@@ -526,7 +518,8 @@ session_start();
     </script>
 
     <script>
-        var totalAnimalDeaths = <?php echo $totalNumber; ?>;
+        var governmentClinics = <?php echo $governmentClinics; ?>;
+        var privateClinics = <?php echo $privateClinics; ?>;
     </script>
 
     <script>
@@ -568,23 +561,12 @@ session_start();
 
     <script src="/benguetlivestock/assets/js/content-js/veterinary-clinics-script.js"></script>
 
-    <script>
-        // Save scroll position to sessionStorage before the page reloads
-        window.onbeforeunload = function () {
-            sessionStorage.setItem("scrollPos", window.scrollY);
-        };
-    </script>
-
-    <script>
-        // Restore scroll position from sessionStorage on page load
-        window.onload = function () {
-            var scrollPos = sessionStorage.getItem("scrollPos");
-            if (scrollPos !== null) {
-                window.scrollTo(0, scrollPos);
-                sessionStorage.removeItem("scrollPos");
-            }
-        };
-    </script>
+    <!-- Save State of Page Script -->
+    <script src="/benguetlivestock/assets/js/save-state.js"></script>
+    <!-- Sidebar Responsive Script -->
+    <script src="/benguetlivestock/assets/js/sidebar.js"></script>
+    <!-- Dropdown Script -->
+    <script src="/benguetlivestock/assets/js/dropdown.js"></script>
 </body>
 
 </html>

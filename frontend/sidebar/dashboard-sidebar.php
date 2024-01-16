@@ -24,7 +24,7 @@
                 <div class="nav__items">
                     <!-- <h3 class="nav__subtitle">Shortcut</h3> -->
 
-                    <a href="/benguetlivestock/frontend/dashboard.php" class="nav__link">
+                    <a href="/benguetlivestock/frontend/dashboard.php" class="nav__link active">
                         <i class='bx bxs-dashboard nav__icon'></i>
                         <span class="nav__name">Dashboard</span>
                     </a>
@@ -164,15 +164,14 @@
 
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
-                                <a href="/benguetlivestock/frontend/bee-colonies.php"
-                                    class="nav__dropdown-item">Beekeepers and Colonies</a>
-                                <a href="/benguetlivestock/frontend/bee-trend.php" class="nav__dropdown-item">Trend</a>
+                                <a href="#" class="nav__dropdown-item">Beekeepers and Colonies</a>
+                                <a href="#" class="nav__dropdown-item">Trend</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="nav__dropdown show" id="fisheryDropdown">
-                        <a href="#" class="nav__link active" onclick="toggleDropdown('fisheryDropdown')">
+                    <div class="nav__dropdown" id="fisheryDropdown">
+                        <a href="#" class="nav__link" onclick="toggleDropdown('fisheryDropdown')">
                             <svg xmlns="http://www.w3.org/2000/svg" class='bx nav__icon' width="20" height="20"
                                 viewBox="0 0 48 48">
                                 <defs>
@@ -196,7 +195,7 @@
                                 <a href="/benguetlivestock/frontend/fish-sanctuary.php"
                                     class="nav__dropdown-item">Sanctuaries</a>
                                 <a href="/benguetlivestock/frontend/fish-production.php"
-                                    class="nav__dropdown-item active">Production</a>
+                                    class="nav__dropdown-item">Production</a>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_death_count').attr('placeholder', deaths_count);
+        $('#update_death_count').val(deaths_count);
 
         // $('#update_cat_count').attr('placeholder', cat_count);
 
