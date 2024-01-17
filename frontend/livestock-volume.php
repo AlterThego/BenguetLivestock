@@ -532,9 +532,6 @@ session_start();
             $('.btn-delete').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDelete').data('id', id);
-                $('#confirmDelete').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
             });
 
             $('#confirmDelete').click(function () {

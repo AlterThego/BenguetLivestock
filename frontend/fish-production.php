@@ -638,8 +638,6 @@ session_start();
             $('.btn-delete').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDelete').data('id', id);
-                $('#deleteConfirmationModal').modal('show');
-                $('.modal-backdrop').remove();
             });
 
             $('#confirmDelete').click(function () {
@@ -672,9 +670,6 @@ session_start();
             $('.btn-delete-yearly').click(function () {
                 var id = $(this).closest('form').find('input[name="id_yearly"]').val();
                 $('#confirmDeleteYearly').data('id', id);
-                $('#confirmDeleteYearly').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
             });
 
             // Confirm delete handler for the yearly form

@@ -481,9 +481,6 @@ session_start();
             $('.btn-delete-provincial').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDeleteProvincial').data('id', id);
-                $('#confirmDeleteProvincial').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
             });
 
             $('#confirmDeleteProvincial').click(function () {
@@ -512,9 +509,6 @@ session_start();
             $('.btn-delete-municipality').click(function () {
                 var id = $(this).closest('form').find('input[name="id"]').val();
                 $('#confirmDeleteMunicipality').data('id', id);
-                $('#confirmDeleteMunicipality').on('hidden.bs.modal', function () {
-                    $('.modal-backdrop').remove();
-                });
             });
 
             $('#confirmDeleteMunicipality').click(function () {
