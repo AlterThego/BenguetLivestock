@@ -18,9 +18,6 @@ $(document).ready(function () {
         // Set the value of the "Date Updated" input field to today's date
         $('#update_date').val(today);
 
-        // Show the update modal
-        $('#updateModal').modal('show');
-        $('.modal-backdrop').remove();
     });
 
     $('.btn-update-yearly').click(function () {
@@ -37,11 +34,6 @@ $(document).ready(function () {
 
         // Set the value of the "Date Updated" input field to today's date
         $('#update_date').val(today);
-
-        // Show the update modal
-        $('#updateModal').on('hidden.bs.modal', function () {
-            $('.modal-backdrop').remove();
-        });
     });
 
 
