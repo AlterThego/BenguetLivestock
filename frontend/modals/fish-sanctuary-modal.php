@@ -10,12 +10,9 @@
             </div>
             <form action="/benguetlivestock/backend/fish-sanctuary-code.php" method="POST">
                 <!-- Body -->
-
-
                 <div class="modal-body">
-
                     <div class="form-group mb-3">
-                        <label for="id-name">ZIP Code and Municipality</label>
+                        <label for="id-name">Barangay</label>
                         <select class="form-control" name="id-name">
                             <?php
                             $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
@@ -52,16 +49,23 @@
                         </select>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="area">Area</label>
-                        <input type="text" class="form-control" name="area" placeholder="Enter Area" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="area">Area</label>
+                                <input type="text" class="form-control" name="area" placeholder="Sanctuary Area"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
                 </div>
 
 
@@ -90,22 +94,26 @@
 
 
                     <div class="form-group mb-3">
-                        <label for="update_name">ZIP Code and Municipality</label>
+                        <label for="update_name">Barangay</label>
                         <input type="text" class="form-control" name="update_name" id="update_name" readonly>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_area">Area</label>
-                        <input type="text" class="form-control" name="update_area" id="update_area">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_area">Update Area</label>
+                                <input type="text" class="form-control" name="update_area" id="update_area">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <input type="hidden" name="update_id" id="update_id">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -212,7 +220,8 @@
 
 
 <!-- Update Modal -->
-<div class="modal fade" id="updateModalYearly" tabindex="-1" role="dialog" aria-labelledby="updateModal" aria-hidden="true">
+<div class="modal fade" id="updateModalYearly" tabindex="-1" role="dialog" aria-labelledby="updateModal"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

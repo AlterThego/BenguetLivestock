@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="carabao_count">Number</label>
+                        <label for="carabao_count">Veterinary and Poultry Supplies</label>
                         <input type="number" class="form-control" name="number" id="number"
                             placeholder="Enter Number of Veterinary an Poultry Supplies">
                     </div>
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="update_number">Number</label>
+                        <label for="update_number">Veterinary and Poultry Supplies</label>
                         <input type="number" class="form-control" name="update_number" id="update_number" ?>
                     </div>
 

@@ -60,7 +60,7 @@ session_start();
                                     <div class="card p-3">
                                         <div class="row">
                                             <div class="col-6">
-                                                <h5 class="text-left font-weight-bold">Animal and Fishery: Provincial
+                                                <h5 class="text-left font-weight-bold">Breeding Stations: Provincial
                                                 </h5>
                                             </div>
                                             <div class="col-6 text-end">
@@ -74,6 +74,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-12">
                             <?php include_once '../assets/toastr.php';
                             ?>
@@ -83,7 +84,7 @@ session_start();
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
-                                                <th scope="col">Number</th>
+                                                <th scope="col">Breeding Stations/Multiplier Farms</th>
                                                 <th scope="col">Date Updated</th>
                                                 <th scope="col" class="text-center">Update</th>
                                                 <th scope="col" class="text-center">Delete</th>
@@ -176,7 +177,7 @@ session_start();
                                     <div class="card p-3">
                                         <div class="row">
                                             <div class="col-6">
-                                                <h5 class="text-left font-weight-bold">Animal and Fishery:
+                                                <h5 class="text-left font-weight-bold">Breeding Stations:
                                                     Municipal
                                                 </h5>
                                             </div>

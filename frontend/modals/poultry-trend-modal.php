@@ -12,7 +12,6 @@
             <form action="/benguetlivestock/backend/poultry-trend-code.php" method="POST">
                 <!-- Body -->
                 <div class="modal-body">
-
                     <div class="form-group mb-3">
                         <label for="year">Year</label>
                         <?php
@@ -26,35 +25,42 @@
                             max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
 
-                    <div class="form-group mb-3">
-                        <label for="layers_count">Yearly <b>Layers</b></label>
-                        <input type="number" class="form-control" name="layers_count"
-                            placeholder="Enter yearly layers count">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="broiler_count">Yearly <b>Broiler</b></label>
-                        <input type="number" class="form-control" name="broiler_count"
-                            placeholder="Enter yearly broiler count">
-                    </div>
+                            <div class="form-group mb-3">
+                                <label for="layers_count">Layers</label>
+                                <input type="number" class="form-control" name="layers_count"
+                                    placeholder="Yearly Layers">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="native_count">Native/Range</label>
+                                <input type="number" class="form-control" name="native_count"
+                                    placeholder="Yearly Native">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="native_count">Yearly <b>Native/Range</b></label>
-                        <input type="number" class="form-control" name="native_count"
-                            placeholder="Enter yearly native count">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="fighting_count">Yearly <b>Fighting/Fancy Fowl</b></label>
-                        <input type="number" class="form-control" name="fighting_count"
-                            placeholder="Enter yearly fighting count">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="broiler_count">Broiler</label>
+                                <input type="number" class="form-control" name="broiler_count"
+                                    placeholder="Yearly Broiler">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fighting_count">Fancy Fowl</label>
+                                <input type="number" class="form-control" name="fighting_count"
+                                    placeholder="Yearly Fancy Fowl">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -86,31 +92,35 @@
                     </div>
 
 
-                    <div class="form-group mb-3">
-                        <label for="update_layers">Yearly <b>Layers</b></label>
-                        <input type="number" class="form-control" name="update_layers" id="update_layers">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_layers">Update Layers</label>
+                                <input type="number" class="form-control" name="update_layers" id="update_layers">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_native">Update Native/Range</label>
+                                <input type="number" class="form-control" name="update_native" id="update_native">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_broiler">Update Broiler</label>
+                                <input type="number" class="form-control" name="update_broiler" id="update_broiler">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_fighting">Update Fancy Fowl</label>
+                                <input type="number" class="form-control" name="update_fighting" id="update_fighting">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_broiler">Yearly <b>Broiler</b></label>
-                        <input type="number" class="form-control" name="update_broiler" id="update_broiler">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_native">Yearly <b>Native/Range</b></label>
-                        <input type="number" class="form-control" name="update_native" id="update_native">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_fighting">Yearly <b>Fighting/Fancy Fowl</b></label>
-                        <input type="number" class="form-control" name="update_fighting" id="update_fighting">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
                 </div>
 
                 <div class="modal-footer">

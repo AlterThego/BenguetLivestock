@@ -16,42 +16,48 @@
                         <label for="id" hidden>ID</label>
                         <input type="number" class="form-control" name="id" value="1" hidden>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="fish_pond_count">Fish Pond</label>
+                                <input type="text" class="form-control" name="fish_pond_count"
+                                    placeholder="Fish Pond Area" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fish_tank_count">Fish in Tank</label>
+                                <input type="text" class="form-control" name="fish_tank_count"
+                                    placeholder="Fish in Tank Area" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="communal_water_count">Communal Bodies</label>
+                                <input type="text" class="form-control" name="communal_water_count"
+                                    placeholder="Communal Bodies of Water Area" autocomplete="off">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="fish_pond_count">Fish Pond</label>
-                        <input type="text" class="form-control" name="fish_pond_count"
-                            placeholder="Enter Fish Pond Area">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="fish_cage_count">Fish Cage</label>
+                                <input type="text" class="form-control" name="fish_cage_count"
+                                    placeholder="Fish Cage Area" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="rice_fish_count">Rice-Fish Culture</label>
+                                <input type="text" class="form-control" name="rice_fish_count"
+                                    placeholder="Rice-Fish Culture Area" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="fish_cage_count">Fish Cage</label>
-                        <input type="text" class="form-control" name="fish_cage_count"
-                            placeholder="Enter Fish Cage Area">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="fish_tank_count">Fish in Tank</label>
-                        <input type="text" class="form-control" name="fish_tank_count"
-                            placeholder="Enter Fish in Tank Area">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="rice_fish_count">Rice-Fish Culture</label>
-                        <input type="text" class="form-control" name="rice_fish_count"
-                            placeholder="Enter Rice-Fish Culture Area">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="communal_water_count">Communal Bodies of Water</label>
-                        <input type="text" class="form-control" name="communal_water_count"
-                            placeholder="Enter Communal Bodies of Water Area">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
                 </div>
 
                 <!-- Buttons -->
@@ -82,36 +88,39 @@
                         <input type="text" class="form-control" name="update_fish_id" id="update_fish_id" hidden>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_pond_count">Update Fish Pond</label>
+                                <input type="text" class="form-control" name="update_pond_count" id="update_pond_count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_pond_count">Fish Pond</label>
-                        <input type="text" class="form-control" name="update_pond_count" id="update_pond_count">
-                    </div>
+                            <div class="form-group mb-3">
+                                <label for="update_tank_count">Update Fish Tank</label>
+                                <input type="text" class="form-control" name="update_tank_count" id="update_tank_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_communal_count">Update Communal Bodies</label>
+                                <input type="text" class="form-control" name="update_communal_count"
+                                    id="update_communal_count">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cage_count">Update Fish Cage</label>
+                                <input type="text" class="form-control" name="update_cage_count" id="update_cage_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_rice_count">Update Rice-Fish Culture</label>
+                                <input type="text" class="form-control" name="update_rice_count" id="update_rice_count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_cage_count">Fish Cage</label>
-                        <input type="text" class="form-control" name="update_cage_count" id="update_cage_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_tank_count">Fish Tank</label>
-                        <input type="text" class="form-control" name="update_tank_count" id="update_tank_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_rice_count">Rice-Fish Culture</label>
-                        <input type="text" class="form-control" name="update_rice_count" id="update_rice_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_communal_count">Communal Bodies of Water</label>
-                        <input type="text" class="form-control" name="update_communal_count" id="update_communal_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 

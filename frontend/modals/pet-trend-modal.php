@@ -12,7 +12,6 @@
             <form action="/benguetlivestock/backend/pet-trend-code.php" method="POST">
                 <!-- Body -->
                 <div class="modal-body">
-
                     <div class="form-group mb-3">
                         <label for="year">Year</label>
                         <?php
@@ -25,25 +24,39 @@
                         <input type="number" id="year" class="form-control" name="year" placeholder="Enter Year"
                             min="1900" max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="dog_count">Dog</label>
+                                <input type="number" id="dog_count" class="form-control" name="dog_count"
+                                    placeholder="Yearly Dog">
+                            </div>
 
 
-                    <div class="form-group mb-3">
-                        <label for="dog_count">Yearly <b>Dog</b></label>
-                        <input type="number" id="dog_count" class="form-control" name="dog_count"
-                            placeholder="Enter Yearly Dog Count">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="cat_count">Cat</label>
+                                <input type="number" id="cat_count" class="form-control" name="cat_count"
+                                    placeholder="Yearly Cat">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" id="date_updated" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="cat_count">Yearly <b>Cat</b></label>
-                        <input type="number" id="cat_count" class="form-control" name="cat_count"
-                            placeholder="Enter Yearly Cat Count">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" id="date_updated" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+
+
+
+
+
+
                 </div>
 
                 <!-- Buttons -->
@@ -73,21 +86,26 @@
                         <input type="number" class="form-control" name="update_year" id="update_year" readonly>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_dog">Update Dog</label>
+                                <input type="number" class="form-control" name="update_dog" id="update_dog">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cat">Update Cat</label>
+                                <input type="number" class="form-control" name="update_cat" id="update_cat">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_dog">Yearly <b>Dog</b></label>
-                        <input type="number" class="form-control" name="update_dog" id="update_dog">
-                    </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_cat">Yearly <b>Cat</b></label>
-                        <input type="number" class="form-control" name="update_cat" id="update_cat">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        </div>
                     </div>
                 </div>
 

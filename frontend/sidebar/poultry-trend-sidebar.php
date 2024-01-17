@@ -109,8 +109,8 @@
                         </div>
                     </div>
 
-                    <div class="nav__dropdown" id="poultryDropdown">
-                        <a href="#" class="nav__link" onclick="toggleDropdown('poultryDropdown')">
+                    <div class="nav__dropdown show" id="poultryDropdown">
+                        <a href="#" class="nav__link active" onclick="toggleDropdown('poultryDropdown')">
                             <svg xmlns="/benguetlivestock/assets/images/chicken.svg" class='bx nav__icon' width="20"
                                 height="20" viewBox="0 0 32 32">
                                 <path fill="currentColor"
@@ -125,13 +125,13 @@
                                 <a href="/benguetlivestock/frontend/poultry-population.php"
                                     class="nav__dropdown-item">Population</a>
                                 <a href="/benguetlivestock/frontend/poultry-trend.php"
-                                    class="nav__dropdown-item">Trend</a>
+                                    class="nav__dropdown-item active">Trend</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="nav__dropdown show" id="livestockDropdown">
-                        <a href="#" class="nav__link active" onclick="toggleDropdown('livestockDropdown')">
+                    <div class="nav__dropdown" id="livestockDropdown">
+                        <a href="#" class="nav__link" onclick="toggleDropdown('livestockDropdown')">
                             <svg xmlns="http://www.w3.org/2000/svg" class='bx nav__icon' viewBox="0 0 48 48" width="20"
                                 height="20">
                                 <path fill="currentColor" fill-rule="evenodd"
@@ -145,7 +145,7 @@
                         <div class="nav__dropdown-collapse">
                             <div class="nav__dropdown-content">
                                 <a href="/benguetlivestock/frontend/livestock-volume.php"
-                                    class="nav__dropdown-item active">Volume</a>
+                                    class="nav__dropdown-item">Volume</a>
                                 <a href="/benguetlivestock/frontend/livestock-volume-trend.php"
                                     class="nav__dropdown-item">Yearly Volume</a>
                             </div>

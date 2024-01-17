@@ -26,23 +26,26 @@
                             max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
 
-
-                    <div class="form-group mb-3">
-                        <label for="colonies_count">Yearly <b>Honey Bee Colonies</b></label>
-                        <input type="number" class="form-control" name="colonies_count"
-                            placeholder="Enter Yearly Honey Bee Colonies Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="beekeepers_count">Yearly <b>Number of Beekeepers</b></label>
-                        <input type="number" class="form-control" name="beekeepers_count"
-                            placeholder="Enter Yearly Beekeepers Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="colonies_count">Honey Bee Colonies</label>
+                                <input type="number" class="form-control" name="colonies_count"
+                                    placeholder="Yearly Honey Bee Colonies">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="beekeepers_count">Beekeepers</label>
+                                <input type="number" class="form-control" name="beekeepers_count"
+                                    placeholder="Yearly Beekeepers">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -72,23 +75,33 @@
                         <label for="update_year">Year</label>
                         <input type="number" class="form-control" name="update_year" id="update_year" readonly>
                     </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_colonies">Yearly <b>Dog</b></label>
-                        <input type="number" class="form-control" name="update_colonies" id="update_colonies">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_colonies">Update Colonies</label>
+                                <input type="number" class="form-control" name="update_colonies" id="update_colonies">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_beekeepers">Update Beekeepers</label>
+                                <input type="number" class="form-control" name="update_beekeepers"
+                                    id="update_beekeepers">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_beekeepers">Yearly <b>Cat</b></label>
-                        <input type="number" class="form-control" name="update_beekeepers" id="update_beekeepers">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+
+
+
+
+
                 </div>
 
                 <div class="modal-footer">

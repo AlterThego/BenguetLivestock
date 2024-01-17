@@ -63,7 +63,8 @@ session_start();
                                     <div class="card p-3">
                                         <div class="row">
                                             <div class="col-6">
-                                                <h5 class="text-left font-weight-bold">Pet Population</h5>
+                                                <h5 class="text-left font-weight-bold">Veterinary and Poultry Supplies
+                                                </h5>
                                             </div>
                                             <div class="col-6 text-end">
                                                 <button type="button" class="btn btn-success" data-toggle="modal"
@@ -73,8 +74,6 @@ session_start();
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -196,27 +195,26 @@ session_start();
                 <!-- Yearly Veterinary and Poultry Farm Supplies -->
                 <div class="container-fluid mt-3">
                     <div class="row justify-content-center">
+                        <!-- Title + Add -->
+                        <div class="container-fluid mt-3">
+                            <div class="row justify-content-center ">
+                                <div class="col-md-12">
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h5 class="text-left font-weight-bold">Yearly Veterinary and Poultry Supplies
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
-                            <?php
-                            if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?php echo $_SESSION['status']; ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <?php
-                                unset($_SESSION['status']);
-                            }
-                            ?>
                             <div class="card p-3">
-                                <div class="card-header mb-3">
-                                    <h3 class="text-center font-weight-bold ">Yearly Veterinary and Poultry Farm
-                                        Supplies</h3>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="yearly-table">
+                                    <table class="row-border" id="yearly-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>

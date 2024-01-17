@@ -48,40 +48,15 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-
-
                             <div class="form-group mb-3">
                                 <label for="carabao_count">Carabao</label>
                                 <input type="number" class="form-control" name="carabao_count"
                                     placeholder="Enter Carabao Count">
                             </div>
-
-                            <div class="form-group mb-3">
-                                <label for="cattle_count">Cattle</label>
-                                <input type="number" class="form-control" name="cattle_count"
-                                    placeholder="Enter Cattle Count">
-                            </div>
-
                             <div class="form-group mb-3">
                                 <label for="swine_count">Swine</label>
                                 <input type="number" class="form-control" name="swine_count"
                                     placeholder="Enter Swine Count">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="goat_count">Goat</label>
-                                <input type="number" class="form-control" name="goat_count"
-                                    placeholder="Enter Goat Count">
-                            </div>
-
-                            <!-- Add other form fields for Swine, Goat, Dog, Sheep, Horse, etc. -->
-
-                        </div>
-                        <div class="col-md-6">
-                            <!-- More form fields or additional content can go here -->
-                            <div class="form-group mb-3">
-                                <label for="dog_count">Dog</label>
-                                <input type="number" class="form-control" name="dog_count"
-                                    placeholder="Enter Dog Count">
                             </div>
 
                             <div class="form-group mb-3">
@@ -89,13 +64,28 @@
                                 <input type="number" class="form-control" name="sheep_count"
                                     placeholder="Enter Sheep Count">
                             </div>
-
+                            <div class="form-group mb-3">
+                                <label for="dog_count">Dog</label>
+                                <input type="number" class="form-control" name="dog_count"
+                                    placeholder="Enter Dog Count">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="cattle_count">Cattle</label>
+                                <input type="number" class="form-control" name="cattle_count"
+                                    placeholder="Enter Cattle Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="goat_count">Goat</label>
+                                <input type="number" class="form-control" name="goat_count"
+                                    placeholder="Enter Goat Count">
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="horse_count">Horse</label>
                                 <input type="number" class="form-control" name="horse_count"
                                     placeholder="Enter Horse Count">
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="date_updated">Date Updated</label>
                                 <input type="date" class="form-control" name="date_updated"
@@ -136,53 +126,59 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="update_carabao_count">Carabao Count</label>
+                                <label for="update_carabao_count">Update Carabao</label>
                                 <input type="number" class="form-control" name="update_carabao_count"
                                     id="update_carabao_count">
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="update_cattle_count">Cattle Count</label>
-                                <input type="number" class="form-control" name="update_cattle_count"
-                                    id="update_cattle_count">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="update_swine_count">Swine Count</label>
+                                <label for="update_swine_count">Update Swine</label>
                                 <input type="number" class="form-control" name="update_swine_count"
                                     id="update_swine_count">
                             </div>
+                            <div class="form-group mb-3">
+                                <label for="update_sheep_count">Update Sheep</label>
+                                <input type="number" class="form-control" name="update_sheep_count"
+                                    id="update_sheep_count">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_dog_count">Update Dog</label>
+                                <input type="number" class="form-control" name="update_dog_count" id="update_dog_count">
+                            </div>
+
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="update_goat_count">Goat Count</label>
+                                <label for="update_cattle_count">Update Cattle</label>
+                                <input type="number" class="form-control" name="update_cattle_count"
+                                    id="update_cattle_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_goat_count">Update Goat</label>
                                 <input type="number" class="form-control" name="update_goat_count"
                                     id="update_goat_count">
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="update_dog_count">Dog Count</label>
-                                <input type="number" class="form-control" name="update_dog_count" id="update_dog_count">
+                                <label for="update_horse_count">Update Horse</label>
+                                <input type="number" class="form-control" name="update_horse_count"
+                                    id="update_horse_count">
                             </div>
 
+
                             <div class="form-group mb-3">
-                                <label for="update_sheep_count">Sheep Count</label>
-                                <input type="number" class="form-control" name="update_sheep_count"
-                                    id="update_sheep_count">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_horse_count">Horse Count</label>
-                        <input type="number" class="form-control" name="update_horse_count" id="update_horse_count">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+
+
                 </div>
 
                 <div class="modal-footer">

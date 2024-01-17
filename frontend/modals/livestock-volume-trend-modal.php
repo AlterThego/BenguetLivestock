@@ -122,59 +122,82 @@
                         <input type="text" class="form-control" name="update_year" id="update_year" readonly>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_cattle_volume">Cattle Volume</label>
-                        <input type="number" class="form-control" name="update_cattle_volume" id="update_cattle_volume"
-                            ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cattle_volume">Update Cattle</label>
+                                <input type="number" class="form-control" name="update_cattle_volume"
+                                    id="update_cattle_volume" ?>
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_carabao_volume">Update Carabao</label>
+                                <input type="number" class="form-control" name="update_carabao_volume"
+                                    id="update_carabao_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_chicken_volume">Update Chicken</label>
+                                <input type="number" class="form-control" name="update_chicken_volume"
+                                    id="update_chicken_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_fish_volume">Update Fish</label>
+                                <input type="number" class="form-control" name="update_fish_volume"
+                                    id="update_fish_volume">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_swine_volume">Update Swine</label>
+                                <input type="number" class="form-control" name="update_swine_volume"
+                                    id="update_swine_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_goat_volume">Update Goat</label>
+                                <input type="number" class="form-control" name="update_goat_volume"
+                                    id="update_goat_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_duck_volume">Update Duck</label>
+                                <input type="number" class="form-control" name="update_duck_volume"
+                                    id="update_duck_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_swine_volume">Swine Volume</label>
-                        <input type="number" class="form-control" name="update_swine_volume" id="update_swine_volume">
+                    <div class="modal-footer">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="updateData" class="btn btn-primary">Update</button>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_carabao_volume">Carabao Volume</label>
-                        <input type="number" class="form-control" name="update_carabao_volume"
-                            id="update_carabao_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_goat_volume">Goat Volume</label>
-                        <input type="number" class="form-control" name="update_goat_volume" id="update_goat_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_chicken_volume">Chicken Volume</label>
-                        <input type="number" class="form-control" name="update_chicken_volume"
-                            id="update_chicken_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_duck_volume">Duck Volume</label>
-                        <input type="number" class="form-control" name="update_duck_volume" id="update_duck_volume">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_fish_volume">Fish Volume</label>
-                        <input type="number" class="form-control" name="update_fish_volume" id="update_fish_volume">
-                    </div>
-
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <input type="hidden" name="update_id" id="update_id">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="updateData" class="btn btn-primary">Update</button>
-                </div>
             </form>
         </div>
     </div>

@@ -23,31 +23,35 @@
                         <input type="number" class="form-control" name="year" placeholder="Enter Year"
                             min="<?php echo $currentYear - 6; ?>" max="2099" value="<?php echo $defaultYear; ?>">
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="poultry_farms">Poultry Farms</label>
+                                <input type="number" class="form-control" name="poultry_farms"
+                                    placeholder="Poultry Farms Count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="poultry_farms">Poultry</label>
-                        <input type="number" class="form-control" name="poultry_farms"
-                            placeholder="Enter Poultry Farms">
+                            <div class="form-group mb-3">
+                                <label for="piggery_farms">Piggery Farms</label>
+                                <input type="number" class="form-control" name="piggery_farms"
+                                    placeholder="Piggery Farms Count">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="cattle_farms">Cattle Farms</label>
+                                <input type="number" class="form-control" name="cattle_farms"
+                                    placeholder="Cattle Farms Count">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="cattle_farms">Cattle</label>
-                        <input type="number" class="form-control" name="cattle_farms" placeholder="Enter Cattle Farms">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="piggery_farms">Piggery</label>
-                        <input type="number" class="form-control" name="piggery_farms"
-                            placeholder="Enter Piggery Farms">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
                 </div>
 
                 <!-- Buttons -->
@@ -77,26 +81,40 @@
                         <input type="text" class="form-control" name="update_year" id="update_year" readonly>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_poultry_farms">Poultry Farms</label>
-                        <input type="number" class="form-control" name="update_poultry_farms" id="update_poultry_farms">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_poultry_farms">Update Poultry Farms</label>
+                                <input type="number" class="form-control" name="update_poultry_farms"
+                                    id="update_poultry_farms">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_piggery_farms">Update Piggery Farms</label>
+                                <input type="number" class="form-control" name="update_piggery_farms"
+                                    id="update_piggery_farms">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cattle_farms">Update Cattle Farms</label>
+                                <input type="number" class="form-control" name="update_cattle_farms"
+                                    id="update_cattle_farms">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_cattle_farms">Cattle Farms</label>
-                        <input type="number" class="form-control" name="update_cattle_farms" id="update_cattle_farms">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_piggery_farms">Piggery Farms</label>
-                        <input type="number" class="form-control" name="update_piggery_farms" id="update_piggery_farms">
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+
+
                 </div>
 
                 <div class="modal-footer">

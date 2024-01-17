@@ -81,7 +81,7 @@
                         <?php include '../backend/comparison-code.php'; ?>
 
                         <!-- First Container -->
-                        <div id="first-container" class="col-md-3">
+                        <div id="first-container" class="col-md-3 p-3">
                             <div class="card text-center">
                                 <div class="card-body">
                                     <p style="display: none;"></p>
@@ -218,7 +218,7 @@
                         </div>
 
                         <!-- Second Container -->
-                        <div id="second-container" class="col-md-3">
+                        <div id="second-container" class="col-md-3 p-3">
                             <div class="card text-center">
                                 <div class="card-body">
                                     <p style="display: none;"></p>

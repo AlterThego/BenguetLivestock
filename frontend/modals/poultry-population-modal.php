@@ -11,38 +11,41 @@
             <form action="/benguetlivestock/backend/poultry-population-code.php" method="POST">
                 <!-- Body -->
                 <div class="modal-body">
-
                     <div class="form-group mb-3">
                         <label for="poultry_id" hidden>ID</label>
                         <input type="number" class="form-control" name="poultry_id" value="1" hidden>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="layers_count">Layers</label>
+                                <input type="number" class="form-control" name="layers_count"
+                                    placeholder="Layers Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="native_count">Native/ Range</label>
+                                <input type="number" class="form-control" name="native_count"
+                                    placeholder="Native Count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="layers_count">Layers</label>
-                        <input type="number" class="form-control" name="layers_count" placeholder="Enter Layers Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="broiler_count">Broiler</label>
-                        <input type="number" class="form-control" name="broiler_count"
-                            placeholder="Enter Broiler Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="native_count">Native/ Range</label>
-                        <input type="number" class="form-control" name="native_count" placeholder="Enter Native Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="fighting_count">Fighting/ Fancy Fowl</label>
-                        <input type="number" class="form-control" name="fighting_count"
-                            placeholder="Enter Fighting Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="broiler_count">Broiler</label>
+                                <input type="number" class="form-control" name="broiler_count"
+                                    placeholder="Broiler Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fighting_count">Fighting/ Fancy Fowl</label>
+                                <input type="number" class="form-control" name="fighting_count"
+                                    placeholder="Fighting Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -68,39 +71,42 @@
             </div>
             <form action="../backend/poultry-population-code.php" method="POST">
                 <div class="modal-body">
-
-
                     <div class="form-group mb-3" hidden>
                         <label for="update_poultry_id">Poultry ID</label>
                         <input type="text" class="form-control" name="update_poultry_id" id="update_poultry_id" hidden>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_layers_count">Update Layers</label>
+                                <input type="number" class="form-control" name="update_layers_count"
+                                    id="update_layers_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_native_count">Update Native</label>
+                                <input type="number" class="form-control" name="update_native_count"
+                                    id="update_native_count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_layers_count">Layers Count</label>
-                        <input type="number" class="form-control" name="update_layers_count" id="update_layers_count">
-                    </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_broiler_count">Update Broiler</label>
+                                <input type="number" class="form-control" name="update_broiler_count"
+                                    id="update_broiler_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_fighting_count">Update Fighting</label>
+                                <input type="number" class="form-control" name="update_fighting_count"
+                                    id="update_fighting_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_broiler_count">Broiler Count</label>
-                        <input type="number" class="form-control" name="update_broiler_count" id="update_broiler_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_native_count">Native Count</label>
-                        <input type="number" class="form-control" name="update_native_count" id="update_native_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_fighting_count">Fighting Count</label>
-                        <input type="number" class="form-control" name="update_fighting_count"
-                            id="update_fighting_count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        </div>
                     </div>
                 </div>
 

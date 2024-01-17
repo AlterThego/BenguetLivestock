@@ -216,7 +216,7 @@ session_start();
                             <div class="card p-3">
                                 <div class="row">
                                     <div class="col-6">
-                                        <h5 class="text-left font-weight-bold">Pet Population</h5>
+                                        <h5 class="text-left font-weight-bold">Pet Trend</h5>
                                     </div>
                                     <div class="col-6 text-end">
                                         <button type="button" class="btn btn-success" data-toggle="modal"

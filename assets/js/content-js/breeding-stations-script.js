@@ -43,19 +43,19 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_year_municipality').val(year);
 
-        $('#update_latrinidad').attr('placeholder', latrinidad);
-        $('#update_tuba').attr('placeholder', tuba);
-        $('#update_itogon').attr('placeholder', itogon);
-        $('#update_bokod').attr('placeholder', bokod);
-        $('#update_kabayan').attr('placeholder', kabayan);
-        $('#update_buguias').attr('placeholder', buguias);
-        $('#update_mankayan').attr('placeholder', mankayan);
-        $('#update_bakun').attr('placeholder', bakun);
-        $('#update_kibungan').attr('placeholder', kibungan);
-        $('#update_atok').attr('placeholder', atok);
-        $('#update_kapangan').attr('placeholder', kapangan);
-        $('#update_sablan').attr('placeholder', sablan);
-        $('#update_tublay').attr('placeholder', tublay);
+        $('#update_latrinidad').val(latrinidad);
+        $('#update_tuba').val(tuba);
+        $('#update_itogon').val(itogon);
+        $('#update_bokod').val(bokod);
+        $('#update_kabayan').val(kabayan);
+        $('#update_buguias').val(buguias);
+        $('#update_mankayan').val(mankayan);
+        $('#update_bakun').val(bakun);
+        $('#update_kibungan').val(kibungan);
+        $('#update_atok').val(atok);
+        $('#update_kapangan').val(kapangan);
+        $('#update_sablan').val(sablan);
+        $('#update_tublay').val(tublay);
 
 
 

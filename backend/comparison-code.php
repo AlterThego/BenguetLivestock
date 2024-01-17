@@ -23,12 +23,23 @@ function generateMunicipalityContent($municipalityName, $municipalityId)
     ?>
     <div id="<?php echo strtolower($municipalityName); ?>-content" class="municipality-container" style="display: none;">
         <div class="card">
-            <div class="card text-center p-2">
+            <!-- <div class="card text-center p-2">
                 <h4><b>
-                        <?php echo $municipalityName; ?>
+                        
                     </b></h4>
+            </div> -->
+
+            <!-- Title -->
+            <div class="container-fluid">
+                <div class="row justify-content-center ">
+                    <div class="card p-3">
+                        <h5 class="text-left font-weight-bold"><?php echo $municipalityName; ?>
+                        </h5>
+                    </div>
+                </div>
             </div>
-            <table class="row-border" id="<?php echo strtolower($municipalityName); ?>-table">
+
+            <table class="row-border m-1" id="<?php echo strtolower($municipalityName); ?>-table">
                 <?php
                 $connection = mysqli_connect("localhost", "root", "", "benguetlivestockdb");
 
@@ -49,7 +60,7 @@ function generateMunicipalityContent($municipalityName, $municipalityId)
                                     <td>
                                         <?php
                                         // Display the formatted count
-                                        echo number_format($row[strtolower(str_replace(' ', '_', $columnName)) .'_count'.''], 0, '.', ',');
+                                        echo number_format($row[strtolower(str_replace(' ', '_', $columnName)) . '_count' . ''], 0, '.', ',');
 
                                         ?>
                                     </td>
@@ -60,10 +71,10 @@ function generateMunicipalityContent($municipalityName, $municipalityId)
                     }
                 }
 
-                
+
                 ?>
 
-                
+
             </table>
         </div>
     </div>

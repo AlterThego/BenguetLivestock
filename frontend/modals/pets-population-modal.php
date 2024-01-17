@@ -48,23 +48,27 @@
                             ?>
                         </select>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="dog_count">Dog</label>
+                                <input type="number" class="form-control" id="dog_count" name="dog_count"
+                                    placeholder="Enter Dog Count">
+                            </div>
+                        </div>
 
-                    <div class="form-group mb-3">
-                        <label for="dog_count">Dog</label>
-                        <input type="number" class="form-control" id="dog_count" name="dog_count"
-                            placeholder="Enter Dog Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="cat_count">Cat</label>
-                        <input type="number" class="form-control" id="cat_count" name="cat_count"
-                            placeholder="Enter Cat Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" id="date_updated" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="cat_count">Cat</label>
+                                <input type="number" class="form-control" id="cat_count" name="cat_count"
+                                    placeholder="Enter Cat Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" id="date_updated" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -90,35 +94,36 @@
             </div>
             <form action="../backend/pets-population-code.php" method="POST">
                 <div class="modal-body">
-
-
                     <div class="form-group mb-3">
                         <label for="update_name">ZIP Code and Municipality</label>
                         <input type="text" class="form-control" name="update_name" id="update_name" readonly>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_dog_count">Update Dog</label>
+                                <input type="number" class="form-control" name="update_dog_count" id="update_dog_count">
+                            </div>
+                        </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_dog_count">Dog Count</label>
-                        <input type="number" class="form-control" name="update_dog_count" id="update_dog_count">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cat_count">Update Cat</label>
+                                <input type="number" class="form-control" name="update_cat_count" id="update_cat_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="update_id" id="update_id">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="updateData" class="btn btn-primary">Update</button>
+                        </div>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_cat_count">Cat Count</label>
-                        <input type="number" class="form-control" name="update_cat_count" id="update_cat_count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <input type="hidden" name="update_id" id="update_id">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" name="updateData" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>

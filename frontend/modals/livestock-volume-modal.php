@@ -47,49 +47,56 @@
                             ?>
                         </select>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="cattle_volume">Cattle</label>
-                        <input type="number" class="form-control" name="cattle_volume" placeholder="Enter Cattle Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="swine_volume">Swine</label>
-                        <input type="number" class="form-control" name="swine_volume" placeholder="Enter Swine Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="carabao_volume">Carabao</label>
-                        <input type="number" class="form-control" name="carabao_volume"
-                            placeholder="Enter Carabao Count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="goat_volume">Goat</label>
-                        <input type="number" class="form-control" name="goat_volume" placeholder="Enter Goat Count">
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="cattle_volume">Cattle</label>
+                                <input type="number" class="form-control" name="cattle_volume"
+                                    placeholder="Cattle Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="carabao_volume">Carabao</label>
+                                <input type="number" class="form-control" name="carabao_volume"
+                                    placeholder="Carabao Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="chicken_volume">Chicken</label>
+                                <input type="number" class="form-control" name="chicken_volume"
+                                    placeholder="Chicken Count">
+                            </div>
 
 
-                    <div class="form-group mb-3">
-                        <label for="chicken_volume">Chicken</label>
-                        <input type="number" class="form-control" name="chicken_volume" placeholder="Enter Dog Count">
-                    </div>
+                            <div class="form-group mb-3">
+                                <label for="fish_volume">Fish</label>
+                                <input type="number" class="form-control" name="fish_volume" placeholder="Fish Count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="duck_volume">Duck</label>
-                        <input type="number" class="form-control" name="duck_volume" placeholder="Enter Sheep Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="fish_volume">Fish</label>
-                        <input type="number" class="form-control" name="fish_volume" placeholder="Enter Horse Count">
-                    </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="swine_volume">Swine</label>
+                                <input type="number" class="form-control" name="swine_volume" placeholder="Swine Count">
+                            </div>
 
 
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                            <div class="form-group mb-3">
+                                <label for="goat_volume">Goat</label>
+                                <input type="number" class="form-control" name="goat_volume" placeholder="Goat Count">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="duck_volume">Duck</label>
+                                <input type="number" class="form-control" name="duck_volume" placeholder="Duck Count">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -120,52 +127,76 @@
                         <input type="text" class="form-control" name="update_name" id="update_name" readonly>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_cattle_volume">Cattle Volume</label>
-                        <input type="number" class="form-control" name="update_cattle_volume" id="update_cattle_volume"
-                            ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_cattle_volume">Update Cattle</label>
+                                <input type="number" class="form-control" name="update_cattle_volume"
+                                    id="update_cattle_volume" ?>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_carabao_volume">Update Carabao</label>
+                                <input type="number" class="form-control" name="update_carabao_volume"
+                                    id="update_carabao_volume">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_chicken_volume">Update Chicken</label>
+                                <input type="number" class="form-control" name="update_chicken_volume"
+                                    id="update_chicken_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_fish_volume">Update Fish</label>
+                                <input type="number" class="form-control" name="update_fish_volume"
+                                    id="update_fish_volume">
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_swine_volume">Update Swine</label>
+                                <input type="number" class="form-control" name="update_swine_volume"
+                                    id="update_swine_volume">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="update_goat_volume">Update Goat</label>
+                                <input type="number" class="form-control" name="update_goat_volume"
+                                    id="update_goat_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_duck_volume">Update Duck</label>
+                                <input type="number" class="form-control" name="update_duck_volume"
+                                    id="update_duck_volume">
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+
+
+                        </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_swine_volume">Swine Volume</label>
-                        <input type="number" class="form-control" name="update_swine_volume" id="update_swine_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_carabao_volume">Carabao Volume</label>
-                        <input type="number" class="form-control" name="update_carabao_volume"
-                            id="update_carabao_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_goat_volume">Goat Volume</label>
-                        <input type="number" class="form-control" name="update_goat_volume" id="update_goat_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_chicken_volume">Chicken Volume</label>
-                        <input type="number" class="form-control" name="update_chicken_volume"
-                            id="update_chicken_volume">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_duck_volume">Duck Volume</label>
-                        <input type="number" class="form-control" name="update_duck_volume" id="update_duck_volume">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_fish_volume">Fish Volume</label>
-                        <input type="number" class="form-control" name="update_fish_volume" id="update_fish_volume">
-                    </div>
 
 
 
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+
+
+
+
+
+
+
                 </div>
 
                 <div class="modal-footer">

@@ -47,21 +47,26 @@
                             ?>
                         </select>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="colonies_count">Honey Bee Colonies</label>
-                        <input type="number" class="form-control" name="colonies_count" placeholder="Enter Honey Bee Colonies Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="beekeepers_count">No. of Beekeepers</label>
-                        <input type="number" class="form-control" name="beekeepers_count" placeholder="Enter Beekeepers Count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="date_updated">Date Updated</label>
-                        <input type="date" class="form-control" name="date_updated"
-                            value="<?php echo date('Y-m-d'); ?>">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="colonies_count">Honey Bee Colonies</label>
+                                <input type="number" class="form-control" name="colonies_count"
+                                    placeholder="Colonies Count">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="beekeepers_count">No. of Beekeepers</label>
+                                <input type="number" class="form-control" name="beekeepers_count"
+                                    placeholder="Beekeepers Count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="date_updated">Date Updated</label>
+                                <input type="date" class="form-control" name="date_updated"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -93,22 +98,27 @@
                         <label for="update_name">ZIP Code and Municipality</label>
                         <input type="text" class="form-control" name="update_name" id="update_name" readonly>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_colonies_count">Update Honey Bee Colonies</label>
+                                <input type="number" class="form-control" name="update_colonies_count"
+                                    id="update_colonies_count">
+                            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="update_colonies_count">Dog Count</label>
-                        <input type="number" class="form-control" name="update_colonies_count" id="update_colonies_count">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="update_beekeepers_count">Cat Count</label>
-                        <input type="number" class="form-control" name="update_beekeepers_count" id="update_beekeepers_count">
-                    </div>
-
-
-                    <div class="form-group mb-3">
-                        <label for="update_date">Date Updated</label>
-                        <input type="date" class="form-control" name="update_date" id="update_date"
-                            value="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="update_beekeepers_count">Update Number of Beekeepers</label>
+                                <input type="number" class="form-control" name="update_beekeepers_count"
+                                    id="update_beekeepers_count">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="update_date">Date Updated</label>
+                                <input type="date" class="form-control" name="update_date" id="update_date"
+                                    value="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -170,7 +180,8 @@
                         </tbody>
 
                         <tfoot>
-                            <input type="hidden" name="totalHoneyBeeColonies" value="<?php echo $totalHoneyBeeColonies; ?>">
+                            <input type="hidden" name="totalHoneyBeeColonies"
+                                value="<?php echo $totalHoneyBeeColonies; ?>">
                             <input type="hidden" name="totalBeekeepers" value="<?php echo $totalBeekeepers; ?>">
                         </tfoot>
                     </table>
