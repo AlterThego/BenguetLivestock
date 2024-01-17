@@ -80,7 +80,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="table-responsive">
-                                    <table class="display table-bordered table-responsive" id="main-table">
+                                    <table class="row-border    " id="main-table">
                                         <thead class="thead-light">
 
                                             <tr>
@@ -247,7 +247,7 @@ session_start();
                                     <h3 class="text-center font-weight-bold ">Yearly Fish Production</h3>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="yearly-table">
+                                    <table class="row-border" id="yearly-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>

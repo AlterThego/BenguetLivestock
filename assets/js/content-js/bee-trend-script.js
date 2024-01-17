@@ -1,7 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
 
 $(document).ready(function () {
 
@@ -15,8 +11,8 @@ $(document).ready(function () {
 
         // Set the values in the update modal fields
         $('#update_year').val(year);
-        $('#update_colonies').attr('placeholder', colonies);
-        $('#update_beekeepers').attr('placeholder', beekeepers);
+        $('#update_colonies').val(colonies);
+        $('#update_beekeepers').val(beekeepers);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];

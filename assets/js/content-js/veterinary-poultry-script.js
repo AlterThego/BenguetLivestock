@@ -1,8 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
-
 $(document).ready(function () {
 
     // Function to handle update button click
@@ -16,12 +11,12 @@ $(document).ready(function () {
         var vet_number = $(this).data('vet-number');
 
         $('#update_year').val(year);
-        $('#update_vet_number').attr('placeholder', vet_number);
+        $('#update_vet_number').val(vet_number);
 
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_number').attr('placeholder', number);
+        $('#update_number').val(number);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];
@@ -42,7 +37,7 @@ $(document).ready(function () {
         var number = $(this).data('number');
 
         $('#update_year').val(year);
-        $('#update_number_yearly').attr('placeholder', number);
+        $('#update_number_yearly').val(number);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];
@@ -57,7 +52,7 @@ $(document).ready(function () {
     });
 
 
-    
+
 
 
 });

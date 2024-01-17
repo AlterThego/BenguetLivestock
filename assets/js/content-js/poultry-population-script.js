@@ -1,8 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
-
 $(document).ready(function () {
 
     // Function to handle update button click
@@ -16,10 +11,10 @@ $(document).ready(function () {
 
         // Set the values in the update modal fields
         $('#update_poultry_id').val(id);
-        $('#update_layers_count').attr('placeholder', layers);
-        $('#update_broiler_count').attr('placeholder', broiler);
-        $('#update_native_count').attr('placeholder', native);
-        $('#update_fighting_count').attr('placeholder', fighting);
+        $('#update_layers_count').val(layers);
+        $('#update_broiler_count').val(broiler);
+        $('#update_native_count').val(native);
+        $('#update_fighting_count').val(fighting);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];

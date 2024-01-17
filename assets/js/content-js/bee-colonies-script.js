@@ -1,8 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
-
 $(document).ready(function () {
 
     // Function to handle update button click
@@ -16,8 +11,8 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_colonies_count').attr('placeholder', colonies_count);
-        $('#update_beekeepers_count').attr('placeholder', beekeepers_count);
+        $('#update_colonies_count').val(colonies_count);
+        $('#update_beekeepers_count').val(beekeepers_count);
 
         // $('#update_cat_count').attr('placeholder', cat_count);
 

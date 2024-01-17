@@ -1,8 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
-
 $(document).ready(function () {
 
     // Function to handle update button click
@@ -16,9 +11,9 @@ $(document).ready(function () {
 
         // Set the values in the update modal fields
         $('#update_year').val(year);
-        $('#update_poultry_farms').attr('placeholder', poultry);
-        $('#update_cattle_farms').attr('placeholder', cattle);
-        $('#update_piggery_farms').attr('placeholder', piggery);
+        $('#update_poultry_farms').val(poultry);
+        $('#update_cattle_farms').val(cattle);
+        $('#update_piggery_farms').val(piggery);
 
 
         // Get today's date in the format YYYY-MM-DD
@@ -34,7 +29,7 @@ $(document).ready(function () {
     });
 
 
-    
+
 
 
 

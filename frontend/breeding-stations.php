@@ -79,7 +79,7 @@ session_start();
                             ?>
                             <div class="card p-3">
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="main-table">
+                                    <table class="row-border" id="main-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>
@@ -196,7 +196,7 @@ session_start();
                             <!-- 2nd table -->
                             <div class="card p-3">
                                 <div class="table-responsive">
-                                    <table class="display table-bordered" id="secondary-table">
+                                    <table class="row-border" id="secondary-table">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Year</th>

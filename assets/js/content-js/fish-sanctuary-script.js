@@ -1,8 +1,3 @@
-const toggler = document.querySelector(".btn");
-toggler.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("collapsed");
-});
-
 $(document).ready(function () {
 
     // Function to handle update button click
@@ -15,7 +10,7 @@ $(document).ready(function () {
         // Set the values in the update modal fields
         $('#update_id').val(id);
         $('#update_name').val(name);
-        $('#update_area').attr('placeholder', area);
+        $('#update_area').val(area);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];
@@ -35,7 +30,7 @@ $(document).ready(function () {
         var area = $(this).data('total-area');
 
         $('#update_year').val(year);
-        $('#update_area_yearly').attr('placeholder', area);
+        $('#update_area_yearly').val(area);
 
         // Get today's date in the format YYYY-MM-DD
         var today = new Date().toISOString().split('T')[0];
